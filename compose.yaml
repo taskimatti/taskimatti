@@ -1,0 +1,74 @@
+version: "3.8"
+services:
+
+  frontend:
+      container_name: fuksipassi-frontend
+      build:
+        context: frontend
+        dockerfile: Dockerfile
+      ports:
+        - "8000:3000"
+      networks:
+        fuksipassi:
+          ipv4_address: 10.10.0.2
+      depends_on:
+        - directus
+      restart: unless-stopped
+
+  db:
+      container_name: fuksipassi-postgresql
+      image: postgres:15-alpine
+      volumes:
+        - fuksipassi-directus_data_prod:/var/lib/postgresql/data
+      networks:
+        fuksipassi:
+          ipv4_address: 10.10.0.3
+      env_file:
+        - .env.prod.db
+      restart: unless-stopped
+
+  directus:
+      container_name: directus
+      image: directus/directus:latest
+      ports:
+        - "8001:8055"
+      volumes:
+        # By default, uploads are stored in /directus/uploads
+        # Always make sure your volumes matches the storage root when using
+        # local driver
+        - fuksipassi-directus_uploads_prod:/directus/uploads
+      networks:
+        fuksipassi:
+          ipv4_address: 10.10.0.4
+      depends_on:
+        - cache
+        - db
+      env_file:
+        - .env.prod
+      restart: unless-stopped
+
+  backend:
+      container_name: fuksipassi-backend
+      build:
+        context: backend
+        dockerfile: Dockerfile
+      ports:
+        - "8002:8000"
+      networks:
+        fuksipassi:
+          ipv4_address: 10.10.0.5
+        depends_on:
+          - directus
+
+volumes:
+  fuksipassi-directus_data_prod:
+  fuksipassi-directus_uploads_prod:
+
+networks:
+  fuksipassi:
+    driver: bridge
+    name: "fuksipassi-serveriry"
+    ipam:
+      config:
+        - subnet: 10.10.0.0/16
+          gateway: 10.10.0.1
