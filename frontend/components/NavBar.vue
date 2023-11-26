@@ -1,8 +1,15 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import BottomNavButton from "~/components/BottomNavButton.vue";
+</script>
 
 <template>
-  <div>
-    <h1 class="text-center text-3xl text-white">Fuksipassi</h1>
+  <div class="fixed bottom-0 bg-slate-900 w-screen">
+    <div class="flex items-center justify-around gap-0 m-auto">
+      <BottomNavButton text="Tasks" href=""/>
+      <BottomNavButton text="Scoreboard" href="scoreboard" />
+      <BottomNavButton text="Account" href="account" />
+      <BottomNavButton text="Admin" href="admin" />
+    </div>
   </div>
 </template>
 
