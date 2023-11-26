@@ -1,0 +1,67 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "name": "Serverin jäsenmaksu",
+      "desc": "Maksa serverin jäsenmaksu (pakollinen)",
+      "points": 10,
+      "status": true
+    },
+    {
+      "id": 2,
+      "name": "Tutustumisgrillit Pyöräkadulla",
+      "desc": "Pyöräkadun tutustumisgrillit",
+      "points": 2,
+      "status": false
+    },
+    {
+      "id": 3,
+      "name": "Fuksipiknik",
+      "desc": "Fuksipiknik",
+      "points": 2,
+      "status": true
+    },
+    {
+      "id": 4,
+      "name": "Kaupunkisuunnistus",
+      "desc": "Kaupunkisuunnistus",
+      "points": 1,
+      "status": false
+    },
+    {
+      "id": 5,
+      "name": "Teemapukeutuminen kaupunkisuunnistukseen",
+      "desc": "Teemapukeutuminen kaupunkisuunnistukseen",
+      "points": 5,
+      "status": false
+    },
+    {
+      "id": 6,
+      "name": "Kaupunkisuunnistuksen voittaminen",
+      "desc": "Kaupunkisuunnistuksen voittaminen",
+      "points": 5,
+      "status": false
+    },
+    {
+      "id": 7,
+      "name": "Tutustumissaunat Kummunsaunalla",
+      "desc": "Tutustumissaunat Kummunsaunalla",
+      "points": 2,
+      "status": false
+    },
+    {
+      "id": 8,
+      "name": "Vuorilampi-excursio",
+      "desc": "Vuorilampi-excursio",
+      "points": 2,
+      "status": false
+    },
+    {
+      "id": 9,
+      "name": "SYKETTÄ-liikuntailtapäivä syksy",
+      "desc": "SYKETTÄ-liikuntailtapäivä syksy",
+      "points": 1,
+      "status": false
+    }
+  ]
+}
