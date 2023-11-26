@@ -24,8 +24,8 @@ export default {
             : 'text-gray-700 dark:text-gray-300 hover:underline hover:text-white',
           'text-sm',
         ]"
-        >{{ text }} </nuxt-link
-      >
+        >{{ text }}
+      </nuxt-link>
     </div>
   </div>
 </template>

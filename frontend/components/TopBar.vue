@@ -3,7 +3,7 @@
 export default {
   props: {
     score: {
-      type: Number
+      type: Number,
     },
   },
 };
@@ -17,7 +17,7 @@ export default {
         <dev-only><p class="text-green-700">DEV</p></dev-only>
       </div>
     </div>
-    <p class="fixed top-0 right-0 pt-3 pr-6">{{score}} bits</p>
+    <p class="fixed top-0 right-0 pt-3 pr-6">{{ score }} bits</p>
   </div>
 </template>
 

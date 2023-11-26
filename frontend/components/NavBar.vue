@@ -5,7 +5,7 @@ import BottomNavButton from "~/components/BottomNavButton.vue";
 <template>
   <div class="fixed bottom-0 bg-slate-900 w-screen">
     <div class="flex items-center justify-around gap-0 m-auto">
-      <BottomNavButton text="Tasks" href=""/>
+      <BottomNavButton text="Tasks" href="" />
       <BottomNavButton text="Scoreboard" href="scoreboard" />
       <BottomNavButton text="Account" href="account" />
       <BottomNavButton text="Admin" href="admin" />

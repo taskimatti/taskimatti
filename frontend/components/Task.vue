@@ -39,10 +39,10 @@ export default {
       <h2 class="text-2xl font-bold mb-4">{{ task.name }}</h2>
       <div class="flex items-center">
         <input
-            class="mr-2 h-5 w-5 text-indigo-400 rounded"
-            type="checkbox"
-            :id="task?.id"
-            disabled
+          class="mr-2 h-5 w-5 text-indigo-400 rounded"
+          type="checkbox"
+          :id="task?.id"
+          disabled
         />
         <p class="text-gray-300">{{ task.desc }}</p>
         <span
