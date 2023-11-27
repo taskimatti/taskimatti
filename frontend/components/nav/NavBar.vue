@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import BottomNavButton from "~/components/BottomNavButton.vue";
+import BottomNavButton from "./BottomNavButton.vue";
 </script>
 
 <template>

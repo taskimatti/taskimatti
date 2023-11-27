@@ -3,7 +3,7 @@
     {
       "id": 1,
       "name": "Serverin jäsenmaksu",
-      "desc": "Maksa serverin jäsenmaksu (pakollinen)",
+      "desc": "Maksa serverin jäsenmaksu (psakollinen)",
       "points": 10,
       "status": true
     },
