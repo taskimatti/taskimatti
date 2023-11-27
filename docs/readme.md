@@ -15,7 +15,7 @@ Vain tuutorit voivat merkata tehtävän suoritetuksi.
 Fuksit kilpailevat keräämällä pisteitä suorituksista.
 
 
-### Digitaalinen ratkaisu
+### Digitaalinen alsuta
 
 - Helpottaa fuksipassin tekoa
     - Ei tarvetta paperin painatukselle
@@ -29,7 +29,50 @@ Fuksit kilpailevat keräämällä pisteitä suorituksista.
     - Ei hajoa käytössä
 
 
-#### Käyttäjätasot
+## Käyttäjätasot
  
+###### Suoritusten seuranta-alusta (vas.) sähköinen fuksipassi (oik.)
 ![user hierarchy](assets/userlevels.png)
+
+
+## Organisaatio
+- Organisaatio voi lisätä itsensä passiin
+- Organisaatio lisää ylläpitäjiä passille
+- Käyttäjät tunnistavat etsimänsä passin organisaation tilin perusteella
+
+
+### Ylläpitäjä
+
+- Ylläpitäjillä eli admineilla on suurin valta organisaatiossa
+- Ylläpitäjät lisäävät/poistavat tapahtumia, moderaattoreita ja jäseniä
+- Ylläpitäjät voivat muokata organisaation tietoja
+
+
+### Moderaattori
+
+- Moderaattori voi lisätä/poistaa jäseniä ja validoida jäsenien tekemiä suorituksia
+- Moderaattorilla on vähemmän oikeuksia kuin ylläpitäjillä
+
+
+###  Jäsen
+
+- Pyytää lupaa liittyä organisaatioon tai saa kutsun sinne
+    - Ylläpitäjä tai moderaattori hyväksyy liittymisen
+- Jäsen suorittaa tehtäviä ja pyytää suoritusmerkinnät niistä
+- Jäsen voi seurata muiden käyttäjien edistystä tulostaulun kautta (scoreboard)
+
+
+
+## Jatkokehitys 
+
+#### Yhtä fuksipassia laajempi kokonaisuus
+
+Sähköinen alusta:
+- Fuksipassi muille ainejärjestöille
+- Fuksipassi muille kouluille
+- Liikuntapassi liikunnan opettajalle
+- Tehtäväpassi tapahtumiin ja kilpailuihin
+- jne.
+
+
 
