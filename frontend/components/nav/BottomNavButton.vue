@@ -14,7 +14,7 @@ export default {
 <template>
   <div>
     <div
-      class="bg-slate-900 p-4 h-full w-full flex justify-center items-center"
+      class="p-4 h-full w-full flex justify-center items-center"
     >
       <nuxt-link
         :to="'/' + href"

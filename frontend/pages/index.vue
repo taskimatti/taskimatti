@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import type DefaultTask from "~/types";
-import data from "~/data/tasks.json";
+import { inject } from 'vue';
 
-const tasks: DefaultTask[] = data.data;
+const tasks = inject('tasks')
 </script>
 
 <template>

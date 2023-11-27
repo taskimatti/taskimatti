@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import data from "~/data/users.json";
-import type DefaultUser from "~/types";
+import { inject } from 'vue';
 
-const users: DefaultUser[] = data.data;
+const users = inject('users')
 
 users.sort((a, b) => b.points - a.points);
 </script>

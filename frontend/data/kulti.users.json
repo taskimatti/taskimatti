@@ -1,0 +1,28 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "name": "John Doe",
+      "points": 100,
+      "isAdmin": false
+    },
+    {
+      "id": 2,
+      "name": "Jane Doe",
+      "points": 200,
+      "isAdmin": false
+    },
+    {
+      "id": 3,
+      "name": "John Smith",
+      "points": 300,
+      "isAdmin": false
+    },
+    {
+      "id": 4,
+      "name": "Jane Smith",
+      "points": 400,
+      "isAdmin": false
+    }
+  ]
+}
