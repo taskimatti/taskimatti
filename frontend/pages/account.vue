@@ -1,14 +1,7 @@
 <script setup lang="ts">
-// get the user data from the json file
-import data from "~/data/user.data.json";
-import users from "~/data/users.json";
+import { inject } from 'vue';
 
-// import the type of the user data
-import type DefaultUserData from "~/types";
-import type DefaultUser from "~/types";
-
-const userData: DefaultUserData = data.data;
-const user: DefaultUser = users.data.find((user) => user.id === userData.id);
+const user = inject('user')
 </script>
 
 <template>

@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import { ref, provide } from 'vue';
+import {ref, provide} from 'vue';
+import {useRouter} from 'vue-router';
 import TopBar from "./components/nav/TopBar.vue";
 
 
 import data_client from '~/data/client.data.json';
 import data_organisations from '~/data/org.data.json';
+
 const clientData = data_client.data
 const org = ref(clientData.org);
 const userId = ref(clientData.user);
@@ -12,6 +14,13 @@ const tasks = ref({});
 const users = ref({});
 const user = ref({});
 const organisation = ref({});
+
+const org_names = data_organisations.data.map((o) => o.org);
+
+const route = useRouter()?.currentRoute?.value?.fullPath
+const first = route.split("/")[1];
+
+org.value = org_names.includes(first) ? first : org.value
 
 const loadTasksAndUsers = async () => {
 
@@ -43,8 +52,8 @@ provide('tasks', tasks.value);
 </script>
 
 <template>
-  <TopBar />
-  <NavBar />
-  <router-view class="mt-16" />
-  <Footer />
+  <TopBar/>
+  <NavBar/>
+  <router-view class="mt-16"/>
+  <Footer/>
 </template>
