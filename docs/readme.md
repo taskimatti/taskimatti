@@ -15,7 +15,7 @@ Vain tuutorit voivat merkata tehtävän suoritetuksi.
 Fuksit kilpailevat keräämällä pisteitä suorituksista.
 
 
-### Digitaalinen alsuta
+### Digitaalinen alusta
 
 - Helpottaa fuksipassin tekoa
     - Ei tarvetta paperin painatukselle
