@@ -1,12 +1,13 @@
-<script setup lang="ts"></script>
-<script lang="ts">
-export default {
-  props: {
-    score: {
-      type: Number,
-    },
-  },
-};
+<script setup lang="ts">
+import data from "../../data/tasks.json";
+import type DefaultTask from "../../types";
+const tasks: DefaultTask[] = data.data;
+let score;
+// calculate sum of scores where status is true
+score = tasks
+  .filter((task) => task.status)
+  .map((task) => task.points)
+  .reduce((a, b) => a + b, 0);
 </script>
 
 <template>
