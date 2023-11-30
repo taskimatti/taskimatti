@@ -47,19 +47,6 @@ services:
         - .env.prod
       restart: unless-stopped
 
-  backend:
-      container_name: fuksipassi-backend
-      build:
-        context: backend
-        dockerfile: Dockerfile
-      ports:
-        - "8002:8000"
-      networks:
-        fuksipassi:
-          ipv4_address: 10.10.0.5
-        depends_on:
-          - directus
-
 volumes:
   fuksipassi-directus_data_prod:
   fuksipassi-directus_uploads_prod:
