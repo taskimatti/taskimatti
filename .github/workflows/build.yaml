@@ -37,6 +37,7 @@ jobs:
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
           script: |
+            echo "HOST is $HOST"
             if [ -d "fuksipassi_old" ]; then
               rm -rf fuksipassi_old
             fi
@@ -54,6 +55,3 @@ jobs:
             cat $PROD > .env.prod
             cat $PROD_DB > .env.prod.db
             docker compose -f compose.yaml up -d --build
-            # unblock port 8000
-            sudo ufw allow 8000
-            
