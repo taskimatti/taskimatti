@@ -36,9 +36,9 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
-          envs: PROD=$PROD PROD_DB=$PROD_DB
+          envs: PROD,PROD_DB
           script: |
-            echo "HOST is $HOST"
+            echo "PROD is $PROD"
             if [ -d "fuksipassi_old" ]; then
               rm -rf fuksipassi_old
             fi
