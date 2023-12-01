@@ -1,61 +1,59 @@
 version: "3.8"
 services:
-
   frontend:
-      container_name: fuksipassi-frontend
-      build:
-        context: frontend
-        dockerfile: Dockerfile
-      ports:
-        - "8000:3000"
-      networks:
-        fuksipassi:
-          ipv4_address: 10.10.0.2
-      depends_on:
-        - directus
-      restart: unless-stopped
+    container_name: Fuksipassi-Frontend
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:3000"
+    networks:
+      fuksipassi:
+        ipv4_address: 10.10.1.2
+    depends_on:
+      - directus
+    restart: unless-stopped
 
   db:
-      container_name: fuksipassi-postgresql
-      image: postgres:15-alpine
-      volumes:
-        - fuksipassi-directus_data_prod:/var/lib/postgresql/data
-      networks:
-        fuksipassi:
-          ipv4_address: 10.10.0.3
-      env_file:
-        - .env.prod.db
-      restart: unless-stopped
+    container_name: Fuksipassi-PostgreSQL
+    image: postgres:15-alpine
+    volumes:
+      - directus_data_prod:/var/lib/postgresql/data
+    networks:
+      fuksipassi:
+        ipv4_address: 10.10.1.3
+    env_file:
+      - .env.prod.db
+    restart: unless-stopped
 
   directus:
-      container_name: directus
-      image: directus/directus:latest
-      ports:
-        - "8001:8055"
-      volumes:
-        # By default, uploads are stored in /directus/uploads
-        # Always make sure your volumes matches the storage root when using
-        # local driver
-        - fuksipassi-directus_uploads_prod:/directus/uploads
-      networks:
-        fuksipassi:
-          ipv4_address: 10.10.0.4
-      depends_on:
-        - cache
-        - db
-      env_file:
-        - .env.prod
-      restart: unless-stopped
+    container_name: Directus
+    image: directus/directus:10.8.2
+    ports:
+      - "8001:8055"
+    volumes:
+      - directus_data_prod:/directus/database
+      - directus_uploads_prod:/directus/uploads
+      - directus_extensions_prod:/directus/extensions
+    networks:
+      fuksipassi:
+        ipv4_address: 10.10.1.4
+    depends_on:
+      - db
+    env_file:
+      - .env.prod
+    restart: unless-stopped
 
 volumes:
-  fuksipassi-directus_data_prod:
-  fuksipassi-directus_uploads_prod:
+  directus_data_prod:
+  directus_uploads_prod:
+  directus_extensions_prod:
 
 networks:
   fuksipassi:
     driver: bridge
-    name: "fuksipassi-serveriry"
+    name: "fuksipassi"
     ipam:
       config:
-        - subnet: 10.10.0.0/16
-          gateway: 10.10.0.1
+        - subnet: 10.10.1.0/16
+          gateway: 10.10.1.1
