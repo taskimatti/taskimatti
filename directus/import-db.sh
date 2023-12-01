@@ -16,7 +16,7 @@ sleep 5
 echo "PostgreSQL has started."
 
 echo "Copying database from host machine to docker container..."
-docker cp ./data/backup.sql Fuksipassi-PostgreSQL:/home/import.sql
+docker cp ./data/example.sql Fuksipassi-PostgreSQL:/home/import.sql
 
 echo "Executing database import in docker container..."
 docker exec Fuksipassi-PostgreSQL bash -c "psql -U default directus_prod < /home/import.sql"
