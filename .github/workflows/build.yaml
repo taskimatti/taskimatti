@@ -29,12 +29,14 @@ jobs:
     runs-on: ubuntu-latest
     needs: test
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
       - name: Set environment variables
         run: |
           cat ${{ secrets.PROD }} > .env.prod
           cat ${{ secrets.PROD_DB }} > .env.prod.db
+      - name: Change directory
+        run: cd /home/fuksipassi
+      - name: Checkout repository
+        uses: actions/checkout@v2
       - name: deploy
         uses: appleboy/ssh-action@master
         with:
@@ -43,11 +45,10 @@ jobs:
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
           script: |
-            cd /home/fuksipassi
             git pull
             sh ./directus/backup.sh
             docker-compose -f compose.yaml down
             docker-compose -f compose.yaml up -d --build
-            cd directus
+            cd ./directus
             sh import.sh
             cd ..
