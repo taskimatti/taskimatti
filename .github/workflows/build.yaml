@@ -51,7 +51,9 @@ jobs:
             fi
             git clone https://github.com/serveri/fuksipassi.git
             cd fuksipassi
-            cat ${{ secrets.PROD }} > .env.prod
-            cat ${{ secrets.PROD_DB }} > .env.prod.db
+            cat $PROD > .env.prod
+            cat $PROD_DB > .env.prod.db
             docker compose -f compose.yaml up -d --build
+            # unblock port 8000
+            sudo ufw allow 8000
             
