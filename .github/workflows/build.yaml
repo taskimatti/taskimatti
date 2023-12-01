@@ -20,7 +20,9 @@ jobs:
       - name: Build and test
         run: |
           docker-compose -f compose.yaml build
-          sh ./directus/import.sh
+          cd directus
+          sh import.sh
+          cd ..
           docker-compose -f compose.yaml up -d
           docker-compose -f compose.yaml down
   deploy:
@@ -41,9 +43,11 @@ jobs:
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
           script: |
-            cd /home/www
+            cd /home/fuksipassi
             git pull
             sh ./directus/backup.sh
             docker-compose -f compose.yaml down
             docker-compose -f compose.yaml up -d --build
-            sh ./directus/import.sh
+            cd directus
+            sh import.sh
+            cd ..
