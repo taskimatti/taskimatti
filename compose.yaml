@@ -3,7 +3,7 @@ services:
   frontend:
     container_name: Fuksipassi-Frontend
     build:
-      context: frontend
+      context: app
       dockerfile: Dockerfile
     ports:
       - "8080:3000"
