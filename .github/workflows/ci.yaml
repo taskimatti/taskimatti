@@ -1,0 +1,60 @@
+name: Test and Deploy
+
+on:
+  push:
+    branches:
+      - main
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Set environment variables
+        run: |
+          cp example.env.prod .env.prod
+          cp example.env.prod.db .env.prod.db
+      - name: Build and test
+        run: |
+          docker-compose -f compose.yaml build
+          cd directus
+          sh import.sh
+          cd ..
+          docker-compose -f compose.yaml up -d
+          docker-compose -f compose.yaml down
+  deploy:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: deploy
+        uses: appleboy/ssh-action@master
+        env:
+          PROD: ${{ secrets.PROD }}
+          PROD_DB: ${{ secrets.PROD_DB }}
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: ${{ secrets.PORT }}
+          envs: PROD,PROD_DB
+          script: |
+            echo "PROD is $PROD"
+            if [ -d "fuksipassi_old" ]; then
+              rm -rf fuksipassi_old
+            fi
+            if [ -d "fuksipassi" ]; then
+              cd fuksipassi
+              cd directus
+              sh backup.sh
+              cd ..
+              docker compose -f compose.yaml down
+              cd ..
+              mv fuksipassi fuksipassi_old
+            fi
+            git clone https://github.com/serveri/fuksipassi.git
+            cd fuksipassi
+            echo $PROD | tr ' ' '\n' > .env.prod
+            echo $PROD_DB | tr ' ' '\n' > .env.prod.db
+            docker compose -f compose.yaml up -d --build
+            docker exec -u root Directus chown -R node:node /directus/extensions /directus/uploads
+            docker exec -u root Directus -it sh 
