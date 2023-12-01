@@ -13,9 +13,14 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+      - name: Set environment variables
+        run: |
+          cp example.env.prod .env.prod
+          cp example.env.prod.db .env.prod.db
       - name: Build and test
         run: |
           docker-compose -f compose.yaml build
+          sh ./directus/import.sh
           docker-compose -f compose.yaml up -d
           docker-compose -f compose.yaml down
   deploy:
@@ -24,6 +29,10 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+      - name: Set environment variables
+        run: |
+          cat ${{ secrets.PROD }} > .env.prod
+          cat ${{ secrets.PROD_DB }} > .env.prod.db
       - name: deploy
         uses: appleboy/ssh-action@master
         with:
@@ -34,5 +43,7 @@ jobs:
           script: |
             cd /home/www
             git pull
+            sh ./directus/backup.sh
             docker-compose -f compose.yaml down
             docker-compose -f compose.yaml up -d --build
+            sh ./directus/import.sh
