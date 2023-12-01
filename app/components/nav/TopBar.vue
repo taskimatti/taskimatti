@@ -1,31 +1,29 @@
 <script setup lang="ts">
-import {inject} from 'vue';
+const { $directus, $readItems } = useNuxtApp();
 
-const org = inject('organisation');
-const tasks = inject('tasks');
-const name = org.name;
-const units = org.units;
-const colorScheme = org.colorscheme;
+const { data: Organisation } = await useAsyncData("Organisation", () => {
+  return $directus.request($readItems("Organisation"));
+});
 
-const score = tasks.reduce((acc, task) => {
-  if (task.status) {
-    return acc + task.points;
-  } else {
-    return acc;
-  }
-}, 0);
 </script>
 
-
 <template>
-  <div :class="['fixed top-0 bg-' + colorScheme + ' w-screen']">
-    <div class="flex items-center justify-center p-2">
+  <div>
+    <div
+      class="flex flex-row items-center justify-between p-2"
+      :style="'background: ' + Organisation.color_scheme + ';'"
+    >
+      <img
+        :src="$directus.url.href + 'assets/' + Organisation.image"
+        alt="Organisation logo"
+        class="m-2 w-16 h-16 rounded-full object-cover"
+      />
       <div class="flex">
-        <h1 class="text-center text-3xl text-white">{{ name }}</h1>
+        <h1 class="text-3xl text-white">{{ Organisation.name }}</h1>
         <dev-only><p class="text-green-700">DEV</p></dev-only>
       </div>
+      <p>{{ 12 }} {{ Organisation.point_units }}</p>
     </div>
-    <p class="fixed top-0 right-0 pt-3 pr-6">{{ score }} {{ units }}</p>
   </div>
 </template>
 
