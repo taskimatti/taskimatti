@@ -31,6 +31,7 @@ jobs:
     steps:
       - name: deploy
         uses: appleboy/ssh-action@master
+        env: PROD=${{ secrets.PROD }} PROD_DB=${{ secrets.PROD_DB }}
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
