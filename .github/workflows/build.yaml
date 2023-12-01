@@ -8,11 +8,11 @@ on:
     branches:
       - main
 jobs:
-#  test:
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Checkout repository
-#        uses: actions/checkout@v2
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
 #      - name: Set environment variables
 #        run: |
 #          cp example.env.prod .env.prod
@@ -29,12 +29,15 @@ jobs:
     runs-on: ubuntu-latest
     needs: test
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v4.1.1
       - name: Set environment variables
         run: |
           cat ${{ secrets.PROD }} > .env.prod
           cat ${{ secrets.PROD_DB }} > .env.prod.db
+      - name: Build
+        run: |
+          docker-compose -f compose.yaml build
       - name: deploy
         uses: appleboy/ssh-action@master
         with:
@@ -43,12 +46,6 @@ jobs:
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
           script: |
-            cd /home/fuksipassi
-            git clone https://github.com/serveri/fuksipassi.git
-            git pull
-            sh ./directus/backup.sh
-            docker-compose -f compose.yaml down
-            docker-compose -f compose.yaml up -d --build
-            cd directus
-            sh import.sh
-            cd ..
+            docker compose -f compose.yaml down
+            docker compose -f compose.yaml up -d
+            
