@@ -6,7 +6,7 @@ services:
       context: frontend
       dockerfile: Dockerfile
     ports:
-      - "8000:3000"
+      - "8080:3000"
     networks:
       fuksipassi:
         ipv4_address: 10.11.0.2
@@ -30,7 +30,7 @@ services:
     container_name: Directus
     image: directus/directus:10.8.2
     ports:
-      - "8001:8055"
+      - "8081:8055"
     volumes:
       - directus_data_prod:/directus/database
       - directus_uploads_prod:/directus/uploads
