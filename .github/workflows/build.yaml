@@ -8,6 +8,23 @@ on:
     branches:
       - main
 jobs:
+#  test:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout repository
+#        uses: actions/checkout@v2
+#      - name: Set environment variables
+#        run: |
+#          cp example.env.prod .env.prod
+#          cp example.env.prod.db .env.prod.db
+#      - name: Build and test
+#        run: |
+#          docker-compose -f compose.yaml build
+#          cd ./directus
+#          sh import.sh
+#          cd ..
+#          docker-compose -f compose.yaml up -d
+#          docker-compose -f compose.yaml down
   deploy:
     runs-on: ubuntu-latest
     needs: test
@@ -16,12 +33,8 @@ jobs:
         run: |
           cat ${{ secrets.PROD }} > .env.prod
           cat ${{ secrets.PROD_DB }} > .env.prod.db
-      - name: Clone another repository
-        uses: actions/checkout@v4
-        with:
-          repository: serveriry/fuksipassi
-          ref: main
-
+      - name: Checkout
+        uses: actions/checkout@v4.1.1
       - name: deploy
         uses: appleboy/ssh-action@master
         with:
@@ -30,6 +43,7 @@ jobs:
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
           script: |
+            git clone https://github.com/serveri/fuksipassi.git
             git pull
             sh ./directus/backup.sh
             docker-compose -f compose.yaml down
