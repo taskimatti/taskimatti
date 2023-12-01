@@ -4,6 +4,5 @@ venv
 *.pyc
 node_modules
 .nuxt
-.sql
 .pdf
---exclude=populate.sql
+**/*.sql
