@@ -33,11 +33,12 @@ jobs:
         run: |
           cat ${{ secrets.PROD }} > .env.prod
           cat ${{ secrets.PROD_DB }} > .env.prod.db
-      - name: Checkout repository
-        uses: actions/checkout@v2
-        run: |
-          cd /home/fuksipassi
-          git pull
+      - name: Clone another repository
+        uses: actions/checkout@v4
+        with:
+          repository: serveriry/fuksipassi
+          ref: main
+
       - name: deploy
         uses: appleboy/ssh-action@master
         with:
