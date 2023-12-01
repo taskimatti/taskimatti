@@ -9,7 +9,7 @@ services:
       - "8000:3000"
     networks:
       fuksipassi:
-        ipv4_address: 10.10.1.2
+        ipv4_address: 10.11.0.2
     depends_on:
       - directus
     restart: unless-stopped
@@ -21,7 +21,7 @@ services:
       - directus_data_prod:/var/lib/postgresql/data
     networks:
       fuksipassi:
-        ipv4_address: 10.10.1.3
+        ipv4_address: 10.11.0.3
     env_file:
       - .env.prod.db
     restart: unless-stopped
@@ -37,7 +37,7 @@ services:
       - directus_extensions_prod:/directus/extensions
     networks:
       fuksipassi:
-        ipv4_address: 10.10.1.4
+        ipv4_address: 10.11.0.4
     depends_on:
       - db
     env_file:
@@ -55,5 +55,5 @@ networks:
     name: "fuksipassi"
     ipam:
       config:
-        - subnet: 10.10.1.0/16
-          gateway: 10.10.1.1
+        - subnet: 10.11.0.0/16
+          gateway: 10.11.0.1
