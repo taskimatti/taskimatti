@@ -1,9 +1,11 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import { defineNuxtConfig } from "nuxt/config";
 import * as path from "path";
 
 export default defineNuxtConfig({
+  srcDir: "src/",
   devtools: { enabled: true },
-  css: ['~/assets/css/main.css'],
+  css: ["~/assets/css/main.css"],
   postcss: {
     plugins: {
       tailwindcss: {},
@@ -11,6 +13,6 @@ export default defineNuxtConfig({
     },
   },
   alias: {
-    '~' : path.resolve(__dirname),
-  }
-})
+    "~": path.resolve(__dirname) + "/src",
+  },
+});

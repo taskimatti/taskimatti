@@ -9,7 +9,8 @@
     "dev-host": "nuxt dev --host",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "style-fix": "prettier --write src/**/*.{tsx,jsx,ts,js,vue} --print-width=120"
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
@@ -22,6 +23,8 @@
     "vue-router": "^4.2.5"
   },
   "dependencies": {
-    "@directus/sdk": "^13.0.2"
+    "@directus/sdk": "^13.0.2",
+    "@nuxtjs/dotenv": "^1.4.1",
+    "dotenv": "^16.3.1"
   }
 }

@@ -4,7 +4,6 @@ const { $directus, $readItems } = useNuxtApp();
 const { data: Organisation } = await useAsyncData("Organisation", () => {
   return $directus.request($readItems("Organisation"));
 });
-
 </script>
 
 <template>

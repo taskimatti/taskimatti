@@ -19,17 +19,10 @@ if (sha == undefined) sha = "error";
       <p>Fuksipassi 2023</p>
       <p>
         Version
-        <a
-          class="underline"
-          href="https://github.com/serveri/fuksipassi/tree/main"
-        >
-          {{ sha?.slice(0, 7) }}</a
-        >
+        <a class="underline" href="https://github.com/serveri/fuksipassi/tree/main"> {{ sha?.slice(0, 7) }}</a>
       </p>
 
-      <dev-only class="text-green-700"
-        >Mode <span class="text-green-700">DEV</span></dev-only
-      >
+      <dev-only class="text-green-700">Mode <span class="text-green-700">DEV</span></dev-only>
       <p>
         Build and maintained by
         <a class="underline" href="https://github.com/serveri">Serveri Ry</a>

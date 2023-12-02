@@ -2,6 +2,6 @@
   // https://nuxt.com/docs/guide/concepts/typescript
   "extends": "./.nuxt/tsconfig.json",
   "include": [
-    "types/*.d.ts"
+    "src/types/*.d.ts"
   ]
 }

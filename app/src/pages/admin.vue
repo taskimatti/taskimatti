@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { inject } from 'vue';
+import { inject } from "vue";
 
-const user = inject('user')
-const admin = user.isAdmin
+const user = inject("user");
+const admin = user.isAdmin;
 </script>
-
 
 <template>
   <div v-if="admin">

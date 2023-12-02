@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { inject } from 'vue';
+import { inject } from "vue";
 
-const user = inject('user')
+const user = inject("user");
 </script>
 
 <template>
