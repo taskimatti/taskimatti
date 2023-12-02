@@ -1,3 +1,5 @@
+<div style="text-align: center;">
+
 # Digital Task-Tracking Platform
 
 ![Vue](https://img.shields.io/badge/-Vue_3-4FC08D?style=flat-square&logo=vue.js&logoColor=white)
@@ -10,13 +12,14 @@
 ![GitHub issues](https://img.shields.io/github/issues/serveri/fuksipassi)
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/serveri/fuksipassi)
 
-![GitHub top language](https://img.shields.io/github/languages/top/serveri/fuksipassi)
-![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat)
-
 ![GitHub followers](https://img.shields.io/github/followers/serveri?style=social)
 ![GitHub forks](https://img.shields.io/github/forks/serveri/fuksipassi?style=social)
 ![GitHub Repo stars](https://img.shields.io/github/stars/serveri/fuksipassi?style=social)
 
+![GitHub top language](https://img.shields.io/github/languages/top/serveri/fuksipassi)
+![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat)
+
+</div>
 
 ## Plan
 
