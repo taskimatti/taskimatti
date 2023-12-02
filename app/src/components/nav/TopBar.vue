@@ -12,10 +12,13 @@ const { data: Organisation } = await useAsyncData("Organisation", () => {
       class="flex flex-row items-center justify-between p-2"
       :style="'background: ' + Organisation.color_scheme + ';'"
     >
-      <img
+      <NuxtImg
         :src="$directus.url.href + 'assets/' + Organisation.image"
-        alt="Organisation logo"
         class="m-2 w-16 h-16 rounded-full object-cover"
+        width="64"
+        height="64"
+        quality="10"
+        placeholder
       />
       <div class="flex">
         <h1 class="text-3xl text-white">{{ Organisation.name }}</h1>
