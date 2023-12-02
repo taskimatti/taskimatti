@@ -41,5 +41,3 @@ graph TD
     User{User} --> Frontend
     User{User} --> Directus
 ````
-
-
