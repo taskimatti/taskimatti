@@ -1,6 +1,6 @@
 <script setup lang="ts"></script>
 <script lang="ts">
-import type DefaultUser from "~/types";
+import type DefaultUser from "../types";
 
 export default {
   props: {

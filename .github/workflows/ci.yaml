@@ -53,6 +53,7 @@ jobs:
             fi
             git clone https://github.com/serveri/fuksipassi.git
             cd fuksipassi
+            echo $ENV | tr ' ' '\n' > ./app/.env
             echo $PROD | tr ' ' '\n' > .env.prod
             echo $PROD_DB | tr ' ' '\n' > .env.prod.db
             docker compose -f compose.yaml up -d --build
