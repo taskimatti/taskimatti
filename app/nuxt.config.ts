@@ -3,6 +3,12 @@ import { defineNuxtConfig } from "nuxt/config";
 import * as path from "path";
 
 export default defineNuxtConfig({
+  app: {
+    pageTransition: {
+      mode: "out-in",
+    },
+  },
+  modules: ["@nuxt/image"],
   srcDir: "src/",
   devtools: { enabled: true },
   css: ["~/assets/css/main.css"],
@@ -14,5 +20,12 @@ export default defineNuxtConfig({
   },
   alias: {
     "~": path.resolve(__dirname) + "/src",
+  },
+  runtimeConfig: {
+    public: {
+      API_URL: process.env.NUXT_API_URL || "http://localhost:8081",
+      API_EMAIL: process.env.NUXT_API_EMAIL || "admin@example.com",
+      API_PASSWD: process.env.NUXT_API_PASSWD || "secret",
+    },
   },
 });
