@@ -13,7 +13,7 @@ const { data: Organisation } = await useAsyncData("Organisation", () => {
 <template>
   <div>
     <ol>
-      <li v-for="task in Tasks">
+      <li v-for="task in Tasks" class="p-2">
         <Task :task="task" :unit="Organisation.units" />
       </li>
     </ol>

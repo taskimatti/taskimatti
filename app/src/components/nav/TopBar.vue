@@ -9,12 +9,12 @@ const { data: Organisation } = await useAsyncData("Organisation", () => {
 <template>
   <div>
     <div
-      class="flex flex-row items-center justify-between p-2"
+      class="flex flex-row items-center justify-between p-2 h-16"
       :style="'background: ' + Organisation.color_scheme + ';'"
     >
       <NuxtImg
         :src="$directus.url.href + 'assets/' + Organisation.image"
-        class="m-2 w-16 h-16 rounded-full object-cover"
+        class="w-12 h-12 rounded-full object-cover"
         width="64"
         height="64"
         quality="10"

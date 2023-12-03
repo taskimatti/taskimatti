@@ -21,8 +21,6 @@ const { data: user } = await useAsyncData(() => {
 const { data: role } = await useAsyncData(() => {
   return $directus.request(readRole(user.value.role, { fields: ["name"] }));
 });
-
-console.log(props.uuid);
 </script>
 
 <template>
