@@ -25,7 +25,7 @@ if (sha == undefined) sha = "error";
       <dev-only class="text-green-700">Mode <span class="text-green-700">DEV</span></dev-only>
       <p>
         Build and maintained by
-        <a class="underline" href="https://github.com/serveri">Serveri Ry</a>
+        <a class="underline" href="https://github.com/serveri">Fuksipassi</a>
       </p>
     </div>
   </div>
