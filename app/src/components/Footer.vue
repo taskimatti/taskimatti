@@ -14,7 +14,7 @@ if (sha == undefined) sha = "error";
 </script>
 
 <template>
-  <div class="flex justify-center my-16">
+  <div class="flex justify-center mt-8 mb-2">
     <div>
       <p>Fuksipassi 2023</p>
       <p>
