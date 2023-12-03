@@ -24,7 +24,7 @@ const { data: Organisation } = await useAsyncData("Organisation", () => {
         <h1 class="text-3xl text-white">{{ Organisation.name }}</h1>
         <dev-only><p class="text-green-700">DEV</p></dev-only>
       </div>
-      <p>{{ 12 }} {{ Organisation.point_units }}</p>
+      <p>{{ 12 }} {{ Organisation.units }}</p>
     </div>
   </div>
 </template>
