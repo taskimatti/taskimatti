@@ -11,7 +11,6 @@ const props = defineProps({
   },
 });
 
-
 const { data: user } = await useAsyncData(() => {
   if (props.uuid) {
     return $directus.request(readUser(props.uuid, { fields: ["first_name", "avatar", "role"] }));

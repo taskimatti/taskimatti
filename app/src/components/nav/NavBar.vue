@@ -18,10 +18,7 @@ const { data: role } = await useAsyncData(() => {
 </script>
 
 <template>
-  <div
-    class="fixed bottom-0 w-full max-w-lg"
-    :style="'background: ' + Organisation.color_scheme + ';'"
-  >
+  <div class="fixed bottom-0 w-full max-w-lg" :style="'background: ' + Organisation.color_scheme + ';'">
     <div class="flex items-center justify-around gap-0 m-auto">
       <BottomNavButton text="Tasks" href="" />
       <BottomNavButton text="Scoreboard" href="scoreboard" />
