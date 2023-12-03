@@ -1,19 +1,23 @@
 <script setup lang="ts">
-import { inject } from "vue";
+const { $directus, $readItems } = useNuxtApp();
 
-const tasks = inject("tasks");
+const { data: Tasks } = await useAsyncData("Tasks", () => {
+  return $directus.request($readItems("Tasks"));
+});
+
+const { data: Organisation } = await useAsyncData("Organisation", () => {
+  return $directus.request($readItems("Organisation"));
+});
 </script>
 
 <template>
-  <div class="flex justify-center mx-8 mt-16">
     <div>
       <ol>
-        <li v-for="task in tasks">
-          <Task :task="task" />
+        <li v-for="task in Tasks">
+          <Task :task="task" :unit="Organisation.units" />
         </li>
       </ol>
     </div>
-  </div>
 </template>
 
 <style scoped></style>
