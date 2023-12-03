@@ -3,5 +3,9 @@
 @tailwind utilities;
 
 body {
-    @apply bg-black text-white
+    @apply bg-black text-white max-w-lg mx-auto
+}
+
+.container {
+    @apply flex justify-center items-center flex-col py-8 px-4;
 }

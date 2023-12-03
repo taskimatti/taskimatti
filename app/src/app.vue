@@ -48,8 +48,14 @@ provide("tasks", tasks.value);
 </script>
 
 <template>
-  <TopBar />
-  <NavBar />
-  <router-view class="mt-16" />
-  <Footer />
+  <div class="min-h-screen bg-gray-900">
+    <TopBar />
+    <div class="container">
+      <div class="min-h-[50vh]">
+        <router-view />
+      </div>
+      <Footer />
+    </div>
+    <NavBar />
+  </div>
 </template>
