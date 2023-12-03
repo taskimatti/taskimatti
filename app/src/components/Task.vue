@@ -1,3 +1,7 @@
+<script setup lang="ts">
+import { CheckIcon } from "@heroicons/vue/20/solid";
+</script>
+
 <script lang="ts">
 import type DefaultTask from "../types";
 
@@ -15,18 +19,21 @@ export default {
 </script>
 
 <template>
-  <div class="p-2">
-    <div class="p-6 rounded-lg shadow-lg bg-gray-800 text-white mb-4">
-      <h2 class="text-2xl font-bold mb-4">{{ task.title }}</h2>
+  <div class="bg-gray-800 text-white p-6 rounded-lg shadow-lg">
+    <NuxtImg
+      v-if="task.image"
+      :src="$directus.url.href + 'assets/' + task.image"
+      alt="Task Image"
+      class="w-full h-64 object-cover mb-4 rounded"
+    />
+    <h2 class="text-2xl mb-2">{{ task.title }}</h2>
+    <p class="mb-2">{{ task.desc }}</p>
+    <div class="flex items-center justify-between">
       <div class="flex items-center">
-        <input class="mr-2 h-5 w-5 text-green-400 rounded" type="checkbox" :id="task?.id" disabled checked />
-        <p class="text-gray-300">{{ task.desc }}</p>
-        <span class="whitespace-nowrap ml-auto text-sm bg-green-700 text-green-100 px-2 py-1 rounded-full"
-          >{{ task.points }} {{ unit }}</span
-        >
+        <CheckIcon v-if="task.status" class="h-6 w-6 text-green-500 mr-2" />
+        <span>{{ task.points }} {{ unit }}</span>
       </div>
     </div>
-    <!-- Repeat the above div for each task in the list -->
   </div>
 </template>
 
