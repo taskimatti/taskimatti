@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    @apply bg-black text-white max-w-lg mx-auto
+}
+
+.container {
+    @apply flex justify-center items-center flex-col pt-8 pb-16 px-4;
+}

@@ -31,14 +31,14 @@ jobs:
         env:
           PROD: ${{ secrets.PROD }}
           PROD_DB: ${{ secrets.PROD_DB }}
+          ENV: ${{ secrets.ENV }}
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
-          envs: PROD,PROD_DB
+          envs: PROD,PROD_DB,ENV
           script: |
-            echo "PROD is $PROD"
             if [ -d "fuksipassi_old" ]; then
               rm -rf fuksipassi_old
             fi
@@ -53,6 +53,7 @@ jobs:
             fi
             git clone https://github.com/serveri/fuksipassi.git
             cd fuksipassi
+            echo $ENV | tr ' ' '\n' > ./app/.env
             echo $PROD | tr ' ' '\n' > .env.prod
             echo $PROD_DB | tr ' ' '\n' > .env.prod.db
             docker compose -f compose.yaml up -d --build

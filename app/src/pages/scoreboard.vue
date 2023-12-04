@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { inject } from 'vue';
+import { inject } from "vue";
 
-const users = inject('users')
+const users = inject("users");
 
 users.sort((a, b) => b.points - a.points);
 </script>
@@ -10,10 +10,7 @@ users.sort((a, b) => b.points - a.points);
   <div class="flex justify-center mx-8 mt-16">
     <div class="w-full">
       <ol class="w-full">
-        <li
-          v-for="user in users"
-          class="list-decimal bg-slate-900 odd:bg-slate-800 w-full"
-        >
+        <li v-for="user in users" class="list-decimal bg-slate-900 odd:bg-slate-800 w-full">
           <ScoreBoardUser :user="user" />
         </li>
       </ol>
