@@ -36,9 +36,10 @@ Fuksit kilpailevat keräämällä pisteitä suorituksista.
 
 
 ## Organisaatio
-- Organisaatio voi lisätä itsensä passiin
-- Organisaatio lisää ylläpitäjiä passille
-- Käyttäjät tunnistavat etsimänsä passin organisaation tilin perusteella
+
+- Organisaatio voi lisätä itsensä alustalle
+- Organisaatio lisää ylläpitäjiä ja moderaattoreita
+- Käyttäjät tunnistavat organisaation QR-koodista tai linkistä
 
 
 ### Ylläpitäjä
@@ -59,20 +60,21 @@ Fuksit kilpailevat keräämällä pisteitä suorituksista.
 - Pyytää lupaa liittyä organisaatioon tai saa kutsun sinne
     - Ylläpitäjä tai moderaattori hyväksyy liittymisen
 - Jäsen suorittaa tehtäviä ja pyytää suoritusmerkinnät niistä
-- Jäsen voi seurata muiden käyttäjien edistystä tulostaulun kautta (scoreboard)
+- Jäsen voi seurata muiden käyttäjien edistystä tulostaulun kautta
 
 
 
-## Jatkokehitys 
+## Jatkokehitys - Beyond Fuksipassi
 
 #### Yhtä fuksipassia laajempi kokonaisuus
 
-Sähköinen alusta:
-- Fuksipassi muille ainejärjestöille
-- Fuksipassi muille kouluille
-- Liikuntapassi liikunnan opettajalle
-- Tehtäväpassi tapahtumiin ja kilpailuihin
-- jne.
 
+### Sähköinen alusta
 
+- Rastipassi 
+- Liikuntapassi
+- Lajikokeilupassi
+- Turistipassi
+- Koulutuspassi
 
+Note: Kouluihin, työpaikoille, yhdistyksille, järjestöille, tapahtumiin, festareille, kaupunkeihin, maakuntiin, valtioille, jne.
