@@ -12,7 +12,7 @@ import {
   UserIcon as UserIconOutline,
   SparklesIcon as SparklesIconOutline,
 } from "@heroicons/vue/24/outline";
-import { ref, watch } from 'vue'
+import { ref, watch } from "vue";
 
 const { $directus, $readItems } = useNuxtApp();
 
@@ -34,7 +34,6 @@ let project = ref("");
 if (process.client) {
   project.value = localStorage.getItem("project-uuid");
 }
-
 </script>
 
 <template>
@@ -44,14 +43,8 @@ if (process.client) {
     :style="'background: ' + Organisation.color_scheme + ';'"
   >
     <div class="flex items-center justify-around gap-0 m-auto">
-      <nuxt-link
-        :to="'/' + project"
-        class="p-4 h-full w-full flex justify-center items-center flex-col"
-      >
-        <CheckBadgeIconSolid
-          v-if="$route.path.split('/')[0] === '/'"
-          class="h-6 w-6 text-white"
-        />
+      <nuxt-link :to="'/' + project" class="p-4 h-full w-full flex justify-center items-center flex-col">
+        <CheckBadgeIconSolid v-if="$route.path.split('/')[0] === '/'" class="h-6 w-6 text-white" />
         <CheckBadgeIconOutline v-else class="h-6 w-6 text-white" />
         <p class="text-white text-sm">Tasks</p>
       </nuxt-link>
@@ -60,21 +53,12 @@ if (process.client) {
         :to="'/' + project + '/scoreboard'"
         class="p-4 h-full w-full flex justify-center items-center flex-col"
       >
-        <ChartBarIconSolid
-          v-if="$route.path === '/scoreboard'"
-          class="h-6 w-6 text-white"
-        />
+        <ChartBarIconSolid v-if="$route.path === '/scoreboard'" class="h-6 w-6 text-white" />
         <ChartBarIconOutline v-else class="h-6 w-6 text-white" />
         <p class="text-white text-sm">Scoreboard</p>
       </nuxt-link>
-      <nuxt-link
-        :to="'/' + project + '/account'"
-        class="p-4 h-full w-full flex justify-center items-center flex-col"
-      >
-        <UserIconSolid
-          v-if="$route.path === '/account'"
-          class="h-6 w-6 text-white"
-        />
+      <nuxt-link :to="'/' + project + '/account'" class="p-4 h-full w-full flex justify-center items-center flex-col">
+        <UserIconSolid v-if="$route.path === '/account'" class="h-6 w-6 text-white" />
         <UserIconOutline v-else class="h-6 w-6 text-white" />
 
         <p class="text-white text-sm">Account</p>
@@ -84,10 +68,7 @@ if (process.client) {
         :to="'/' + project + '/admin'"
         class="p-4 h-full w-full flex justify-center items-center flex-col"
       >
-        <SparklesIconSolid
-          v-if="'/' + $route.path.split('/')[2] === 'admin'"
-          class="h-6 w-6 text-white"
-        />
+        <SparklesIconSolid v-if="'/' + $route.path.split('/')[2] === 'admin'" class="h-6 w-6 text-white" />
         <SparklesIconOutline v-else class="h-6 w-6 text-white" />
 
         <p class="text-white text-sm">Admin</p>
