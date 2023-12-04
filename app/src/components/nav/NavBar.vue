@@ -14,7 +14,7 @@ import {
 } from "@heroicons/vue/24/outline";
 import { ref } from "vue";
 import { useRoute } from "vue-router";
-import {useState} from "nuxt/app";
+import { useState } from "nuxt/app";
 
 const { $directus, $readItems } = useNuxtApp();
 
@@ -30,10 +30,10 @@ const { data: role } = await useAsyncData(() => {
   return $directus.request(readRole(user.value.role));
 });
 
-let project = useState(() => '');
+let project = useState(() => "");
 let path = ref("");
 const route = useRoute();
-project.value = route.params.project.toString();
+project.value = route?.params?.project?.toString();
 path.value = route.path.toString();
 
 // client only
@@ -50,14 +50,8 @@ if (process.client) {
     :style="'background: ' + Organisation.color_scheme + ';'"
   >
     <div class="flex items-center justify-around gap-0 m-auto">
-      <nuxt-link
-        :to="'/' + project"
-        class="p-4 h-full w-full flex justify-center items-center flex-col"
-      >
-        <CheckBadgeIconSolid
-          v-if="!path.split('/')[2]"
-          class="h-6 w-6 text-white"
-        />
+      <nuxt-link :to="'/' + project" class="p-4 h-full w-full flex justify-center items-center flex-col">
+        <CheckBadgeIconSolid v-if="!path.split('/')[2]" class="h-6 w-6 text-white" />
         <CheckBadgeIconOutline v-else class="h-6 w-6 text-white" />
         <p class="text-white text-sm">Tasks</p>
       </nuxt-link>
@@ -66,21 +60,12 @@ if (process.client) {
         :to="'/' + project + '/scoreboard'"
         class="p-4 h-full w-full flex justify-center items-center flex-col"
       >
-        <ChartBarIconSolid
-          v-if="path.split('/')[2] === 'scoreboard'"
-          class="h-6 w-6 text-white"
-        />
+        <ChartBarIconSolid v-if="path.split('/')[2] === 'scoreboard'" class="h-6 w-6 text-white" />
         <ChartBarIconOutline v-else class="h-6 w-6 text-white" />
         <p class="text-white text-sm">Scoreboard</p>
       </nuxt-link>
-      <nuxt-link
-        :to="'/' + project + '/account'"
-        class="p-4 h-full w-full flex justify-center items-center flex-col"
-      >
-        <UserIconSolid
-          v-if="path.split('/')[2] === '/account'"
-          class="h-6 w-6 text-white"
-        />
+      <nuxt-link :to="'/' + project + '/account'" class="p-4 h-full w-full flex justify-center items-center flex-col">
+        <UserIconSolid v-if="path.split('/')[2] === '/account'" class="h-6 w-6 text-white" />
         <UserIconOutline v-else class="h-6 w-6 text-white" />
 
         <p class="text-white text-sm">Account</p>
@@ -90,10 +75,7 @@ if (process.client) {
         :to="'/' + project + '/admin'"
         class="p-4 h-full w-full flex justify-center items-center flex-col"
       >
-        <SparklesIconSolid
-          v-if="path.split('/')[2] === 'admin'"
-          class="h-6 w-6 text-white"
-        />
+        <SparklesIconSolid v-if="path.split('/')[2] === 'admin'" class="h-6 w-6 text-white" />
         <SparklesIconOutline v-else class="h-6 w-6 text-white" />
 
         <p class="text-white text-sm">Admin</p>

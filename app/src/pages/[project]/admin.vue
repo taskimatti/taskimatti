@@ -9,9 +9,7 @@ let roles = useState(() => {});
 
 const fetchData = async () => {
   const { data: _users } = await useAsyncData(() => {
-    return $directus.request(
-      readUsers({ fields: ["id", "first_name", "avatar", "role"] }),
-    );
+    return $directus.request(readUsers({ fields: ["id", "first_name", "avatar", "role"] }));
   });
 
   const { data: _roles } = await useAsyncData(() => {
