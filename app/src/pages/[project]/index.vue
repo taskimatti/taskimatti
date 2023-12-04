@@ -1,26 +1,38 @@
 <script setup lang="ts">
-const { $directus, $readItems } = useNuxtApp();
+import { ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
+
+const { $directus, $readItems } = useNuxtApp()
 
 const route = useRoute()
 
-const uuid = route.params.project
+let uuid = ref(route.params.project) // make uuid a reactive ref
 
-const { data: Tasks } = await useAsyncData(async () => {
-  return $directus.request($readItems("Tasks", {
+let Tasks = ref([]) // make Tasks a reactive ref
+let Organisation = ref({}) // make Organisation a reactive ref
+
+// define a function to fetch the data based on the uuid
+const fetchData = async () => {
+  Tasks.value = await $directus.request($readItems("Tasks", {
     filter: {
       project: {
-        _eq: uuid
+        _eq: uuid.value
       }
     }
   }));
-});
 
+  Organisation.value = await $directus.request($readItems("Organisation"));
+}
 
-const { data: Organisation } = await useAsyncData("Organisation", () => {
-  return $directus.request($readItems("Organisation"));
-});
+// call the function initially
+fetchData()
+
+// watch for changes in the route params and update the uuid and data
+watch(() => route.params.project, (newUuid) => {
+  uuid.value = newUuid
+  fetchData()
+})
 </script>
-
 
 <template>
   <div>
