@@ -9,7 +9,7 @@ const route = useRoute();
 let uuid = ref(route.params.project); // make uuid a reactive ref
 // client only
 if (process.client) {
-  localStorage.setItem("project-uuid", uuid.value.toString()); // get the uuid from local storage
+  localStorage.setItem("project-uuid", uuid?.value?.toString()); // get the uuid from local storage
 }
 
 let Tasks = ref([]); // make Tasks a reactive ref
