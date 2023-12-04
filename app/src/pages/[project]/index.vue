@@ -7,6 +7,10 @@ const { $directus, $readItems } = useNuxtApp()
 const route = useRoute()
 
 let uuid = ref(route.params.project) // make uuid a reactive ref
+// client only
+if (process.client) {
+  uuid.value = localStorage.getItem('project-uuid') // get the uuid from local storage
+}
 
 let Tasks = ref([]) // make Tasks a reactive ref
 let Organisation = ref({}) // make Organisation a reactive ref
