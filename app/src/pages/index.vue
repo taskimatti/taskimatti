@@ -1,22 +1,19 @@
 <script setup lang="ts">
 const { $directus, $readItems } = useNuxtApp();
 
-const { data: Tasks } = await useAsyncData("Tasks", () => {
-  return $directus.request($readItems("Tasks"));
+const { data: project } = await useAsyncData(() => {
+  return $directus.request($readItems("Project"));
 });
 
-const { data: Organisation } = await useAsyncData("Organisation", () => {
-  return $directus.request($readItems("Organisation"));
-});
+
 </script>
 
 <template>
   <div>
-    <ol>
-      <li v-for="task in Tasks" class="p-2">
-        <Task :task="task" :unit="Organisation.units" />
-      </li>
-    </ol>
+    <h1>Select organisation</h1>
+    <div v-for="project in project">
+      <NuxtLink class="underline text-blue-500" :to=project.id>lol </NuxtLink>
+    </div>
   </div>
 </template>
 
