@@ -1,50 +1,42 @@
 <script setup lang="ts">
-import { ref, provide } from "vue";
-import { useRouter } from "vue-router";
+import { ref } from "vue";
+import { useRoute } from "vue-router";
 import TopBar from "./components/nav/TopBar.vue";
+import { readMe, readRoles } from "@directus/sdk";
+import { useAssets, useProject, useProjects, useRoles, useUser } from "./composables/states";
 
-import data_client from "./data/client.data.json";
-import data_organisations from "./data/org.data.json";
+const { $directus, $readItems } = useNuxtApp();
+const route = useRoute();
 
-const clientData = data_client.data;
-const org = ref(clientData.org);
-const userId = ref(clientData.user);
-const tasks = ref({});
-const users = ref({});
-const user = ref({});
-const organisation = ref({});
+const uuid = ref(route?.params?.project?.toString());
 
-const org_names = data_organisations.data.map((o) => o.org);
+const projects = useProjects();
+const project = useProject();
+const user = useUser();
+const roles = useRoles();
+const assets = useAssets();
 
-const route = useRouter()?.currentRoute?.value?.fullPath;
-const first = route.split("/")[1];
+const { data: _projects } = await useAsyncData(() => {
+  return $directus.request($readItems("Project"));
+});
 
-org.value = org_names.includes(first) ? first : org.value;
+const { data: _user } = await useAsyncData(() => {
+  return $directus.request(readMe({ fields: ["role"] }));
+});
 
-const loadTasksAndUsers = async () => {
-  try {
-    const tasksData = await import(`~/data/${org.value}.tasks.json`);
-    tasks.value = tasksData.data;
+const { data: _roles } = await useAsyncData(() => {
+  return $directus.request(readRoles({ fields: ["id", "name", "admin_access"] }));
+});
 
-    const usersData = await import(`~/data/${org.value}.users.json`);
-    users.value = usersData.data;
+projects.value = _projects;
+user.value = _user;
+roles.value = _roles;
 
-    user.value = users.value[userId.value];
-  } catch (error) {
-    console.error("Error loading data:", error);
-  }
-};
+if (uuid.value) {
+  project.value = projects.value.find((project) => project.id === uuid.value);
+}
 
-await loadTasksAndUsers();
-
-organisation.value = data_organisations.data.find((o) => o.org === org.value);
-
-provide("organisation", organisation.value);
-provide("colorscheme", organisation.value.colorscheme);
-provide("org", org.value);
-provide("user", user.value);
-provide("users", users.value);
-provide("tasks", tasks.value);
+assets.value = $directus.url.href + "assets/";
 </script>
 
 <template>
@@ -54,7 +46,6 @@ provide("tasks", tasks.value);
       <div class="min-h-[50vh]">
         <router-view />
       </div>
-      <Footer />
     </div>
     <NavBar />
   </div>
