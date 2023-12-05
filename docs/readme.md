@@ -45,8 +45,6 @@ Fuksipassi on paperinen
     - Suoritusten todentaminen
     - Kulkee aina mukana
     - Tiedot turvassa vedeltä ja kadottamiselta
-- Ympäristöystävällinen
-
 
 
 ## Käyttäjätasot
