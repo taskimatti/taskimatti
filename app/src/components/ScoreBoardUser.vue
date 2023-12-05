@@ -17,6 +17,10 @@ export default {
       type: Object,
       required: true,
     },
+    unit: {
+      type: String,
+      required: true,
+    },
   },
 };
 </script>
@@ -37,7 +41,7 @@ export default {
         <p class="text-2xl font-bold">{{ user.first_name }}</p>
       </div>
     </div>
-    <p class="text-xl font-medium text-gray-200">{{ user.score }} bits</p>
+    <p class="text-xl font-medium text-gray-200">{{ user.score }} {{ unit }}</p>
   </div>
 </template>
 

@@ -1,14 +1,17 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { readUsers } from "@directus/sdk";
+import { useProject } from "../../composables/states";
 
 const { $directus } = useNuxtApp();
 
 const users = ref([]);
+const project = ref({});
 
 const updatePage = async () => {
   users.value = await $directus.request(readUsers());
 };
+project.value = await useProject();
 
 await updatePage();
 
@@ -37,7 +40,7 @@ users.value.forEach((user, index) => {
         :key="user.id"
         class="bg-slate-900 odd:bg-slate-800 w-full rounded-lg p-4 my-2 shadow-lg"
       >
-        <ScoreBoardUser :user="user" />
+        <ScoreBoardUser :user="user" :unit="project.value?.units" />
       </li>
     </ol>
   </div>
