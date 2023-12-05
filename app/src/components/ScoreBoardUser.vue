@@ -26,12 +26,12 @@ export default {
     <div class="flex items-center gap-4">
       <p class="text-2xl font-bold text-gray-200">{{ user.rank }}.</p>
       <NuxtImg
-        :src="assets.value + user.avatar"
+        :src="user.avatar ? assets.value + user.avatar : '/images/avatar.jpg'"
         class="w-16 h-16 rounded-full object-cover"
         width="64"
         height="64"
         quality="10"
-        placeholder="/images/placeholder.svg"
+        placeholder="/images/avatar.jpg"
       />
       <div>
         <p class="text-2xl font-bold">{{ user.first_name }}</p>
