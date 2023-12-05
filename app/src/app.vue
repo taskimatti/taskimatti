@@ -46,7 +46,6 @@ assets.value = $directus.url.href + "assets/";
       <div class="min-h-[50vh]">
         <router-view />
       </div>
-      <Footer />
     </div>
     <NavBar />
   </div>

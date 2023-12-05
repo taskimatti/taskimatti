@@ -1,19 +1,33 @@
 <script setup lang="ts">
-const { $directus, $readItems } = useNuxtApp();
+import { ref, watch } from "vue";
+import { useAssets, useProject } from "../../composables/states";
 
-const { data: Organisation } = await useAsyncData("Organisation", () => {
-  return $directus.request($readItems("Organisation"));
-});
+const project = ref({});
+const assets = ref({});
+const updatePage = async () => {
+  project.value = useProject();
+  assets.value = useAssets();
+};
+
+await updatePage();
+
+watch(
+  () => project.value,
+  async (newProject) => {
+    project.value = newProject;
+    await updatePage();
+  },
+);
 </script>
 
 <template>
-  <div>
+  <div v-if="project.value.id">
     <div
       class="flex flex-row items-center justify-between p-2 h-16"
-      :style="'background: ' + Organisation.color_scheme + ';'"
+      :style="'background: ' + project.value.colorScheme + ';'"
     >
       <NuxtImg
-        :src="$directus.url.href + 'assets/' + Organisation.image"
+        :src="assets.value + project.value.image"
         class="w-12 h-12 rounded-full object-cover"
         width="64"
         height="64"
@@ -21,10 +35,10 @@ const { data: Organisation } = await useAsyncData("Organisation", () => {
         placeholder
       />
       <div class="flex">
-        <h1 class="text-3xl text-white">{{ Organisation.name }}</h1>
+        <h1 class="text-3xl text-white">{{ project.value.name }}</h1>
         <dev-only><p class="text-green-700">DEV</p></dev-only>
       </div>
-      <p>{{ 12 }} {{ Organisation.units }}</p>
+      <p>{{ 12 }} {{ project.value.units }}</p>
     </div>
   </div>
 </template>
