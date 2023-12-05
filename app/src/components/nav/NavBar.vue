@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { readMe, readRole } from "@directus/sdk";
 import {
   CheckBadgeIcon as CheckBadgeIconSolid,
   ChartBarIcon as ChartBarIconSolid,
@@ -12,43 +11,72 @@ import {
   UserIcon as UserIconOutline,
   SparklesIcon as SparklesIconOutline,
 } from "@heroicons/vue/24/outline";
-import { ref } from "vue";
+
+import { ref, watch } from "vue";
 import { useRoute } from "vue-router";
-import { useState } from "nuxt/app";
+import { useProject, useUser, useRoles } from "../../composables/states";
 
-const { $directus, $readItems } = useNuxtApp();
-
-const { data: Organisation } = await useAsyncData("Organisation", () => {
-  return $directus.request($readItems("Organisation"));
-});
-
-const { data: user } = await useAsyncData(() => {
-  return $directus.request(readMe({ fields: ["role"] }));
-});
-
-const { data: role } = await useAsyncData(() => {
-  return $directus.request(readRole(user.value.role));
-});
-
-let project = useState(() => "");
 let path = ref("");
-const route = useRoute();
-project.value = route?.params?.project?.toString();
-path.value = route.path.toString();
+const role = ref({});
+const _project = ref({});
+const project = ref("");
 
-// client only
-if (process.client) {
-  localStorage.setItem("project-uuid", project.value); // get the uuid from local storage
-  project.value = localStorage.getItem("project-uuid");
-}
+const updatePage = async () => {
+  const route = useRoute();
+  path.value = route.path.toString();
+
+  _project.value = useProject();
+  project.value = _project.value.id;
+  const _user = useUser();
+  const _roles = useRoles();
+  role.value = _roles.value.find((role) => role.id === _user.value.role);
+
+  if (process.client) {
+    localStorage.setItem("project", _project?.value?.toString());
+  }
+};
+
+await updatePage();
+
+watch(
+  () => path.value,
+  async (newPath) => {
+    path.value = newPath;
+    console.log("UPDATING");
+    await updatePage();
+  },
+);
+
+watch(
+  () => _project.value,
+  async (newProject) => {
+    _project.value = newProject;
+    console.log("UPDATING");
+    await updatePage();
+  },
+);
+
+watch(
+  () => project.value,
+  async (newProject) => {
+    project.value = newProject;
+    console.log("UPDATING");
+    await updatePage();
+  },
+);
+
+watch(
+  () => role.value,
+  async (newRole) => {
+    role.value = newRole;
+    console.log("UPDATING");
+    await updatePage();
+  },
+);
 </script>
 
 <template>
-  <nav
-    class="fixed bottom-0 w-full max-w-lg h-16"
-    role="tablist"
-    :style="'background: ' + Organisation.color_scheme + ';'"
-  >
+  <nav class="fixed bottom-0 w-full max-w-lg h-16" role="tablist" :style="'background: ' + _project.colorScheme + ';'">
     <div class="flex items-center justify-around gap-0 m-auto">
       <nuxt-link :to="'/' + project" class="p-4 h-full w-full flex justify-center items-center flex-col">
         <CheckBadgeIconSolid v-if="!path.split('/')[2]" class="h-6 w-6 text-white" />
@@ -56,7 +84,7 @@ if (process.client) {
         <p class="text-white text-sm">Tasks</p>
       </nuxt-link>
       <nuxt-link
-        v-if="path.split('/')[1].length == 36"
+        v-if="path.split('/')[1]?.length == 36"
         :to="'/' + project + '/scoreboard'"
         class="p-4 h-full w-full flex justify-center items-center flex-col"
       >
