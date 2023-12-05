@@ -32,7 +32,6 @@ const updatePage = async () => {
   }
 };
 
-console.log("INITIALIZING");
 await updatePage();
 
 onBeforeRouteUpdate(async (to, from) => {
@@ -52,7 +51,6 @@ watch(
   () => uuid.value,
   async (newUuid) => {
     uuid.value = newUuid;
-    console.log("UPDATING");
     await updatePage();
   },
 );
@@ -61,7 +59,6 @@ watch(
   () => Tasks.value,
   async (newTasks) => {
     Tasks.value = newTasks;
-    console.log("UPDATING");
     await updatePage();
   },
 );
@@ -70,7 +67,6 @@ watch(
   () => Organisation.value,
   async (newOrganisation) => {
     Organisation.value = newOrganisation;
-    console.log("UPDATING");
     await updatePage();
   },
 );
