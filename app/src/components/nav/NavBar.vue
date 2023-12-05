@@ -33,11 +33,7 @@ const updatePage = async () => {
 
 await updatePage();
 
-// onBeforeRouteUpdate(async (to, from) => {
-//   if (to.path !== from.path) {
-//     await updatePage();
-//   }
-// });
+
 
 watch(
   () => _project.value,
