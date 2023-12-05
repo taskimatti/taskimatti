@@ -1,44 +1,77 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
+import { onBeforeRouteUpdate } from "vue-router";
 import { useRoute } from "vue-router";
+import { navigateTo } from "nuxt/app";
 
 const { $directus, $readItems } = useNuxtApp();
 
-const route = useRoute();
+const route = ref(useRoute());
+const uuid = ref(route.value?.params?.project?.toString());
+const Tasks = ref([]);
+const Organisation = ref({});
 
-let uuid = ref(route.params.project); // make uuid a reactive ref
-// client only
-if (process.client) {
-  localStorage.setItem("project-uuid", uuid?.value?.toString()); // get the uuid from local storage
-}
+const updatePage = async () => {
+  const _uuid = ref(route.value?.params?.project?.toString());
+  uuid.value = _uuid.value;
 
-let Tasks = ref([]); // make Tasks a reactive ref
-let Organisation = ref({}); // make Organisation a reactive ref
-
-// define a function to fetch the data based on the uuid
-const fetchData = async () => {
-  Tasks.value = await $directus.request(
-    $readItems("Tasks", {
-      filter: {
-        project: {
-          _eq: uuid.value,
+  if (uuid.value?.toString().length === 36) {
+    Tasks.value = await $directus.request(
+      $readItems("Tasks", {
+        filter: {
+          project: {
+            _eq: uuid.value,
+          },
         },
-      },
-    }),
-  );
+      }),
+    );
 
-  Organisation.value = await $directus.request($readItems("Organisation"));
+    Organisation.value = await $directus.request($readItems("Organisation"));
+  } else {
+    navigateTo("/");
+  }
 };
 
-// call the function initially
-fetchData();
+console.log("INITIALIZING");
+await updatePage();
 
-// watch for changes in the route params and update the uuid and data
+onBeforeRouteUpdate(async (to, from) => {
+  if (to.path !== from.path) {
+    await updatePage();
+  }
+});
+
 watch(
-  () => route.params.project,
-  (newUuid) => {
+  () => route.value,
+  async () => {
+    await updatePage();
+  },
+);
+
+watch(
+  () => uuid.value,
+  async (newUuid) => {
     uuid.value = newUuid;
-    fetchData();
+    console.log("UPDATING");
+    await updatePage();
+  },
+);
+
+watch(
+  () => Tasks.value,
+  async (newTasks) => {
+    Tasks.value = newTasks;
+    console.log("UPDATING");
+    await updatePage();
+  },
+);
+
+watch(
+  () => Organisation.value,
+  async (newOrganisation) => {
+    Organisation.value = newOrganisation;
+    console.log("UPDATING");
+    await updatePage();
   },
 );
 </script>
