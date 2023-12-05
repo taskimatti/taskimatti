@@ -8,6 +8,7 @@ const assets = ref({});
 const updatePage = async () => {
   projects.value = useProjects();
   assets.value = useAssets();
+  //
 };
 
 await updatePage();

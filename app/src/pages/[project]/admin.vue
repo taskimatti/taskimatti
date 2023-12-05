@@ -8,18 +8,18 @@ let users = useState(() => {});
 let roles = useState(() => {});
 
 const fetchData = async () => {
-  const { data: _users } = await useAsyncData(() => {
+  const { data: _users } = useAsyncData(() => {
     return $directus.request(readUsers({ fields: ["id", "first_name", "avatar", "role"] }));
   });
 
-  const { data: _roles } = await useAsyncData(() => {
+  const { data: _roles } = useAsyncData(() => {
     return $directus.request(readRoles({ fields: ["id", "name"] }));
   });
 
   users.value = _users;
   roles.value = _roles;
 };
-fetchData();
+await fetchData();
 </script>
 
 <template>
@@ -28,7 +28,7 @@ fetchData();
       <NuxtLink :to="'account/' + user.id" :key="user.id">
         <Account
           :user="user"
-          :role="roles.find((role) => role.id === user.role).name"
+          :role="roles?.find((role) => role.id === user.role).name"
           :image="$directus.url.href + 'assets/' + user.avatar"
         />
       </NuxtLink>

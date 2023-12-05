@@ -21,19 +21,21 @@ watch(
 </script>
 
 <template>
-  <div v-if="project.value.id">
+  <div v-if="project?.value?.id">
     <div
       class="flex flex-row items-center justify-between p-2 h-16"
       :style="'background: ' + project.value.colorScheme + ';'"
     >
-      <NuxtImg
-        :src="assets.value + project.value.image"
-        class="w-12 h-12 rounded-full object-cover"
-        width="64"
-        height="64"
-        quality="10"
-        placeholder
-      />
+      <NuxtLink :to="'/'">
+        <NuxtImg
+          :src="assets.value + project.value.image"
+          class="w-12 h-12 object-cover rounded-full"
+          width="48"
+          height="48"
+          quality="10"
+          placeholder="/images/placeholder.svg"
+        />
+      </NuxtLink>
       <div class="flex">
         <h1 class="text-3xl text-white">{{ project.value.name }}</h1>
         <dev-only><p class="text-green-700">DEV</p></dev-only>
