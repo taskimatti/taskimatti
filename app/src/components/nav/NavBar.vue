@@ -12,52 +12,38 @@ import {
   SparklesIcon as SparklesIconOutline,
 } from "@heroicons/vue/24/outline";
 import { ref, watch } from "vue";
-import { onBeforeRouteUpdate, useRoute } from "vue-router";
-import { useProject, useUser, useRoles } from "../../composables/states";
+import { useRoute } from "vue-router";
+import { useProject, useProjects, useUser, useRoles } from "../../composables/states";
 
-const route = ref(useRoute());
+const route = useRoute();
 const _project = ref({});
 const project = ref("");
 const role = ref({});
 
 const updatePage = async () => {
-  const _route = useRoute();
-  const path = _route.path.toString();
+  const path = route.path.toString();
+  const foundProject = useProjects().value.find((p) => p.id === path.split("/")[1]);
 
-  _project.value = useProject();
-  project.value = _project.value.value.id;
+  if (foundProject) {
+    useProject().value = foundProject;
+    _project.value = useProject();
+    project.value = _project.value.value ? _project.value.value.id : '';
+  }
+
   const _user = useUser();
   const _roles = useRoles();
-  role.value = _roles.value.find((_role) => _role.id === _user.value.role);
+  if (_user.value) {
+    role.value = _roles.value.find((_role) => _role.id === _user.value.role);
+  }
 };
+
 
 await updatePage();
 
+watch(() => route.path, async () => {
+  await updatePage();
+});
 
-
-watch(
-  () => _project.value,
-  async (newProject) => {
-    _project.value = newProject;
-    await updatePage();
-  },
-);
-
-watch(
-  () => project.value,
-  async (newProject) => {
-    project.value = newProject;
-    await updatePage();
-  },
-);
-
-watch(
-  () => role.value,
-  async (newRole) => {
-    role.value = newRole;
-    await updatePage();
-  },
-);
 </script>
 <template>
   <nav
