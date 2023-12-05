@@ -15,8 +15,9 @@ export default {
       const result = await client.login(this.userEmail, this.userPass);
       console.log(result);
 
-      localStorage.setItem("access_token", result.access_token);
-      const token = localStorage.getItem("access_token");
+      localStorage.setItem('token', result.access_token);
+      
+      //const token = localStorage.getItem("token");
     },
   },
 };
