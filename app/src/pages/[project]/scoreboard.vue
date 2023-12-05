@@ -1,20 +1,45 @@
 <script setup lang="ts">
-import { inject } from "vue";
+import { ref } from "vue";
+import { readUsers } from "@directus/sdk";
 
-const users = inject("users");
+const { $directus } = useNuxtApp();
 
-users.sort((a, b) => b.points - a.points);
+const users = ref([]);
+
+const updatePage = async () => {
+  users.value = await $directus.request(readUsers());
+};
+
+await updatePage();
+
+// give users a score
+users.value.forEach((user) => {
+  user.score = 0;
+});
+
+// rank users by score
+users.value.sort((a, b) => {
+  return b.score - a.score;
+});
+
+// give users a rank
+users.value.forEach((user, index) => {
+  user.rank = index + 1;
+});
 </script>
 
 <template>
-  <div class="flex justify-center mx-8 mt-16">
-    <div class="w-full">
-      <ol class="w-full">
-        <li v-for="user in users" class="list-decimal bg-slate-900 odd:bg-slate-800 w-full">
-          <ScoreBoardUser :user="user" />
-        </li>
-      </ol>
-    </div>
+  <div class="w-full mr-24">
+    <h1 class="text-4xl font-bold text-gray-200 text-center">Scoreboard</h1>
+    <ol class="w-full mt-8">
+      <li
+        v-for="user in users"
+        :key="user.id"
+        class="bg-slate-900 odd:bg-slate-800 w-full rounded-lg p-4 my-2 shadow-lg"
+      >
+        <ScoreBoardUser :user="user" />
+      </li>
+    </ol>
   </div>
 </template>
 
