@@ -6,7 +6,7 @@ services:
       context: app
       dockerfile: Dockerfile
     ports:
-      - "8080:3000"
+      - "8082:3000"
     networks:
       fuksipassi:
         ipv4_address: 10.11.0.2
