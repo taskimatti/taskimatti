@@ -3,13 +3,7 @@ import { ref } from "vue";
 import { useRoute } from "vue-router";
 import TopBar from "./components/nav/TopBar.vue";
 import { readMe, readRoles } from "@directus/sdk";
-import {
-  useAssets,
-  useProject,
-  useProjects,
-  useRoles,
-  useUser,
-} from "./composables/states";
+import { useAssets, useProject, useProjects, useRoles, useUser } from "./composables/states";
 import { useDirectus } from "./composables/directus";
 
 const { $directus, $readItems } = useDirectus();
@@ -41,9 +35,7 @@ const { data: _user } = await useAsyncData(() => {
 });
 
 const { data: _roles } = await useAsyncData(() => {
-  return $directus.request(
-    readRoles({ fields: ["id", "name", "admin_access"] }),
-  );
+  return $directus.request(readRoles({ fields: ["id", "name", "admin_access"] }));
 });
 
 projects.value = _projects;
