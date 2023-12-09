@@ -3,14 +3,23 @@ import { ref } from "vue";
 import { useRoute } from "vue-router";
 import TopBar from "./components/nav/TopBar.vue";
 import { readMe, readRoles } from "@directus/sdk";
-import { useAssets, useProject, useProjects, useRoles, useUser } from "./composables/states";
+import {
+  useAssets,
+  useProject,
+  useProjects,
+  useRoles,
+  useUser,
+} from "./composables/states";
 import { useDirectus } from "./composables/directus";
 
 const { $directus, $readItems } = useDirectus();
 
 if (process.client) {
   const token = window.localStorage.getItem("access_token");
-  await $directus.setToken(token);
+  if (token) await $directus.setToken(token);
+  else {
+    if (window.location.pathname !== "/login") window.location.href = "/login";
+  }
 }
 
 const route = useRoute();
@@ -32,7 +41,9 @@ const { data: _user } = await useAsyncData(() => {
 });
 
 const { data: _roles } = await useAsyncData(() => {
-  return $directus.request(readRoles({ fields: ["id", "name", "admin_access"] }));
+  return $directus.request(
+    readRoles({ fields: ["id", "name", "admin_access"] }),
+  );
 });
 
 projects.value = _projects;

@@ -3,7 +3,12 @@ import { useDirectus } from "./directus";
 
 export const login = async (email: string, password: string) => {
   const { $directus } = useDirectus();
-  return await $directus.login(email, password);
+  try {
+    await $directus.login(email, password);
+  } catch (error) {
+    return error;
+  }
+  return $directus;
 };
 
 export const logout = async () => {
