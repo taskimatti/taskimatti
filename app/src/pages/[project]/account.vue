@@ -3,6 +3,7 @@ import { readMe, readRole, readUser } from "@directus/sdk";
 import { useRoute } from "vue-router";
 import { ref } from "vue";
 
+
 const route = useRoute();
 
 const uuid = ref(route.params.id);

@@ -1,5 +1,6 @@
 <script>
-import { createDirectus, authentication, rest, login } from "@directus/sdk";
+
+const { $directus } = useNuxtApp();
 
 export default {
   data() {
@@ -10,18 +11,15 @@ export default {
   },
   methods: {
     async login() {
-      console.log("Fetch");
-      const client = createDirectus("https://cms.uwu.jeb4.dev").with(authentication()).with(rest());
-      const result = await client.login(this.userEmail, this.userPass);
-      console.log(result);
-
-      localStorage.setItem('token', result.access_token);
-      
-      //const token = localStorage.getItem("token");
+      const { access_token } = await $directus.login(this.userEmail, this.userPass);
+      localStorage.setItem('access_token', access_token);
+      window.location.href = "/"
     },
   },
 };
+
 </script>
+
 <template>
   <div class="flex flex-col justify-center py-12 sm:px-6 lg:px-8">
     <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">

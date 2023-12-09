@@ -6,6 +6,11 @@ import { readMe, readRoles } from "@directus/sdk";
 import { useAssets, useProject, useProjects, useRoles, useUser } from "./composables/states";
 
 const { $directus, $readItems } = useNuxtApp();
+if (process.client) {
+  console.log($directus)
+  $directus.setToken(window.localStorage.getItem('access-token'))
+  console.log($directus)
+}
 const route = useRoute();
 
 const uuid = ref(route?.params?.project?.toString());

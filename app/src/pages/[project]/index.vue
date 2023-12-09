@@ -2,10 +2,22 @@
 import { ref, watch } from "vue";
 import { onBeforeRouteUpdate } from "vue-router";
 import { useRoute } from "vue-router";
-import { navigateTo } from "nuxt/app";
+import { navigateTo, useAsyncData, useNuxtApp } from "nuxt/app";
 import { useProject } from "../../composables/states";
+import { readMe } from "@directus/sdk";
 
 const { $directus, $readItems } = useNuxtApp();
+if (process.client) {
+  console.log($directus)
+  $directus.setToken(window.localStorage.getItem('access-token'))
+  console.log($directus)
+}
+
+const { data: _user } = await useAsyncData(() => {
+  return $directus.request(readMe({ fields: ["role"] }));
+});
+
+console.log(await _user)
 
 const route = ref(useRoute());
 const uuid = ref(route.value?.params?.project?.toString());
