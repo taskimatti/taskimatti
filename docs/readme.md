@@ -15,7 +15,7 @@
 
 #### Sähköposti
 
-taskimatti@jeb4.dev
+[taskimatti@jeb4.dev](mailto:taskimatti@jeb4.dev)
 
 
 ### Taidot
