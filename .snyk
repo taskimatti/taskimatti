@@ -1,0 +1,6 @@
+# Snyk (https://snyk.io) policy file
+
+exclude:
+    global:
+        # Exclude all files and directories in a specific directory. For example, - tests/
+            - docs/**
