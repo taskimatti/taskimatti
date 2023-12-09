@@ -13,5 +13,12 @@ export const login = async (email: string, password: string) => {
 
 export const logout = async () => {
   const { $directus } = useDirectus();
-  await $directus.logout();
+  try {
+    await $directus.logout();
+  } catch (error) {
+    console.log("Logout Failed");
+    console.log(error);
+    return error;
+  }
+  return $directus;
 };
