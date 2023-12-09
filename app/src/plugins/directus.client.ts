@@ -7,9 +7,7 @@ async function setupDirectus(url: string) {
 
 export default defineNuxtPlugin(async () => {
   const config = useRuntimeConfig();
-  const { directus, readItem, readItems } = await setupDirectus(
-    config.public.API_URL,
-  );
+  const { directus, readItem, readItems } = await setupDirectus(config.public.API_URL);
   return {
     provide: { directus, readItem, readItems },
   };
