@@ -22,19 +22,20 @@ const { data: role } = await useAsyncData(() => {
 
 const logout = async () => {
   const response = await directusLogout();
-  if(response.errors){
+  if (response.errors) {
     console.log(response.errors[0].message);
   }
   window.location.href = "/login";
 };
-
 </script>
 <template>
   <div>
     <Account :key="user.id" :user="user" :role="role.name" :image="$directus.url.href + 'assets/' + user.avatar" />
   </div>
-  <button @click="logout"
-    class="group relative w-full mt-5 flex justify-center py-2 px-4 text-sm font-medium rounded-md text-white bg-red-500 hover:bg-red-600 ">
+  <button
+    @click="logout"
+    class="group relative w-full mt-5 flex justify-center py-2 px-4 text-sm font-medium rounded-md text-white bg-red-500 hover:bg-red-600"
+  >
     Logout
   </button>
 </template>
