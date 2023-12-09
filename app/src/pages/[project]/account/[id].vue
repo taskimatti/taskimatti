@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { readMe, readRole, readUser } from "@directus/sdk";
 import { useRoute } from "vue-router";
-import { useDirectus } from "../../composables/directus";
+import { useDirectus } from "../../../composables/directus";
 
 const { $directus } = useDirectus();
 const route = useRoute();
