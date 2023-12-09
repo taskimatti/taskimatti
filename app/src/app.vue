@@ -4,13 +4,15 @@ import { useRoute } from "vue-router";
 import TopBar from "./components/nav/TopBar.vue";
 import { readMe, readRoles } from "@directus/sdk";
 import { useAssets, useProject, useProjects, useRoles, useUser } from "./composables/states";
+import { useDirectus } from "./composables/directus";
 
-const { $directus, $readItems } = useNuxtApp();
+const { $directus, $readItems } = useDirectus();
+
 if (process.client) {
-  console.log($directus)
-  $directus.setToken(window.localStorage.getItem('access-token'))
-  console.log($directus)
+  const token = window.localStorage.getItem("access_token");
+  await $directus.setToken(token);
 }
+
 const route = useRoute();
 
 const uuid = ref(route?.params?.project?.toString());

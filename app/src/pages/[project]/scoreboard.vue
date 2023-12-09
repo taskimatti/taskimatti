@@ -2,8 +2,9 @@
 import { ref } from "vue";
 import { readUsers } from "@directus/sdk";
 import { useProject } from "../../composables/states";
+import { useDirectus } from "../../composables/directus";
 
-const { $directus } = useNuxtApp();
+const { $directus, $readItems } = useDirectus();
 
 const users = ref([]);
 const project = ref({});

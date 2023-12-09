@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { readMe, readRole, readUser } from "@directus/sdk";
 import { useRoute } from "vue-router";
+import { useDirectus } from "../../composables/directus";
 
+const { $directus } = useDirectus();
 const route = useRoute();
 
 const uuid = route.params.id;
 
-const { $directus } = useNuxtApp();
 const { data: user } = await useAsyncData(() => {
   if (uuid) {
     return $directus.request(readUser(uuid.toString(), { fields: ["first_name", "avatar", "role"] }));
