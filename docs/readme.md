@@ -6,6 +6,36 @@
 
 
 
+## Meidän tiimi
+
+#### Tietojenkäsittelytieteen opiskelijat
+
+
+### Yhteystiedot
+
+#### Sähköposti
+
+taskimatti@jeb4.dev
+
+
+### Taidot
+
+- Fullstack devaaminen
+- UI/UX suunnittelu
+- CI/CD ja DevSecOps
+- Projektinhallinta
+
+
+### Teknologiat
+
+- Vue 3 / Nuxt 3
+- TailwindCSS
+- TypeScript
+- Directus
+- Docker
+
+
+
 ## Ongelma ja ratkaisu
 
 
@@ -47,6 +77,7 @@ Fuksipassi on paperinen
     - Tiedot turvassa vedeltä ja kadottamiselta
 
 
+
 ## Käyttäjätasot
 
 
@@ -56,7 +87,7 @@ Fuksipassi on paperinen
 <p style="font-size: 1.7rem; margin: 0; padding: 0">Suoritusten seuranta-alusta (vas.) sähköinen fuksipassi (oik.)</p>
 
 
-## Organisaatio
+### Organisaatio
 
 - Voi lisätä itsensä alustalle
 - Lisää itselleen ylläpitäjiä ja moderaattoreita
@@ -100,7 +131,7 @@ Fuksipassi on paperinen
 Note: Kouluihin, työpaikoille, yhdistyksille, järjestöille, tapahtumiin, festareille, kaupunkeihin, maakuntiin, valtioille, jne. Pesonen Juho matkailu
 
 
-## Tulevaisuus
+### Tulevaisuus
 
 Pilotoidaan 2024 keväällä UEFin tietojenkäsittelytieteen opiskelijoilla ja syksyllä 2024 kaikilla uusilla TKT opiskelijoilla.
 
@@ -110,22 +141,16 @@ Liikuntapassi pilotoidaan parin koululuokan kanssa. Pidetään mielessä myös S
 
 
 
-## Meidän tiimi
-
-#### Tietojenkäsittelytieteen opiskelijat
-
-
-## Skills
-
-- Fullstack
-- UI/UX
-- CI/CD
-
-
-
 ## DEMO
 
 
-## Käyttöliittymä
+### Käyttöliittymä
 
 <iframe style="border: 1px solid rgba(0, 0, 0, 0.1);" width="800" height="450" src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FgAtgXIcR4e21TgsjoxCaPV%2FFuksipassi-UI%3Ftype%3Ddesign%26node-id%3D38-45%26t%3DPVUNSHWaAbMhvKVm-1%26scaling%3Dscale-down%26page-id%3D0%253A1%26starting-point-node-id%3D38%253A45%26mode%3Ddesign" allowfullscreen></iframe>
+
+
+### App
+
+#### [Website](https://taskimatti.jeb4.dev/)
+
+#### [CMS](https://cms.taskimatti.jeb4.dev/)
