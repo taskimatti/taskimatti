@@ -35,24 +35,25 @@ jobs:
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
           envs: PROD,PROD_DB,ENV
           script: |
-            if [ -d "fuksipassi_old" ]; then
-              rm -rf fuksipassi_old
+            if [ -d "taskimatti_old" ]; then
+              rm -rf taskimatti_old
             fi
-            if [ -d "fuksipassi" ]; then
-              cd fuksipassi
+            if [ -d "taskimatti" ]; then
+              cd taskimatti
               cd directus
               sh backup.sh
               cd ..
               docker compose -f compose.yaml down
               cd ..
-              mv fuksipassi fuksipassi_old
+              mv taskimatti taskimatti_old
             fi
-            git clone https://github.com/serveri/fuksipassi.git
-            cd fuksipassi
+            git clone https://github.com/taskimatti/taskimatti.git
+            cd taskimatti
             echo $ENV | tr ' ' '\n' > ./app/.env
             echo $PROD | tr ' ' '\n' > .env.prod
             echo $PROD_DB | tr ' ' '\n' > .env.prod.db

@@ -7,7 +7,7 @@ echo "Importing database from host machine to docker container..."
 echo "Stopping docker containers..."
 docker compose -f ../compose.yaml down
 
-docker volume rm fuksipassi_directus_data_prod
+docker volume rm taskimatti_directus_data_prod
 echo "Removing old database volume..."
 
 echo "Starting db container..."
@@ -16,10 +16,10 @@ sleep 5
 echo "PostgreSQL has started."
 
 echo "Copying database from host machine to docker container..."
-docker cp ./data/example.sql Fuksipassi-PostgreSQL:/home/import.sql
+docker cp ./data/example.sql taskimatti-PostgreSQL:/home/import.sql
 
 echo "Executing database import in docker container..."
-docker exec Fuksipassi-PostgreSQL bash -c "psql -U default directus_prod < /home/import.sql"
+docker exec taskimatti-PostgreSQL bash -c "psql -U default directus_prod < /home/import.sql"
 
 echo "PostgreSQL has started on $HOST:$PORT."
 
