@@ -1,6 +1,6 @@
 import { createDirectus, rest, readItem, readItems, authentication } from "@directus/sdk";
 
-async function setupDirectus(url: string, email: string, password: string) {
+async function setupDirectus(url: string) {
   const directus = createDirectus(url).with(authentication()).with(rest());
   return { directus, readItem, readItems };
 }
