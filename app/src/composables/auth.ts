@@ -16,7 +16,7 @@ const fetchWithAuth = async (url: string, method: string, body: any) => {
     }
 
     if (response.status === 401) {
-      throw new Error("Unauthenticated");
+      return response.status;
     }
 
     if (response.status === 403) {
@@ -84,7 +84,12 @@ export const refresh = async () => {
     refresh_token: localStorage.getItem("refresh_token"),
   });
   if (data.errors) {
-    return data.errors[0].message;
+    return data.errors;
+  }
+  if (typeof data === "number") {
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+    return data;
   }
   const { access_token, refresh_token } = data.data;
   localStorage.setItem("access_token", access_token);
