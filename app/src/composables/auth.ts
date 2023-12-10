@@ -39,9 +39,7 @@ const fetchWithAuth = async (url: string, method: string, body: any) => {
       throw new Error("Service unavailable");
     }
 
-    throw new Error(
-      `HTTP error! status: ${response.status} ${response.statusText}`,
-    );
+    throw new Error(`HTTP error! status: ${response.status} ${response.statusText}`);
   }
 
   // Check if the response is a 204 No Content response
@@ -58,16 +56,9 @@ const fetchWithAuth = async (url: string, method: string, body: any) => {
   return data;
 };
 
-export const login = async (credentials: {
-  email: string;
-  password: string;
-}) => {
+export const login = async (credentials: { email: string; password: string }) => {
   const { $directus } = useDirectus();
-  const data = await fetchWithAuth(
-    $directus.url.href + "auth/login",
-    "POST",
-    credentials,
-  );
+  const data = await fetchWithAuth($directus.url.href + "auth/login", "POST", credentials);
   if (data.errors) {
     return data.errors[0].message;
   }
@@ -89,11 +80,9 @@ export const logout = async () => {
 
 export const refresh = async () => {
   const { $directus } = useDirectus();
-  const data = await fetchWithAuth(
-    $directus.url.href + "auth/refresh",
-    "POST",
-    { refresh_token: localStorage.getItem("refresh_token") },
-  );
+  const data = await fetchWithAuth($directus.url.href + "auth/refresh", "POST", {
+    refresh_token: localStorage.getItem("refresh_token"),
+  });
   if (data.errors) {
     return data.errors[0].message;
   }
