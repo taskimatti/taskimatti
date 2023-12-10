@@ -1,7 +1,7 @@
 import { useState } from "nuxt/app";
 
 export const useProjects = () =>
-  useState<[Object]>("projects", () => [
+  useState<[{}]>("projects", () => [
     {
       id: "",
       name: "",
@@ -38,7 +38,7 @@ export const useUser = () =>
   }));
 
 export const useRoles = () =>
-  useState<[Object]>("roles", () => [
+  useState<[{}]>("roles", () => [
     {
       id: "",
       name: "",
