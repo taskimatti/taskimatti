@@ -4,8 +4,9 @@ import { onBeforeRouteUpdate } from "vue-router";
 import { useRoute } from "vue-router";
 import { navigateTo } from "nuxt/app";
 import { useProject } from "../../composables/states";
+import { useDirectus } from "../../composables/directus";
 
-const { $directus, $readItems } = useNuxtApp();
+const { $directus, $readItems } = useDirectus();
 
 const route = ref(useRoute());
 const uuid = ref(route.value?.params?.project?.toString());
