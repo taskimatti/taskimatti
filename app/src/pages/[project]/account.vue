@@ -2,13 +2,14 @@
 import { readMe, readRole, readUser } from "@directus/sdk";
 import { useRoute } from "vue-router";
 import { ref } from "vue";
-import { useDirectus } from "../../composables/directus";
+import { useDirectus } from "~/composables/directus";
 import { logout as directusLogout } from "../../composables/auth";
 
 const { $directus } = useDirectus();
 
 const route = useRoute();
 const uuid = ref(route.params.id);
+const role = ref({});
 
 const { data: user } = await useAsyncData(() => {
   if (uuid.value) {
@@ -20,9 +21,10 @@ const { data: user } = await useAsyncData(() => {
   }
   return $directus.request(readMe({ fields: ["first_name", "avatar", "role"] }));
 });
-const { data: role } = await useAsyncData(() => {
-  return $directus.request(readRole(user.value.role, { fields: ["name"] }));
+const { data: roleData } = await useAsyncData(() => {
+  return $directus.request(readRole(user?.value?.role, { fields: ["name"] }));
 });
+role.value = roleData;
 
 const logout = async () => {
   const response = await directusLogout();
