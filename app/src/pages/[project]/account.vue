@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { readMe, readRole, readSettings, readUser } from "@directus/sdk";
+import { readMe, readRole, readUser } from "@directus/sdk";
 import { useRoute } from "vue-router";
 import { ref } from "vue";
 import { useDirectus } from "../../composables/directus";
@@ -12,7 +12,11 @@ const uuid = ref(route.params.id);
 
 const { data: user } = await useAsyncData(() => {
   if (uuid.value) {
-    return $directus.request(readUser(uuid.value.toString(), { fields: ["first_name", "avatar", "role"] }));
+    return $directus.request(
+      readUser(uuid.value.toString(), {
+        fields: ["first_name", "avatar", "role"],
+      }),
+    );
   }
   return $directus.request(readMe({ fields: ["first_name", "avatar", "role"] }));
 });
@@ -22,10 +26,9 @@ const { data: role } = await useAsyncData(() => {
 
 const logout = async () => {
   const response = await directusLogout();
-  if (response.errors) {
-    console.log(response.errors[0].message);
+  if (response === "success") {
+    window.location.href = "/login";
   }
-  window.location.href = "/login";
 };
 </script>
 <template>

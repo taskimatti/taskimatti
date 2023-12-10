@@ -1,19 +1,22 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { login as directusLogin } from "../composables/auth";
+
 let userEmail = ref("");
 let userPass = ref("");
 let msg = ref("");
 
 const login = async () => {
-  const response = await directusLogin(userEmail.value.toString(), userPass.value.toString());
-  if (response.errors) {
-    msg.value = response.errors[0].message;
-    return;
+  const credentials = {
+    email: userEmail.value.toString(),
+    password: userPass.value.toString(),
+  };
+  const response = await directusLogin(credentials);
+  if (response === "success") {
+    window.location.href = "/";
+  } else if (response !== null) {
+    msg.value = response;
   }
-  const access_token = await response.getToken();
-  localStorage.setItem("access_token", access_token);
-  window.location.href = "/";
 };
 </script>
 
