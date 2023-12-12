@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { readRoles, readUsers } from "@directus/sdk";
 import { useState } from "nuxt/app";
-import { useDirectus } from "../../composables/directus";
+import { useDirectus } from "~/composables/directus";
 
 const { $directus } = useDirectus();
 

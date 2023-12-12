@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { login as directusLogin } from "../composables/auth";
+import { login as directusLogin } from "~/composables/auth";
 
 let userEmail = ref("");
 let userPass = ref("");

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
-import { useAssets, useProject } from "../../composables/states";
+import { useAssets, useProject } from "~/composables/states";
 
 const project = ref({});
 const assets = ref({});
