@@ -12,9 +12,7 @@ const user = useUser();
 
 const fetchData = async () => {
   const { data: _users } = useAsyncData(() => {
-    return $directus.request(
-      readUsers({ fields: ["id", "first_name", "avatar", "role"] }),
-    );
+    return $directus.request(readUsers({ fields: ["id", "first_name", "avatar", "role"] }));
   });
 
   users.value = _users;
@@ -22,9 +20,7 @@ const fetchData = async () => {
 
 await fetchData();
 
-const isAdmin = roles.value.find(
-  (role) => role.id === user.value.role,
-).admin_access;
+const isAdmin = roles.value.find((role) => role.id === user.value.role).admin_access;
 </script>
 
 <template>
@@ -39,13 +35,9 @@ const isAdmin = roles.value.find(
       </NuxtLink>
     </div>
   </div>
-  <div
-    v-else
-    class="flex flex-col items-center justify-center text-center text-white"
-  >
+  <div v-else class="flex flex-col items-center justify-center text-center text-white">
     <p class="my-4">
-      You don't have access to this page. If you think this is a mistake,
-      please contact your administrator.
+      You don't have access to this page. If you think this is a mistake, please contact your administrator.
     </p>
     <button
       class="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700"
