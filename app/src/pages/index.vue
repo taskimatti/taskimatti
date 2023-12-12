@@ -19,8 +19,8 @@ const updatePage = async () => {
 };
 
 while (true) {
-  await new Promise((resolve) => setTimeout(resolve, 100));
   await updatePage();
+  await new Promise((resolve) => setTimeout(resolve, 50));
   if (org.value && projects.value && assets.value) break;
 }
 </script>
