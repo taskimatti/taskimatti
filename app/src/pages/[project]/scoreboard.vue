@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
-import { readUsers } from "@directus/sdk";
-import { useProject } from "~/composables/states";
-import { useDirectus } from "~/composables/directus";
+import { onMounted, ref } from 'vue';
+import { readUsers } from '@directus/sdk';
+import { useProject } from '~/composables/states';
+import { useDirectus } from '~/composables/directus';
 
 const { $directus } = useDirectus();
 
 // Initialize users with placeholder data
 const users = ref(
   Array(10).fill({
-    id: "Loading...",
-    first_name: "Loading...",
-    avatar: "placeholder.jpg",
-    role: "Loading...",
+    id: 'Loading...',
+    first_name: 'Loading...',
+    avatar: 'placeholder.jpg',
+    role: 'Loading...',
     score: 0,
     rank: 0,
   }),
@@ -21,8 +21,7 @@ const users = ref(
 const project = ref({});
 
 const updatePage = async () => {
-  const userData = await $directus.request(readUsers());
-  users.value = userData;
+  users.value = await $directus.request(readUsers());
 
   // give users a score
   users.value.forEach((user) => {

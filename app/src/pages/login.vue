@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { login as directusLogin } from "~/composables/auth";
+import { ref } from 'vue';
+import { login as directusLogin } from '~/composables/auth';
 
-let userEmail = ref("");
-let userPass = ref("");
-let msg = ref("");
+let userEmail = ref('');
+let userPass = ref('');
+let msg = ref('');
 
 const login = async () => {
   const credentials = {
@@ -12,8 +12,8 @@ const login = async () => {
     password: userPass.value.toString(),
   };
   const response = await directusLogin(credentials);
-  if (response === "success") {
-    window.location.href = "/";
+  if (response === 'success') {
+    window.location.href = '/';
   } else if (response !== null) {
     msg.value = response;
   }

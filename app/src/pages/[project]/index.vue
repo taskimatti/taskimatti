@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
-import { useRoute } from "vue-router";
-import { navigateTo } from "nuxt/app";
-import { useProject } from "~/composables/states";
-import { useDirectus } from "~/composables/directus";
+import { onMounted, ref } from 'vue';
+import { useRoute } from 'vue-router';
+import { navigateTo } from 'nuxt/app';
+import { useProject } from '~/composables/states';
+import { useDirectus } from '~/composables/directus';
 
 const { $directus, $readItems } = useDirectus();
 
@@ -13,9 +13,9 @@ const uuid = ref(route.value?.params?.project?.toString());
 // Initialize Tasks with placeholder data
 const Tasks = ref(
   Array(5).fill({
-    id: Array(36).fill("Loading...").join(""),
-    title: "Loading task title...",
-    desc: "Loading task description, this is a placeholder description.",
+    id: Array(36).fill('Loading...').join(''),
+    title: 'Loading task title...',
+    desc: 'Loading task description, this is a placeholder description.',
     points: 0,
     status: false,
   }),
@@ -30,7 +30,7 @@ const updatePage = async () => {
 
   if (uuid.value?.toString().length === 36) {
     Tasks.value = await $directus.request(
-      $readItems("Tasks", {
+      $readItems('Tasks', {
         filter: {
           project: {
             _eq: uuid.value,
@@ -39,7 +39,7 @@ const updatePage = async () => {
       }),
     );
   } else {
-    navigateTo("/");
+    navigateTo('/');
   }
 };
 

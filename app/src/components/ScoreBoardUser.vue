@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { useAssets } from "~/composables/states";
+import { ref } from 'vue';
+import { useAssets } from '~/composables/states';
 
 const assets = ref({});
 
@@ -11,10 +11,14 @@ const updatePage = async () => {
 await updatePage();
 </script>
 <script lang="ts">
+interface UserWithRank extends User {
+  rank: number | undefined;
+  score: number | undefined;
+}
 export default {
   props: {
     user: {
-      type: Object,
+      type: Object as () => UserWithRank,
       required: true,
     },
     unit: {
