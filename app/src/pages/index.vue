@@ -20,7 +20,6 @@ const updatePage = async () => {
 
 await updatePage();
 
-console.log(projects.value);
 </script>
 
 <template>
