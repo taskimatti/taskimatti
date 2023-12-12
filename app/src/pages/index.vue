@@ -4,29 +4,30 @@ import { useSeoMeta } from '@unhead/vue';
 import { useAssets, useOrganisation, useProjects } from '~/composables/states';
 
 const org: Ref<Organisation> = ref(useOrganisation().value);
-const projects = ref({});
+const projects: Ref<Project[] | null> = ref(useProjects().value);
 const assets: Ref<String | null> = ref('');
 
 const updatePage = async () => {
   org.value = useOrganisation().value;
-  projects.value = useProjects();
+  projects.value = useProjects().value;
   assets.value = useAssets().value;
-  //
+
+  useSeoMeta({
+    title: org.value.name,
+    description: org.value.description,
+  });
 };
 
 await updatePage();
 
-useSeoMeta({
-  title: org.value.name,
-  description: org.value.description,
-});
+console.log(projects.value);
 </script>
 
 <template>
   <div class="flex flex-col justify-center items-center min-h-[80vh]">
     <h1 class="text-3xl p-4">Select project</h1>
     <ol>
-      <li class="m-6" v-for="project in projects.value" :key="project.id">
+      <li class="m-6" v-for="project in projects" :key="project.id">
         <NuxtLink :to="project.id">
           <div class="rounded-lg shadow-lg overflow-hidden" :style="'background: ' + project.colorScheme">
             <NuxtImg
