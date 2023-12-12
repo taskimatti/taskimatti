@@ -3,6 +3,11 @@ import { defineNuxtConfig } from "nuxt/config";
 import * as path from "path";
 
 export default defineNuxtConfig({
+  routeRules: {
+    '/login': { ssr: true },
+    '/:project/**': { ssr: false },
+    '/:project': { ssr: false }
+  },
   app: {
     pageTransition: {
       mode: "out-in",

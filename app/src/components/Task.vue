@@ -3,8 +3,6 @@ import { CheckIcon } from "@heroicons/vue/20/solid";
 </script>
 
 <script lang="ts">
-import type DefaultTask from "../types";
-
 export default {
   props: {
     task: {
@@ -19,7 +17,7 @@ export default {
 </script>
 
 <template>
-  <div class="bg-gray-800 text-white p-6 rounded-lg shadow-lg">
+  <div class="bg-gray-800 text-white p-6 rounded-lg shadow-lg w-full">
     <NuxtImg
       v-if="task.image"
       :src="$directus.url.href + 'assets/' + task.image"
