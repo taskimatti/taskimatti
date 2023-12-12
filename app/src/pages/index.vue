@@ -1,17 +1,25 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { useAssets, useProjects } from "~/composables/states";
+import { type Ref, ref } from "vue";
+import { useSeoMeta } from "@unhead/vue";
+import { useAssets, useOrganisation, useProjects } from "~/composables/states";
 
+const org: Ref<Organisation> = ref(useOrganisation().value);
 const projects = ref({});
-const assets = ref({});
+const assets: Ref<String | null> = ref("");
 
 const updatePage = async () => {
+  org.value = useOrganisation().value;
   projects.value = useProjects();
-  assets.value = useAssets();
+  assets.value = useAssets().value;
   //
 };
 
 await updatePage();
+
+useSeoMeta({
+  title: org.value.name,
+  description: org.value.description,
+});
 </script>
 
 <template>
@@ -22,12 +30,13 @@ await updatePage();
         <NuxtLink :to="project.id">
           <div class="rounded-lg shadow-lg overflow-hidden" :style="'background: ' + project.colorScheme">
             <NuxtImg
-              :src="assets.value + project.image"
+              :src="assets + project.image"
               class="w-full h-32 object-cover"
               width="384"
               height="128"
               quality="10"
               placeholder="/images/placeholder.svg"
+              :alt="project.name"
             />
             <div class="p-6">
               <h2 class="text-2xl font-bold mb-2">{{ project.name }}</h2>

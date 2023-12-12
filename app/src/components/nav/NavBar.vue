@@ -13,15 +13,19 @@ import {
 } from "@heroicons/vue/24/outline";
 import { type Ref, ref, watch } from "vue";
 import { useRoute } from "vue-router";
-import { useProjects, useUser, useRoles, useProject } from "~/composables/states";
+import { useProjects, useUser, useRoles, useProject, useAssets } from "~/composables/states";
+import { useSeoMeta } from "@unhead/vue";
 
 const route = useRoute();
 const uuid: Ref<string> = ref(""); // project uuid
+const page: Ref<string | undefined> = ref(""); // current page
 const project: Ref<Project | null> = ref(null);
 const role: Ref<Role | null> = ref(null);
+const assets: Ref<String | null> = ref(useAssets().value);
 
 const updatePage = async () => {
   uuid.value = route.path.split("/")[1];
+  page.value = route.path.split("/")[2];
 
   const foundProject = useProjects().value?.find((p) => p.id === uuid.value);
 
@@ -39,6 +43,12 @@ const updatePage = async () => {
   if (_user.value && _roles.value) {
     role.value = _roles.value.find((_role) => _role.id === _user.value.role)!;
   }
+  useSeoMeta({
+    title: `${project.value?.name} | ${
+      page.value ? page.value?.charAt(0).toUpperCase() + page.value?.slice(1) : "Tasks"
+    }`,
+    description: project.value?.description,
+  });
 };
 
 watch(
@@ -62,7 +72,7 @@ if (process.client) {
     >
       <div class="flex items-center justify-around gap-0 m-auto">
         <nuxt-link :to="'/' + uuid" class="p-4 h-full w-full flex justify-center items-center flex-col">
-          <CheckBadgeIconSolid v-if="route.path.split('/')[2] == undefined" class="h-6 w-6 text-white" />
+          <CheckBadgeIconSolid v-if="page == undefined" class="h-6 w-6 text-white" />
           <CheckBadgeIconOutline v-else class="h-6 w-6 text-white" />
           <p class="text-white text-sm">Tasks</p>
         </nuxt-link>
@@ -71,12 +81,12 @@ if (process.client) {
           :to="'/' + uuid + '/scoreboard'"
           class="p-4 h-full w-full flex justify-center items-center flex-col"
         >
-          <ChartBarIconSolid v-if="route.path.split('/')[2] === 'scoreboard'" class="h-6 w-6 text-white" />
+          <ChartBarIconSolid v-if="page === 'scoreboard'" class="h-6 w-6 text-white" />
           <ChartBarIconOutline v-else class="h-6 w-6 text-white" />
           <p class="text-white text-sm">Scoreboard</p>
         </nuxt-link>
         <nuxt-link :to="'/' + uuid + '/account'" class="p-4 h-full w-full flex justify-center items-center flex-col">
-          <UserIconSolid v-if="route.path.split('/')[2] === 'account'" class="h-6 w-6 text-white" />
+          <UserIconSolid v-if="page === 'account'" class="h-6 w-6 text-white" />
           <UserIconOutline v-else class="h-6 w-6 text-white" />
 
           <p class="text-white text-sm">Account</p>
@@ -86,7 +96,7 @@ if (process.client) {
           :to="'/' + uuid + '/admin'"
           class="p-4 h-full w-full flex justify-center items-center flex-col"
         >
-          <SparklesIconSolid v-if="route.path.split('/')[2] === 'admin'" class="h-6 w-6 text-white" />
+          <SparklesIconSolid v-if="page === 'admin'" class="h-6 w-6 text-white" />
           <SparklesIconOutline v-else class="h-6 w-6 text-white" />
 
           <p class="text-white text-sm">Admin</p>

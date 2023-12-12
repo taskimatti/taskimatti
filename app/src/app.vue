@@ -42,7 +42,7 @@ const org = useOrganisation();
 const projects: Ref<[Project] | null> = useProjects();
 const project = useProject();
 const roles = useRoles();
-const assets = useAssets();
+const assets: Ref<String | null> = useAssets();
 
 const { data: _org } = await useAsyncData(() => {
   return $directus.request($readItems("Organisation"));
