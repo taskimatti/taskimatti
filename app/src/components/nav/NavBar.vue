@@ -13,7 +13,7 @@ import {
 } from "@heroicons/vue/24/outline";
 import { ref, watch } from "vue";
 import { useRoute } from "vue-router";
-import { useProject, useProjects, useUser, useRoles } from "../../composables/states";
+import { useProject, useProjects, useUser, useRoles } from "~/composables/states";
 
 const route = useRoute();
 const _project = ref({});
@@ -34,8 +34,8 @@ const updatePage = async () => {
 
   const _user = useUser();
   const _roles = useRoles();
-  if (_user.value) {
-    role.value = _roles.value.find((_role) => _role.id === _user.value.role);
+  if (_user.value && _roles.value) {
+    role.value = _roles.value.find((_role) => _role.id === _user.value.role)!;
   }
 };
 
@@ -45,8 +45,9 @@ watch(
     await updatePage();
   },
 );
-
-updatePage();
+if (process.client) {
+  await updatePage();
+}
 </script>
 <template>
   <div>
@@ -58,7 +59,7 @@ updatePage();
     >
       <div class="flex items-center justify-around gap-0 m-auto">
         <nuxt-link :to="'/' + project" class="p-4 h-full w-full flex justify-center items-center flex-col">
-          <CheckBadgeIconSolid v-if="route.path.split('/')[2] === undefined" class="h-6 w-6 text-white" />
+          <CheckBadgeIconSolid v-if="route.path.split('/')[2] == undefined" class="h-6 w-6 text-white" />
           <CheckBadgeIconOutline v-else class="h-6 w-6 text-white" />
           <p class="text-white text-sm">Tasks</p>
         </nuxt-link>
