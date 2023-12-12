@@ -1,19 +1,19 @@
 <script setup lang="ts">
 import {
-  CheckBadgeIcon as CheckBadgeIconSolid,
   ChartBarIcon as ChartBarIconSolid,
-  UserIcon as UserIconSolid,
+  CheckBadgeIcon as CheckBadgeIconSolid,
   SparklesIcon as SparklesIconSolid,
+  UserIcon as UserIconSolid,
 } from '@heroicons/vue/24/solid';
 import {
-  CheckBadgeIcon as CheckBadgeIconOutline,
   ChartBarIcon as ChartBarIconOutline,
-  UserIcon as UserIconOutline,
+  CheckBadgeIcon as CheckBadgeIconOutline,
   SparklesIcon as SparklesIconOutline,
+  UserIcon as UserIconOutline,
 } from '@heroicons/vue/24/outline';
 import { type Ref, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
-import { useProjects, useUser, useRoles, useProject, useAssets } from '~/composables/states';
+import { useAssets, useProject, useProjects, useRoles, useUser } from '~/composables/states';
 import { useSeoMeta } from '@unhead/vue';
 
 const route = useRoute();
@@ -34,7 +34,7 @@ const updatePage = async () => {
 
   if (foundProject) {
     project.value = foundProject;
-    useProject().value = foundProject;
+    useProject().value = { ...foundProject };
   } else {
     project.value = null;
     useProject().value.id = undefined;

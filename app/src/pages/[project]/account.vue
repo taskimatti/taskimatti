@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { readMe, readRole, readUser } from '@directus/sdk';
 import { useRoute } from 'vue-router';
-import { ref, onMounted, type Ref } from 'vue';
+import { onMounted, ref, type Ref } from 'vue';
 import { useDirectus } from '~/composables/directus';
 import { logout as directusLogout } from '~/composables/auth';
 import { useUser } from '~/composables/states';
