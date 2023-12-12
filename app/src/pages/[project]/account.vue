@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { readMe, readRole, readUser } from "@directus/sdk";
 import { useRoute } from "vue-router";
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { useDirectus } from "~/composables/directus";
-import { logout as directusLogout } from "../../composables/auth";
+import { logout as directusLogout } from "~/composables/auth";
 
 const { $directus } = useDirectus();
 
@@ -11,20 +11,34 @@ const route = useRoute();
 const uuid = ref(route.params.id);
 const role = ref({});
 
-const { data: user } = await useAsyncData(() => {
+// Initialize user and role with placeholder data
+const user = ref({
+  first_name: "Loading...",
+  avatar: "a4a04573-ed55-4c7d-b81f-efb13d5b768c",
+  role: "Loading...",
+});
+
+role.value = "Loading...";
+
+onMounted(async () => {
   if (uuid.value) {
-    return $directus.request(
-      readUser(uuid.value.toString(), {
-        fields: ["first_name", "avatar", "role"],
-      }),
+    const userData = await $directus.request(
+        readUser(uuid.value.toString(), {
+          fields: ["first_name", "avatar", "role"],
+        }),
     );
+    user.value = userData;
+  } else {
+    const meData = await $directus.request(
+        readMe({ fields: ["first_name", "avatar", "role"] }),
+    );
+    user.value = meData;
   }
-  return $directus.request(readMe({ fields: ["first_name", "avatar", "role"] }));
+
+  const roleData = await $directus.request(readRole(user?.value?.role, { fields: ["name"] }));
+  role.value = roleData.name;
+
 });
-const { data: roleData } = await useAsyncData(() => {
-  return $directus.request(readRole(user?.value?.role, { fields: ["name"] }));
-});
-role.value = roleData;
 
 const logout = async () => {
   const response = await directusLogout();
@@ -35,11 +49,18 @@ const logout = async () => {
 </script>
 <template>
   <div>
-    <Account :key="user.id" :user="user" :role="role.name" :image="$directus.url.href + 'assets/' + user.avatar" />
+    <client-only>
+      <Account
+          :key="user.id"
+          :user="user"
+          :role="role"
+          :image="$directus.url.href + 'assets/' + user.avatar"
+      />
+    </client-only>
   </div>
   <button
-    @click="logout"
-    class="group relative w-full mt-5 flex justify-center py-2 px-4 text-sm font-medium rounded-md text-white bg-red-500 hover:bg-red-600"
+      @click="logout"
+      class="group relative w-full mt-5 flex justify-center py-2 px-4 text-sm font-medium rounded-md text-white bg-red-500 hover:bg-red-600"
   >
     Logout
   </button>
