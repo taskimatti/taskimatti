@@ -2,9 +2,9 @@
 import { ref } from "vue";
 import { useRoute } from "vue-router";
 import { readMe, readRoles } from "@directus/sdk";
-import { useAssets, useProject, useProjects, useRoles, useUser } from "./composables/states";
-import { useDirectus } from "./composables/directus";
-import { refresh } from "./composables/auth";
+import { useAssets, useProject, useProjects, useRoles, useUser } from "~/composables/states";
+import { useDirectus } from "~/composables/directus";
+import { refresh } from "~/composables/auth";
 import TopBar from "~/components/nav/TopBar.vue";
 import NavBar from "~/components/nav/NavBar.vue";
 
@@ -23,6 +23,12 @@ if (process.client) {
         }
       }
     }
+
+    // Fetch user data only when a valid token exists
+    const { data: _user } = await useAsyncData(() => {
+      return $directus.request(readMe({ fields: ["role"] }));
+    });
+    useUser().value = _user;
   } else {
     if (window.location.pathname !== "/login") window.location.href = "/login";
   }
@@ -34,7 +40,6 @@ const uuid = ref(route?.params?.project?.toString());
 
 const projects = useProjects();
 const project = useProject();
-const user = useUser();
 const roles = useRoles();
 const assets = useAssets();
 
@@ -42,16 +47,11 @@ const { data: _projects } = await useAsyncData(() => {
   return $directus.request($readItems("Project"));
 });
 
-const { data: _user } = await useAsyncData(() => {
-  return $directus.request(readMe({ fields: ["role"] }));
-});
-
 const { data: _roles } = await useAsyncData(() => {
   return $directus.request(readRoles({ fields: ["id", "name", "admin_access"] }));
 });
 
 projects.value = _projects;
-user.value = _user;
 roles.value = _roles;
 
 if (uuid.value) {
