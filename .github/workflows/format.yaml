@@ -22,4 +22,6 @@ jobs:
           npm ci
 
       - name: Check code formatting
-        run: npm run format -- --check
+        run: |
+          cd ./app 
+          npm run format -- --check
