@@ -35,6 +35,7 @@ useSeoMeta({
   title: `${org.value?.name} | Login`,
   description: org.value?.description,
   ogImage: `${$directus.url.href}assets/${org.value?.image}`,
+  themeColor: org.value?.color_scheme,
 });
 </script>
 
