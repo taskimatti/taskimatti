@@ -4,28 +4,28 @@ import {
   ChartBarIcon as ChartBarIconSolid,
   UserIcon as UserIconSolid,
   SparklesIcon as SparklesIconSolid,
-} from "@heroicons/vue/24/solid";
+} from '@heroicons/vue/24/solid';
 import {
   CheckBadgeIcon as CheckBadgeIconOutline,
   ChartBarIcon as ChartBarIconOutline,
   UserIcon as UserIconOutline,
   SparklesIcon as SparklesIconOutline,
-} from "@heroicons/vue/24/outline";
-import { type Ref, ref, watch } from "vue";
-import { useRoute } from "vue-router";
-import { useProjects, useUser, useRoles, useProject, useAssets } from "~/composables/states";
-import { useSeoMeta } from "@unhead/vue";
+} from '@heroicons/vue/24/outline';
+import { type Ref, ref, watch } from 'vue';
+import { useRoute } from 'vue-router';
+import { useProjects, useUser, useRoles, useProject, useAssets } from '~/composables/states';
+import { useSeoMeta } from '@unhead/vue';
 
 const route = useRoute();
-const uuid: Ref<string> = ref(""); // project uuid
-const page: Ref<string | undefined> = ref(""); // current page
+const uuid: Ref<string> = ref(''); // project uuid
+const page: Ref<string | undefined> = ref(''); // current page
 const project: Ref<Project | null> = ref(null);
 const role: Ref<Role | null> = ref(null);
 const assets: Ref<String | null> = ref(useAssets().value);
 
 const updatePage = async () => {
-  uuid.value = route.path.split("/")[1];
-  page.value = route.path.split("/")[2];
+  uuid.value = route.path.split('/')[1];
+  page.value = route.path.split('/')[2];
 
   const foundProject = useProjects().value?.find((p) => p.id === uuid.value);
 
@@ -45,7 +45,7 @@ const updatePage = async () => {
   }
   useSeoMeta({
     title: `${project.value?.name} | ${
-      page.value ? page.value?.charAt(0).toUpperCase() + page.value?.slice(1) : "Tasks"
+      page.value ? page.value?.charAt(0).toUpperCase() + page.value?.slice(1) : 'Tasks'
     }`,
     description: project.value?.description,
   });

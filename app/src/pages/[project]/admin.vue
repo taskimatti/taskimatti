@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { readUsers } from "@directus/sdk";
-import { useState } from "nuxt/app";
-import { useDirectus } from "~/composables/directus";
-import { useRoles, useUser } from "~/composables/states";
+import { readUsers } from '@directus/sdk';
+import { useState } from 'nuxt/app';
+import { useDirectus } from '~/composables/directus';
+import { useRoles, useUser } from '~/composables/states';
 
 const { $directus } = useDirectus();
 
@@ -12,7 +12,7 @@ const user = useUser();
 
 const fetchData = async () => {
   const { data: _users } = useAsyncData(() => {
-    return $directus.request(readUsers({ fields: ["id", "first_name", "avatar", "role"] }));
+    return $directus.request(readUsers({ fields: ['id', 'first_name', 'avatar', 'role'] }));
   });
 
   users.value = _users;

@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { readMe, readRole, readUser } from "@directus/sdk";
-import { useRoute } from "vue-router";
-import { ref, onMounted } from "vue";
-import { useDirectus } from "~/composables/directus";
-import { logout as directusLogout } from "~/composables/auth";
+import { readMe, readRole, readUser } from '@directus/sdk';
+import { useRoute } from 'vue-router';
+import { ref, onMounted } from 'vue';
+import { useDirectus } from '~/composables/directus';
+import { logout as directusLogout } from '~/composables/auth';
 
 const { $directus } = useDirectus();
 
@@ -13,34 +13,34 @@ const role = ref({});
 
 // Initialize user and role with placeholder data
 const user = ref({
-  first_name: "Loading...",
-  avatar: "a4a04573-ed55-4c7d-b81f-efb13d5b768c",
-  role: "Loading...",
+  first_name: 'Loading...',
+  avatar: 'a4a04573-ed55-4c7d-b81f-efb13d5b768c',
+  role: 'Loading...',
 });
 
-role.value = "Loading...";
+role.value = 'Loading...';
 
 onMounted(async () => {
   if (uuid.value) {
     const userData = await $directus.request(
       readUser(uuid.value.toString(), {
-        fields: ["first_name", "avatar", "role"],
+        fields: ['first_name', 'avatar', 'role'],
       }),
     );
     user.value = userData;
   } else {
-    const meData = await $directus.request(readMe({ fields: ["first_name", "avatar", "role"] }));
+    const meData = await $directus.request(readMe({ fields: ['first_name', 'avatar', 'role'] }));
     user.value = meData;
   }
 
-  const roleData = await $directus.request(readRole(user?.value?.role, { fields: ["name"] }));
+  const roleData = await $directus.request(readRole(user?.value?.role, { fields: ['name'] }));
   role.value = roleData.name;
 });
 
 const logout = async () => {
   const response = await directusLogout();
-  if (response === "success") {
-    window.location.href = "/login";
+  if (response === 'success') {
+    window.location.href = '/login';
   }
 };
 </script>

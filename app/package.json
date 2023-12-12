@@ -10,7 +10,7 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "format": "prettier --write src/**/*.{tsx,jsx,ts,js,vue} --print-width=120"
+    "format": "prettier --write src/**/*.{tsx,jsx,ts,js,vue}"
   },
   "dependencies": {
     "@directus/sdk": "^13.0.2",

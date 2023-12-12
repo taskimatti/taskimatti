@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
-import { readUsers } from "@directus/sdk";
-import { useProject } from "~/composables/states";
-import { useDirectus } from "~/composables/directus";
+import { ref, onMounted } from 'vue';
+import { readUsers } from '@directus/sdk';
+import { useProject } from '~/composables/states';
+import { useDirectus } from '~/composables/directus';
 
 const { $directus } = useDirectus();
 
 // Initialize users with placeholder data
 const users = ref(
   Array(10).fill({
-    id: "Loading...",
-    first_name: "Loading...",
-    avatar: "placeholder.jpg",
-    role: "Loading...",
+    id: 'Loading...',
+    first_name: 'Loading...',
+    avatar: 'placeholder.jpg',
+    role: 'Loading...',
     score: 0,
     rank: 0,
   }),

@@ -1,16 +1,16 @@
 <script setup lang="ts">
-let sha = "null";
-await fetch("https://api.github.com/repos/serveri/fuksipassi/commits/main")
+let sha = 'null';
+await fetch('https://api.github.com/repos/serveri/fuksipassi/commits/main')
   .then((response) => response.json())
   .then((data) => {
     sha = data.sha;
   })
   .catch((error) => {
     console.error(error);
-    sha = "error";
+    sha = 'error';
   });
 
-if (sha == undefined) sha = "error";
+if (sha == undefined) sha = 'error';
 </script>
 
 <template>

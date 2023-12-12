@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { type Ref, ref } from "vue";
-import { useSeoMeta } from "@unhead/vue";
-import { useAssets, useOrganisation, useProjects } from "~/composables/states";
+import { type Ref, ref } from 'vue';
+import { useSeoMeta } from '@unhead/vue';
+import { useAssets, useOrganisation, useProjects } from '~/composables/states';
 
 const org: Ref<Organisation> = ref(useOrganisation().value);
 const projects = ref({});
-const assets: Ref<String | null> = ref("");
+const assets: Ref<String | null> = ref('');
 
 const updatePage = async () => {
   org.value = useOrganisation().value;

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { CheckIcon } from "@heroicons/vue/20/solid";
+import { CheckIcon } from '@heroicons/vue/20/solid';
 </script>
 
 <script lang="ts">
@@ -10,7 +10,7 @@ export default {
     },
     unit: {
       type: String,
-      default: "bits",
+      default: 'bits',
     },
   },
 };

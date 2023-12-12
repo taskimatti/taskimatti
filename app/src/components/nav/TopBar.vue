@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { type Ref, ref, watch } from "vue";
-import { useAssets, useProject } from "~/composables/states";
+import { type Ref, ref, watch } from 'vue';
+import { useAssets, useProject } from '~/composables/states';
 
 const project: Ref<Project | null> = ref(null);
-const assets: Ref<String | null> = ref("");
+const assets: Ref<String | null> = ref('');
 const updatePage = async () => {
   project.value = useProject().value;
   assets.value = useAssets().value;

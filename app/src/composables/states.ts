@@ -1,7 +1,7 @@
-import { useState } from "nuxt/app";
+import { useState } from 'nuxt/app';
 
 export const useOrganisation = () =>
-  useState<Organisation>("organisation", () => {
+  useState<Organisation>('organisation', () => {
     return {
       id: undefined,
       name: undefined,
@@ -14,10 +14,10 @@ export const useOrganisation = () =>
       date_updated: undefined,
     };
   });
-export const useProjects = () => useState<[Project] | null>("projects", () => null);
+export const useProjects = () => useState<[Project] | null>('projects', () => null);
 
 export const useProject = () =>
-  useState<Project>("project", () => {
+  useState<Project>('project', () => {
     return {
       id: undefined,
       status: undefined,
@@ -34,7 +34,7 @@ export const useProject = () =>
   });
 
 export const useUser = () =>
-  useState<User>("user", () => {
+  useState<User>('user', () => {
     return {
       first_name: undefined,
       last_name: undefined,
@@ -68,6 +68,6 @@ export const useUser = () =>
     };
   });
 
-export const useRoles = () => useState<[Role] | null>("roles", () => null);
+export const useRoles = () => useState<[Role] | null>('roles', () => null);
 
-export const useAssets = () => useState<String | null>("assets", () => null);
+export const useAssets = () => useState<String | null>('assets', () => null);
