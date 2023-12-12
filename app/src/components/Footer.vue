@@ -16,7 +16,7 @@ if (sha == undefined) sha = 'error';
 <template>
   <div class="flex justify-center mt-8 mb-2">
     <div>
-      <p>Fuksipassi 2023</p>
+      <p>Taskimatti 2023</p>
       <p>
         Version
         <a class="underline" href="https://github.com/serveri/fuksipassi/tree/main"> {{ sha?.slice(0, 7) }}</a>
@@ -25,7 +25,7 @@ if (sha == undefined) sha = 'error';
       <dev-only class="text-green-700">Mode <span class="text-green-700">DEV</span></dev-only>
       <p>
         Build and maintained by
-        <a class="underline" href="https://github.com/serveri">Fuksipassi</a>
+        <a class="underline" href="https://github.com/serveri">Taskimatti</a>
       </p>
     </div>
   </div>

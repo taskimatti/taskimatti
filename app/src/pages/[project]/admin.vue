@@ -6,21 +6,27 @@ import { useRoles, useUser } from '~/composables/states';
 
 const { $directus } = useDirectus();
 
-let users = useState(() => {});
+let users: Ref<User[] | null> = useState(() => null);
 const roles = useRoles();
-const user = useUser();
+const user: Ref<User> = useUser();
 
 const fetchData = async () => {
   const { data: _users } = useAsyncData(() => {
     return $directus.request(readUsers({ fields: ['id', 'first_name', 'avatar', 'role'] }));
   });
 
-  users.value = _users;
+  if (_users.value !== null) {
+    for (const _user of _users.value) {
+      _user.role = _user.role.id;
+    }
+  } else {
+    _users.value = [];
+  }
 };
 
 await fetchData();
 
-const isAdmin = roles.value.find((role) => role.id === user.value.role).admin_access;
+const isAdmin = roles.value?.find((role) => role.id === user.value?.role)?.admin_access;
 </script>
 
 <template>
