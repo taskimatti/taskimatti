@@ -36,6 +36,7 @@ const updatePage = async () => {
     project.value = foundProject;
     useProject().value = { ...foundProject };
   } else {
+    uuid.value = '';
     project.value = null;
     useProject().value.id = undefined;
   }
@@ -43,12 +44,14 @@ const updatePage = async () => {
   if (_user.value && _roles.value) {
     role.value = _roles.value.find((_role) => _role.id === _user.value.role)!;
   }
-  useSeoMeta({
-    title: `${project.value?.name} | ${
-      page.value ? page.value?.charAt(0).toUpperCase() + page.value?.slice(1) : 'Tasks'
-    }`,
-    description: project.value?.description,
-  });
+  if (project.value) {
+    useSeoMeta({
+      title: `${project.value?.name} | ${
+        page.value ? page.value?.charAt(0).toUpperCase() + page.value?.slice(1) : 'Tasks'
+      }`,
+      description: project.value?.description,
+    });
+  }
 };
 
 watch(

@@ -13,14 +13,16 @@ const updatePage = async () => {
   assets.value = useAssets().value;
 
   useSeoMeta({
-    title: org.value.name,
+    title: org.value?.name || 'Taskimatti',
     description: org.value.description,
   });
 };
 
-await updatePage();
-
-console.log(projects.value);
+while (true) {
+  await updatePage();
+  await new Promise((resolve) => setTimeout(resolve, 50));
+  if (org.value && projects.value && assets.value) break;
+}
 </script>
 
 <template>

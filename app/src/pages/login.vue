@@ -1,10 +1,23 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { type Ref, ref } from 'vue';
 import { login as directusLogin } from '~/composables/auth';
+import { useSeoMeta } from '@unhead/vue';
+import { useDirectus } from '~/composables/directus';
+import { useOrganisation } from '~/composables/states';
 
 let userEmail = ref('');
 let userPass = ref('');
 let msg = ref('');
+
+const { $directus, $readItem } = useDirectus();
+
+const { data: _org } = await useAsyncData(() => {
+  return $directus.request($readItem('Organisation', '1'));
+});
+
+const org: Ref<Organisation> = ref(useOrganisation());
+org.value = { ...org.value, ..._org.value };
+console.log(org.value);
 
 const login = async () => {
   const credentials = {
@@ -18,6 +31,11 @@ const login = async () => {
     msg.value = response;
   }
 };
+useSeoMeta({
+  title: `${org.value?.name} | Login`,
+  description: org.value?.description,
+  ogImage: `${$directus.url.href}assets/${org.value?.image}`,
+});
 </script>
 
 <template>
