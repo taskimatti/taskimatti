@@ -163,7 +163,7 @@ We use Docker to run the application in a containerized environment.
 
 #### Prerequisites
 
-- [Docker](https://www.docker.com/) (v20.10.8)
+- [Docker](https://www.docker.com/) (v24.0.7 or newer)
 
 #### Configuration
 
