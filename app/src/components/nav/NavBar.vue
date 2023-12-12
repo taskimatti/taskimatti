@@ -36,6 +36,7 @@ const updatePage = async () => {
     project.value = foundProject;
     useProject().value = { ...foundProject };
   } else {
+    uuid.value = '';
     project.value = null;
     useProject().value.id = undefined;
   }
