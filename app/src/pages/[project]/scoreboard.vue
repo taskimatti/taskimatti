@@ -7,14 +7,16 @@ import { useDirectus } from "~/composables/directus";
 const { $directus } = useDirectus();
 
 // Initialize users with placeholder data
-const users = ref(Array(10).fill({
-  id: "Loading...",
-  first_name: "Loading...",
-  avatar: "placeholder.jpg",
-  role: "Loading...",
-  score: 0,
-  rank: 0
-}));
+const users = ref(
+  Array(10).fill({
+    id: "Loading...",
+    first_name: "Loading...",
+    avatar: "placeholder.jpg",
+    role: "Loading...",
+    score: 0,
+    rank: 0,
+  }),
+);
 
 const project = ref({});
 
@@ -50,9 +52,9 @@ onMounted(async () => {
     <h1 class="text-4xl font-bold text-gray-200 text-center">Scoreboard</h1>
     <ol class="w-full mt-8">
       <li
-          v-for="user in users"
-          :key="user.id"
-          class="bg-slate-900 odd:bg-slate-800 w-full rounded-lg p-4 my-2 shadow-lg"
+        v-for="user in users"
+        :key="user.id"
+        class="bg-slate-900 odd:bg-slate-800 w-full rounded-lg p-4 my-2 shadow-lg"
       >
         <ScoreBoardUser :user="user" :unit="project.value?.units" />
       </li>

@@ -3,7 +3,6 @@ import { CheckIcon } from "@heroicons/vue/20/solid";
 </script>
 
 <script lang="ts">
-
 export default {
   props: {
     task: {
