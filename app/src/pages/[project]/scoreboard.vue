@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import { readUsers } from '@directus/sdk';
 import { useProject } from '~/composables/states';
 import { useDirectus } from '~/composables/directus';
@@ -21,8 +21,7 @@ const users = ref(
 const project = ref({});
 
 const updatePage = async () => {
-  const userData = await $directus.request(readUsers());
-  users.value = userData;
+  users.value = await $directus.request(readUsers());
 
   // give users a score
   users.value.forEach((user) => {

@@ -1,40 +1,66 @@
 <script setup lang="ts">
 import { readMe, readRole, readUser } from '@directus/sdk';
 import { useRoute } from 'vue-router';
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, type Ref } from 'vue';
 import { useDirectus } from '~/composables/directus';
 import { logout as directusLogout } from '~/composables/auth';
+import { useUser } from '~/composables/states';
 
 const { $directus } = useDirectus();
 
 const route = useRoute();
 const uuid = ref(route.params.id);
-const role = ref({});
+const role: Ref<string> = ref('Loading...');
+const user: Ref<User> = ref(useUser());
 
-// Initialize user and role with placeholder data
-const user = ref({
-  first_name: 'Loading...',
-  avatar: 'a4a04573-ed55-4c7d-b81f-efb13d5b768c',
-  role: 'Loading...',
-});
+user.value.id = 'Loading...';
+user.value.first_name = 'Loading...';
+user.value.avatar = 'placeholder.jpg';
 
-role.value = 'Loading...';
+const fetchUserData = async (userId: string) => {
+  try {
+    const userData = await $directus.request(
+      readUser(userId, {
+        fields: ['id', 'first_name', 'avatar', 'role'],
+      }),
+    );
+    user.value.id = userData.id;
+    user.value.first_name = userData.first_name;
+    user.value.avatar = userData.avatar;
+    user.value.role = userData.role;
+
+    await getRoleName(userData.role);
+  } catch (error) {
+    console.error('Failed to fetch user data:', error);
+  }
+};
+
+const getRoleName = async (roleId: string) => {
+  try {
+    const roleData = await $directus.request(
+      readRole(roleId, {
+        fields: ['name'],
+      }),
+    );
+    role.value = roleData.name;
+  } catch (error) {
+    console.error('Failed to fetch role name:', error);
+  }
+};
 
 onMounted(async () => {
   if (uuid.value) {
-    const userData = await $directus.request(
-      readUser(uuid.value.toString(), {
-        fields: ['first_name', 'avatar', 'role'],
-      }),
-    );
-    user.value = userData;
+    await fetchUserData(uuid.value.toString());
   } else {
-    const meData = await $directus.request(readMe({ fields: ['first_name', 'avatar', 'role'] }));
-    user.value = meData;
+    const meData = await $directus.request(readMe({ fields: ['id', 'first_name', 'avatar', 'role'] }));
+    user.value.id = meData.id;
+    user.value.first_name = meData.first_name;
+    user.value.avatar = meData.avatar;
+    user.value.role = meData.role;
+    if (user.value.role) {
+      await getRoleName(user.value.role);
+    }
   }
-
-  const roleData = await $directus.request(readRole(user?.value?.role, { fields: ['name'] }));
-  role.value = roleData.name;
 });
 
 const logout = async () => {

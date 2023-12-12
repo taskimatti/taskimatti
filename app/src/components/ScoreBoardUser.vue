@@ -11,10 +11,14 @@ const updatePage = async () => {
 await updatePage();
 </script>
 <script lang="ts">
+interface UserWithRank extends User {
+  rank: number | undefined;
+  score: number | undefined;
+}
 export default {
   props: {
     user: {
-      type: Object,
+      type: Object as () => UserWithRank,
       required: true,
     },
     unit: {
