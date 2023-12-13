@@ -82,7 +82,7 @@ assets.value = $directus.url.href + 'assets/';
 </script>
 
 <template>
-  <div class="min-h-screen bg-gray-900">
+  <div class="bg-cringe min-h-screen">
     <TopBar />
     <div class="container">
       <div class="min-h-[50vh]">
