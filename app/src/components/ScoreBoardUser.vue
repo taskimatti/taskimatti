@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { useAssets } from "../composables/states";
+import { ref } from 'vue';
+import { useAssets } from '~/composables/states';
 
 const assets = ref({});
 
@@ -11,10 +11,14 @@ const updatePage = async () => {
 await updatePage();
 </script>
 <script lang="ts">
+interface UserWithRank extends User {
+  rank: number | undefined;
+  score: number | undefined;
+}
 export default {
   props: {
     user: {
-      type: Object,
+      type: Object as () => UserWithRank,
       required: true,
     },
     unit: {
@@ -38,7 +42,7 @@ export default {
         placeholder="/images/avatar.jpg"
       />
       <div>
-        <p class="text-2xl font-bold">{{ user.first_name }}</p>
+        <p class="text-2xl font-bold w-32">{{ user.first_name }}</p>
       </div>
     </div>
     <p class="text-xl font-medium text-gray-200">{{ user.score }} {{ unit }}</p>

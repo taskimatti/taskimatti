@@ -1,34 +1,33 @@
 <script setup lang="ts">
-import { ref, watch } from "vue";
-import { useAssets, useProject } from "../../composables/states";
+import { type Ref, ref, watch } from 'vue';
+import { useAssets, useProject } from '~/composables/states';
 
-const project = ref({});
-const assets = ref({});
+const project: Ref<Project | null> = ref(null);
+const assets: Ref<String | null> = ref('');
 const updatePage = async () => {
-  project.value = useProject();
-  assets.value = useAssets();
+  project.value = useProject().value;
+  assets.value = useAssets().value;
 };
 
 await updatePage();
 
 watch(
-  () => project.value,
-  async (newProject) => {
-    project.value = newProject;
+  () => useProject().value,
+  async () => {
     await updatePage();
   },
 );
 </script>
 
 <template>
-  <div v-if="project?.value?.id">
+  <div v-if="project?.id">
     <div
       class="flex flex-row items-center justify-between p-2 h-16"
-      :style="'background: ' + project.value.colorScheme + ';'"
+      :style="'background: ' + project?.colorScheme + ';'"
     >
       <NuxtLink :to="'/'">
         <NuxtImg
-          :src="assets.value + project.value.image"
+          :src="assets + project?.image"
           class="w-12 h-12 object-cover rounded-full"
           width="48"
           height="48"
@@ -37,10 +36,13 @@ watch(
         />
       </NuxtLink>
       <div class="flex">
-        <h1 class="text-3xl text-white">{{ project.value.name }}</h1>
+        <h1 class="text-3xl text-white">{{ project?.name }}</h1>
         <dev-only><p class="text-green-700">DEV</p></dev-only>
       </div>
-      <p>{{ 12 }} {{ project.value.units }}</p>
+      <p>
+        {{ new Date().getMilliseconds().toString().slice(0, 2) }}
+        {{ project?.units }}
+      </p>
     </div>
   </div>
 </template>

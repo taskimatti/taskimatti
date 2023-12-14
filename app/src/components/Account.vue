@@ -1,7 +1,7 @@
 <script setup lang="ts">
 const props = defineProps({
   user: {
-    type: Object,
+    type: Object as () => User,
     required: true,
   },
   role: {

@@ -1,33 +1,48 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { readUsers } from "@directus/sdk";
-import { useProject } from "../../composables/states";
+import { onMounted, ref } from 'vue';
+import { readUsers } from '@directus/sdk';
+import { useProject } from '~/composables/states';
+import { useDirectus } from '~/composables/directus';
 
-const { $directus } = useNuxtApp();
+const { $directus } = useDirectus();
 
-const users = ref([]);
+// Initialize users with placeholder data
+const users = ref(
+  Array(10).fill({
+    id: 'Loading...',
+    first_name: 'Loading...',
+    avatar: 'placeholder.jpg',
+    role: 'Loading...',
+    score: 0,
+    rank: 0,
+  }),
+);
+
 const project = ref({});
 
 const updatePage = async () => {
   users.value = await $directus.request(readUsers());
+
+  // give users a score
+  users.value.forEach((user) => {
+    user.score = 0;
+  });
+
+  // rank users by score
+  users.value.sort((a, b) => {
+    return b.score - a.score;
+  });
+
+  // give users a rank
+  users.value.forEach((user, index) => {
+    user.rank = index + 1;
+  });
 };
-project.value = await useProject();
 
-await updatePage();
+project.value = useProject();
 
-// give users a score
-users.value.forEach((user) => {
-  user.score = 0;
-});
-
-// rank users by score
-users.value.sort((a, b) => {
-  return b.score - a.score;
-});
-
-// give users a rank
-users.value.forEach((user, index) => {
-  user.rank = index + 1;
+onMounted(async () => {
+  await updatePage();
 });
 </script>
 
