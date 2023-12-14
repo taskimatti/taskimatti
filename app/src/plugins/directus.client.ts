@@ -1,4 +1,4 @@
-import { createDirectus, rest, readItem, readItems, authentication } from "@directus/sdk";
+import { authentication, createDirectus, readItem, readItems, rest } from '@directus/sdk';
 
 async function setupDirectus(url: string) {
   const directus = createDirectus(url).with(authentication()).with(rest());
