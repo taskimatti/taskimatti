@@ -5,6 +5,10 @@ import { useSeoMeta } from '@unhead/vue';
 import { useDirectus } from '~/composables/directus';
 import { useOrganisation } from '~/composables/states';
 
+import Modal from '~/components/Modal.vue';
+import { defineComponent } from 'vue'
+import { ref, reactive, computed } from 'vue'
+
 let userEmail = ref('');
 let userPass = ref('');
 let msg = ref('');
@@ -14,6 +18,9 @@ const { $directus, $readItem } = useDirectus();
 const { data: _org } = await useAsyncData(() => {
   return $directus.request($readItem('Organisation', '1'));
 });
+
+//Modal window toggle
+const isOpen = ref(false)
 
 const org: Ref<Organisation> = ref(useOrganisation());
 org.value = { ...org.value, ..._org.value };
@@ -31,15 +38,15 @@ const login = async () => {
     msg.value = response;
   }
 };
+
 useSeoMeta({
   title: `${org.value?.name} | Login`,
   description: org.value?.description,
   ogImage: `${$directus.url.href}assets/${org.value?.image}`,
   themeColor: org.value?.color_scheme,
 });
+
 </script>
-
-
 
 <template>
   <div class="flex flex-col justify-center py-12 sm:px-6 lg:px-8">
@@ -58,21 +65,26 @@ useSeoMeta({
           v-model="userEmail"
           type="text"
           placeholder="Email"
-          class="bg-cringe_box text-cringe_boxtext placeholder-cringe_boxtext border-cringe block w-full px-3 py-2 border-4 rounded-md shadow-sm focus:outline-none focus:ring-cringe_back focus:border-cringe_front sm:text-sm"
+          class="bg-cringe_box text-cringe_front placeholder-cringe_front border-cringe block w-full px-3 py-2 border-4 rounded-md shadow-sm focus:outline-none focus:ring-cringe_back focus:border-cringe_front sm:text-sm"
         />
         <input
           v-model="userPass"
           type="password"
           placeholder="Password"
-          class="bg-cringe_box text-cringe_boxtext placeholder-cringe_boxtext border-cringe block w-full px-3 py-2 border-4 rounded-md shadow-sm focus:outline-none focus:ring-cringe_back focus:border-cringe_front sm:text-sm"
+          class="bg-cringe_box text-cringe_front placeholder-cringe_front border-cringe block w-full px-3 py-2 border-4 rounded-md shadow-sm focus:outline-none focus:ring-cringe_back focus:border-cringe_front sm:text-sm"
         />
+
         <p class="text-boxtext2 text-xs italic">{{ msg }}</p>
+
         <button
           @click="login"
           class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-cringe_text bg-cringe hover:bg-cringe_front focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-boxhighlight"
         >
           Login
         </button>
+
+        <button @click="openModal">Open Modal</button>
+
       </div>
     </div>
   </div>

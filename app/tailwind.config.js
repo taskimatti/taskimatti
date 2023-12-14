@@ -10,7 +10,7 @@ export default {
   ],
   theme: {
     extend: {
-            fontFamily: {
+        fontFamily: {
             sans: ['Your Font Name', 'sans-serif'],
             serif: ['Your Serif Font', 'serif'],
         },
