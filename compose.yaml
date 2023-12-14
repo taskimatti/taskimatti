@@ -1,26 +1,26 @@
 version: "3.8"
 services:
   frontend:
-    container_name: Fuksipassi-Frontend
+    container_name: taskimatti-Frontend
     build:
       context: app
       dockerfile: Dockerfile
     ports:
       - "8082:3000"
     networks:
-      fuksipassi:
+      taskimatti:
         ipv4_address: 10.11.0.2
     depends_on:
       - directus
     restart: unless-stopped
 
   db:
-    container_name: Fuksipassi-PostgreSQL
+    container_name: taskimatti-PostgreSQL
     image: postgres:15-alpine
     volumes:
       - directus_data_prod:/var/lib/postgresql/data
     networks:
-      fuksipassi:
+      taskimatti:
         ipv4_address: 10.11.0.3
     env_file:
       - .env.prod.db
@@ -36,7 +36,7 @@ services:
       - directus_uploads_prod:/directus/uploads
       - directus_extensions_prod:/directus/extensions
     networks:
-      fuksipassi:
+      taskimatti:
         ipv4_address: 10.11.0.4
     depends_on:
       - db
@@ -50,9 +50,9 @@ volumes:
   directus_extensions_prod:
 
 networks:
-  fuksipassi:
+  taskimatti:
     driver: bridge
-    name: "fuksipassi"
+    name: "taskimatti"
     ipam:
       config:
         - subnet: 10.11.0.0/16
