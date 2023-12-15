@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { register as directusRegister } from "../composables/auth";
+import { ref } from 'vue';
+import { register as directusRegister } from '../composables/auth';
 
-let userEmail = ref("test@example.com");
-let userPass = ref("s");
-let userName = ref("");
-let msg = ref("");
+let userEmail = ref('test@example.com');
+let userPass = ref('s');
+let userName = ref('');
+let msg = ref('');
 
 const register = async () => {
   const credentials = {
@@ -13,21 +13,21 @@ const register = async () => {
     email: userEmail.value.toString(),
     password: userPass.value.toString(),
   };
-  if (credentials.first_name === "" || null) {
-    msg.value = "Username is required";
+  if (credentials.first_name === '' || null) {
+    msg.value = 'Username is required';
     return;
   }
-  if (credentials.password === "" || null){
-      msg.value = "Password is required";
-  return;
+  if (credentials.password === '' || null) {
+    msg.value = 'Password is required';
+    return;
   }
-  if (credentials.email === "" || null){
-     msg.value = "Email is required";
-  return;
+  if (credentials.email === '' || null) {
+    msg.value = 'Email is required';
+    return;
   }
   const response = await directusRegister(credentials);
-  if (response === "success") {
-    msg.value= "Success";
+  if (response === 'success') {
+    msg.value = 'Success';
     //window.location.href = "/";
   } else if (response !== null) {
     msg.value = response;

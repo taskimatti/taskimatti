@@ -1,4 +1,3 @@
-// auth.ts
 import { useDirectus } from './directus';
 
 const fetchWithAuth = async (url: string, method: string, body: any) => {
@@ -9,7 +8,7 @@ const fetchWithAuth = async (url: string, method: string, body: any) => {
     },
     body: JSON.stringify(body),
   });
-  
+
   if (!response.ok) {
     if (response.status === 400) {
       return await response.json();
@@ -48,9 +47,9 @@ const fetchWithAuth = async (url: string, method: string, body: any) => {
   }
 
   const data = await response.json();
-  if (data.errors){
+  if (data.errors) {
     throw new Error(data.errors[0].message);
-  } 
+  }
 
   return data;
 };
@@ -69,17 +68,17 @@ export const login = async (credentials: { email: string; password: string }) =>
 
 export const register = async (credentials: { first_name: string; email: string; password: string }) => {
   const { $directus } = useDirectus();
-  const data = await fetchWithAuth($directus.url.href + "users", "POST", credentials);
+  const data = await fetchWithAuth($directus.url.href + 'users', 'POST', credentials);
   if (data.errors) {
-    console.log("Dataa: ");
+    console.log('Dataa: ');
     console.log(data);
-    if(data.errors[0].extensions.code == "RECORD_NOT_UNIQUE"){
-      return "Email not unique"
+    if (data.errors[0].extensions.code == 'RECORD_NOT_UNIQUE') {
+      return 'Email not unique';
     }
     return data.errors[0].message;
   }
   //console.log(data);
-  return "success";
+  return 'success';
 };
 
 export const logout = async () => {
