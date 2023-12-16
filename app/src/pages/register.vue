@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { register as directusRegister } from '../composables/auth';
+import { login as directusLogin } from '~/composables/auth';
 
-let userEmail = ref('test@example.com');
-let userPass = ref('s');
+let userEmail = ref('');
+let userPass = ref('');
 let userName = ref('');
 let msg = ref('');
 
@@ -27,8 +28,13 @@ const register = async () => {
   }
   const response = await directusRegister(credentials);
   if (response === 'success') {
-    msg.value = 'Success';
-    //window.location.href = "/";
+    // login after register
+    const response = await directusLogin(credentials);
+    if (response === 'success') {
+      window.location.href = '/';
+    } else if (response !== null) {
+      msg.value = response;
+    }
   } else if (response !== null) {
     msg.value = response;
   }
