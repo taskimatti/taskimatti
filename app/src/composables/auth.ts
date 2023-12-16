@@ -70,14 +70,15 @@ export const register = async (credentials: { first_name: string; email: string;
   const { $directus } = useDirectus();
   const data = await fetchWithAuth($directus.url.href + 'users', 'POST', credentials);
   if (data.errors) {
-    console.log('Dataa: ');
-    console.log(data);
     if (data.errors[0].extensions.code == 'RECORD_NOT_UNIQUE') {
       return 'Email not unique';
+    } else if (data.errors[0].extensions.code == 'FAILED_VALIDATION') {
+      if (data.errors[0].extensions.field == 'password') {
+        return 'Password must be at least 8 characters long';
+      } else return `${data.errors[0].extensions.field} format is not valid`;
     }
     return data.errors[0].message;
   }
-  //console.log(data);
   return 'success';
 };
 
