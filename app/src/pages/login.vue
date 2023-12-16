@@ -17,7 +17,6 @@ const { data: _org } = await useAsyncData(() => {
 
 const org: Ref<Organisation> = ref(useOrganisation());
 org.value = { ...org.value, ..._org.value };
-console.log(org.value);
 
 const login = async () => {
   const credentials = {
