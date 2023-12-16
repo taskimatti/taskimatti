@@ -30,7 +30,10 @@ if (process.client) {
     });
     useUser().value.role = _user.value?.role;
   } else {
-    if (window.location.pathname !== '/login') window.location.href = '/login';
+    // Redirect to login page if no token exists and page requires authentication
+    if (!['/login', '/register'].includes(window.location.pathname)) {
+      window.location.href = '/login';
+    }
   }
 }
 
