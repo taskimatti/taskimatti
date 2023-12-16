@@ -84,6 +84,12 @@ const register = async () => {
           Register
         </button>
       </div>
+      <div>
+        <p>
+          Already have an account?
+          <span> <nuxt-link to="/login" class="text-blue-500 hover:underline">Login</nuxt-link> now! </span>
+        </p>
+      </div>
     </form>
   </div>
 </template>

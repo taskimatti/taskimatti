@@ -68,6 +68,16 @@ useSeoMeta({
         >
           Login
         </button>
+        <div>
+          <p>
+            Don't have account yet?
+            <span>
+              <nuxt-link to="/register" class="text-blue-500 hover:underline"
+              > Register</nuxt-link>
+            </span>
+            now!
+          </p>
+        </div>
       </div>
     </div>
   </div>
