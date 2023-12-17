@@ -59,9 +59,10 @@ useSeoMeta({
 
 <template>
   <div class="flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-    <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
 
-      <h1 class="text-5xl text-center text-cringe_boxtext3 p-4">
+    <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md space-y-8">
+
+      <h1 class="text-5xl text-center text-cringe_boxtext3 ">
         Taskimatti
       </h1>
 
@@ -70,6 +71,10 @@ useSeoMeta({
         alt="TaskiMatti logo"
         class="h-full w-56 rounded-3xl p-12 mx-auto my-5"
       />
+
+      <p class="text-xl text-center text-cringe_text">
+        Taskimatti on palvelu jota voidaan käyttää kaikkiin taskimattia vaativiin juttuihin
+      </p>
 
       <!-- Button to open a modal window -->
       <ModalTest v-if="show" @close="closeConfirm"></ModalTest>
@@ -80,7 +85,8 @@ useSeoMeta({
       >
         Modal
       </button>
-
+    
+      <!-- Div for login box -->    
       <div class="bg-cringe_box py-8 px-4 sm:rounded-lg sm:px-10 space-y-6">
 
         <input
@@ -89,7 +95,7 @@ useSeoMeta({
           placeholder="Email"
           class="bg-cringe_box text-cringe_front placeholder-cringe_front border-cringe block w-full px-3 py-2 border-4 rounded-md shadow-sm focus:outline-none focus:ring-cringe_back focus:border-cringe_front sm:text-sm"
         />
-
+§§
         <input
           v-model="userPass"
           type="password"
