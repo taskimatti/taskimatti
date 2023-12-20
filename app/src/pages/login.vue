@@ -42,7 +42,7 @@ useSeoMeta({
   <div class="flex flex-col justify-center py-12 sm:px-6 lg:px-8">
     <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
       <NuxtImg
-        src="/images/avatar.png"
+        src="/images/logo.svg"
         alt="TaskiMatti logo"
         class="h-full w-56 rounded-3xl p-12 mx-auto my-5 bg-white"
       />
