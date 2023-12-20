@@ -78,6 +78,7 @@ test.describe('Register tests', () => {
       Math.random().toString(36).slice(-8) + '@example.com',
       Math.random().toString(36).slice(-8),
     );
+
     const responsePromise = page.waitForResponse((response: any) => response.url());
     await page.getByRole('button', { name: 'Register' }).click();
     const response = await responsePromise;

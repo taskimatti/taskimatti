@@ -66,12 +66,7 @@ export const login = async (credentials: { email: string; password: string }) =>
   return 'success';
 };
 
-export const register = async (credentials: {
-  first_name: string;
-  email: string;
-  password: string;
-  role: string;
-}) => {
+export const register = async (credentials: { first_name: string; email: string; password: string; role: string }) => {
   const { $directus } = useDirectus();
   const data = await fetchWithAuth($directus.url.href + 'users', 'POST', credentials);
   if (data.errors) {
