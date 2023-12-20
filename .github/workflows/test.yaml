@@ -28,11 +28,17 @@ jobs:
           npm run format -- --check
 
       - name: Check vitest
+        env:
+          ENV: ${{ secrets.ENV }}
         run: |
-          cd ./app 
+          cd ./app
+          echo $ENV | tr ' ' '\n' > .env
           npm run test
 
       - name: Run Playwright tests
+        env:
+          ENV: ${{ secrets.ENV }}
         run: |
           cd ./app
+          echo $ENV | tr ' ' '\n' > .env
           npm run test-pw
