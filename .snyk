@@ -1,6 +1,8 @@
-# Snyk (https://snyk.io) policy file
-
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.25.0
+ignore: {}
+patch: {}
 exclude:
-    global:
-        # Exclude all files and directories in a specific directory. For example, - tests/
-            - docs/**
+  global:
+    - app/.output/server/package.json
+    - docs/reveal.js-master/package.json
