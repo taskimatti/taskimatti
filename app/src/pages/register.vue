@@ -13,7 +13,7 @@ const register = async () => {
     first_name: userName.value.toString(),
     email: userEmail.value.toString(),
     password: userPass.value.toString(),
-    role: 'fc9d4dbc-fbf7-4241-ad11-08816646bc00'
+    role: 'fc9d4dbc-fbf7-4241-ad11-08816646bc00',
   };
   
   if (credentials.first_name === '' || null) {
