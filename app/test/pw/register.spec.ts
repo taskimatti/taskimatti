@@ -82,5 +82,16 @@ test.describe('Register tests', () => {
     await page.getByRole('button', { name: 'Register' }).click();
     const response = await responsePromise;
     expect(response.status()).toBe(204);
+    // navigate to /
+    await expect(page.locator('[id="__nuxt"]')).toContainText('Select project');
+    // check local storage for access_token
+    const token = await page.evaluate(() => localStorage.getItem('access_token'));
+    expect(token).not.toBeNull();
+    expect(token).not.toBeUndefined();
+    expect(token).not.toBe('');
+    const refresh_token = await page.evaluate(() => localStorage.getItem('refresh_token'));
+    expect(refresh_token).not.toBeNull();
+    expect(refresh_token).not.toBeUndefined();
+    expect(refresh_token).not.toBe('');
   });
 });
