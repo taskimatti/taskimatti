@@ -17,42 +17,46 @@ async function fillFormAndSubmit(page: any, email: string, password: string) {
 test.describe('Login tests', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto(LOGIN_URL);
+    await page.getByPlaceholder('Email').fill('');
+    await page.getByPlaceholder('Password').fill('');
+    await page.waitForTimeout(100);
   });
 
   test('Test that login page loads successfully', async ({ page }) => {
     await expect(page).toHaveTitle(/.* \| Login/); // xxx | Login
-    await expect(page.getByRole('img')).toBeVisible();
+    await expect(page.getByRole('img', { name: 'TaskiMatti logo' })).toBeVisible();
     await expect(page.getByPlaceholder('Email')).toBeVisible();
     await expect(page.getByPlaceholder('Password')).toBeVisible();
     await expect(page.getByRole('button', { name: 'Login' })).toBeVisible();
+    await expect(page.locator('[id="__nuxt"]')).toContainText('Don\'t have account yet? Register now!');
   });
 
   test('Test empty email', async ({ page }) => {
     const responsePromise = fillFormAndSubmit(page, '', 'password');
     const response = await responsePromise;
     expect(response.status()).toBe(400);
-    await expect(page.getByRole('paragraph')).toContainText('Invalid payload. "email" is not allowed to be empty.');
+    await expect(page.locator('[id="__nuxt"]')).toContainText('Invalid payload. "email" is not allowed to be empty.');
   });
 
   test('Test invalid email', async ({ page }) => {
     const responsePromise = fillFormAndSubmit(page, 'user@example', 'password');
     const response = await responsePromise;
     expect(response.status()).toBe(400);
-    await expect(page.getByRole('paragraph')).toContainText('Invalid payload. "email" must be a valid email.');
+    await expect(page.locator('[id="__nuxt"]')).toContainText('Invalid payload. "email" must be a valid email.');
   });
 
   test('Test empty password', async ({ page }) => {
     const responsePromise = fillFormAndSubmit(page, 'user@example', '');
     const response = await responsePromise;
     expect(response.status()).toBe(400);
-    // await expect(page.getByRole('paragraph')).toContainText('Invalid payload. "password" is not allowed to be empty.');
+    // await expect(page.locator('[id="__nuxt"]')).toContainText('Invalid payload. "password" is not allowed to be empty.');
   });
 
   test('Test invalid credentials', async ({ page }) => {
     const responsePromise = fillFormAndSubmit(page, 'invalid@example.com', 'password');
     const response = await responsePromise;
     expect(response.status()).toBe(401);
-    // await expect(page.getByRole('paragraph')).toContainText('Invalid credentials');
+    // await expect(page.locator('[id="__nuxt"]')).toContainText('Invalid credentials');
   });
 
   test('Test valid credentials', async ({ page }) => {
