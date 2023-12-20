@@ -1,4 +1,4 @@
-name: Code Format Check
+name: Code Format Checks and Unit Tests
 
 on:
   pull_request
