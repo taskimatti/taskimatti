@@ -1,6 +1,7 @@
 name: Code Format Check
 
-on: [push, pull_request]
+on:
+  pull_request
 
 jobs:
   format:
@@ -25,3 +26,13 @@ jobs:
         run: |
           cd ./app 
           npm run format -- --check
+
+      - name: Check vitest
+        run: |
+          cd ./app 
+          npm run test
+
+      - name: Run Playwright tests
+        run: |
+          cd ./app
+          npm run test-pw
