@@ -4,21 +4,25 @@ import { config } from 'dotenv';
 config();
 
 const REGISTER_URL = 'http://localhost:3000/register';
-const REGISTER_ENDPOINT = '/register';
 
-async function fillFormAndSubmit(page: any, user: string, email: string, password: string) {
+const ERROR_MESSAGES = {
+  USERNAME_REQUIRED: 'Username is required',
+  EMAIL_REQUIRED: 'Email is required',
+  EMAIL_NOT_UNIQUE: 'Email not unique',
+  PASSWORD_REQUIRED: 'Password is required',
+  INVALID_EMAIL: 'email format is not valid',
+};
+
+const fillForm = async (page: any, username: string, email: string, password: string) => {
+  await page.getByPlaceholder('Username').fill(username);
   await page.getByPlaceholder('Email').fill(email);
   await page.getByPlaceholder('Password').fill(password);
-  const responsePromise = page.waitForResponse((response: any) => response.url().endsWith(REGISTER_ENDPOINT));
-  await page.getByRole('button', { name: 'Register' }).click();
-  return responsePromise;
-}
+};
 
 test.describe('Register tests', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto(REGISTER_URL);
-    await page.getByPlaceholder('Email').fill('');
-    await page.getByPlaceholder('Password').fill('');
+    await fillForm(page, '', '', '');
     await page.waitForTimeout(100);
   });
 
@@ -32,48 +36,51 @@ test.describe('Register tests', () => {
   });
 
   test('Test empty username', async ({ page }) => {
-    const responsePromise = fillFormAndSubmit(page,'', 'user@example', 'password');
-    const response = await responsePromise;
-    expect(response.status()).toBe(400);
-    await expect(page.locator('[id="__nuxt"]')).toContainText('Invalid payload. "email" is not allowed to be empty.');
+    await fillForm(page, '', 'user@example.com', 'password');
+    await page.getByRole('button', { name: 'Register' }).click();
+    await expect(page.locator('[id="__nuxt"]')).toContainText(ERROR_MESSAGES.USERNAME_REQUIRED);
   });
 
   test('Test empty email', async ({ page }) => {
-    const responsePromise = fillFormAndSubmit(page,'example', '', 'password');
-    const response = await responsePromise;
-    expect(response.status()).toBe(400);
-    await expect(page.locator('[id="__nuxt"]')).toContainText('Invalid payload. "email" is not allowed to be empty.');
+    await fillForm(page, 'Username', '', 'password');
+    await page.getByRole('button', { name: 'Register' }).click();
+    await expect(page.locator('[id="__nuxt"]')).toContainText(ERROR_MESSAGES.EMAIL_REQUIRED);
   });
 
   test('Test invalid email', async ({ page }) => {
-    const responsePromise = fillFormAndSubmit(page,'example', 'user@example', 'password');
+    await fillForm(page, 'Test user', 'user@example', 'password');
+    const responsePromise = page.waitForResponse((response: any) => response.url());
+    await page.getByRole('button', { name: 'Register' }).click();
     const response = await responsePromise;
     expect(response.status()).toBe(400);
-    await expect(page.locator('[id="__nuxt"]')).toContainText('Invalid payload. "email" must be a valid email.');
+    await expect(page.locator('[id="__nuxt"]')).toContainText(ERROR_MESSAGES.INVALID_EMAIL);
   });
 
   test('Test empty password', async ({ page }) => {
-    const responsePromise = fillFormAndSubmit(page,'example', 'user@example', '');
+    await fillForm(page, 'Username', 'user@example.com', '');
+    await page.getByRole('button', { name: 'Register' }).click();
+    await expect(page.locator('[id="__nuxt"]')).toContainText(ERROR_MESSAGES.PASSWORD_REQUIRED);
+  });
+
+  test('Test already registered email', async ({ page }) => {
+    await fillForm(page, 'Test user', process.env.NUXT_API_EMAIL || 'already_registered@example.com', 'password');
+    const responsePromise = page.waitForResponse((response: any) => response.url());
+    await page.getByRole('button', { name: 'Register' }).click();
     const response = await responsePromise;
     expect(response.status()).toBe(400);
-    // await expect(page.locator('[id="__nuxt"]')).toContainText('Invalid payload. "password" is not allowed to be empty.');
+    await expect(page.locator('[id="__nuxt"]')).toContainText(ERROR_MESSAGES.EMAIL_NOT_UNIQUE);
   });
 
-  test('Test !gnu credentials', async ({ page }) => {
-    const responsePromise = fillFormAndSubmit(page, 'example', process.env.NUXT_API_EMAIL || '', 'password');
-    const response = await responsePromise;
-    expect(response.status()).toBe(401);
-    // await expect(page.locator('[id="__nuxt"]')).toContainText('Invalid credentials');
-  });
-
-  test('Test valid credentials', async ({ page }) => {
-    const responsePromise = fillFormAndSubmit(
+  test('Test successful registration', async ({ page }) => {
+    await fillForm(
       page,
-      '',
-      process.env.NUXT_API_EMAIL || '',
-      process.env.NUXT_API_PASSWD || '',
+      'Test user',
+      Math.random().toString(36).slice(-8) + '@example.com',
+      Math.random().toString(36).slice(-8),
     );
+    const responsePromise = page.waitForResponse((response: any) => response.url());
+    await page.getByRole('button', { name: 'Register' }).click();
     const response = await responsePromise;
-    expect(response.status()).toBe(200);
+    expect(response.status()).toBe(204);
   });
 });
