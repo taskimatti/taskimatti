@@ -1,30 +1,12 @@
-name: Test and Deploy
+name: Deploy
 
 on:
   push:
     branches:
       - main
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-      - name: Set environment variables
-        run: |
-          cp example.env.prod .env.prod
-          cp example.env.prod.db .env.prod.db
-      - name: Build and test
-        run: |
-          docker-compose -f compose.yaml build
-          cd directus
-          sh import.sh
-          cd ..
-          docker-compose -f compose.yaml up -d
-          docker-compose -f compose.yaml down
   deploy:
     runs-on: ubuntu-latest
-    needs: test
     steps:
       - name: deploy
         uses: appleboy/ssh-action@master

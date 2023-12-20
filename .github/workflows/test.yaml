@@ -1,0 +1,46 @@
+name: Code Format Checks and Unit Tests
+
+on:
+  pull_request
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - name: Install dependencies
+        run: |
+          cd ./app
+          npm install
+          npm ci
+
+      - name: Check code formatting
+        run: |
+          cd ./app 
+          npm run format -- --check
+
+      - name: Check vitest
+        env:
+          ENV: ${{ secrets.ENV }}
+        run: |
+          cd ./app
+          echo $ENV | tr ' ' '\n' > .env
+          npm run test
+
+      - name: Run Playwright tests
+        env:
+          ENV: ${{ secrets.ENV }}
+        run: |
+          cd ./app
+          echo $ENV | tr ' ' '\n' > .env
+          npx playwright install
+          npm run build
+          npm run test-pw
