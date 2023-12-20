@@ -1,9 +1,8 @@
-name: Build and Test
+name: Build
 
 on:
-  pull_request:
-    branches:
-      - main
+  pull_request
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -16,9 +15,9 @@ jobs:
           cp example.env.prod.db .env.prod.db
       - name: Build and test
         run: |
-          docker-compose -f compose.yaml build
+          docker compose -f compose.yaml build
           cd directus
           sh import.sh
           cd ..
-          docker-compose -f compose.yaml up -d
-          docker-compose -f compose.yaml down
+          docker compose -f compose.yaml up -d --build
+          docker compose -f compose.yaml down
