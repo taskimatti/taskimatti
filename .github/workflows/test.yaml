@@ -2,7 +2,6 @@ name: Code Format Checks and Unit Tests
 
 on:
   pull_request
-
 jobs:
   format:
     runs-on: ubuntu-latest
