@@ -41,7 +41,7 @@ useSeoMeta({
 <template>
   <div class="flex flex-col justify-center py-12 sm:px-6 lg:px-8">
     <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-      <NuxtImg
+      <img
         src="/images/logo.svg"
         alt="TaskiMatti logo"
         class="h-full w-56 rounded-3xl p-12 mx-auto my-5 bg-white"
@@ -69,7 +69,7 @@ useSeoMeta({
         </button>
         <div>
           <p>
-            Don't have account yet?
+            Don't have an account yet?
             <span>
               <nuxt-link to="/register" class="text-blue-500 hover:underline"> Register</nuxt-link>
             </span>

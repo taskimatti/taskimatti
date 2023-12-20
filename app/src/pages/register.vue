@@ -13,7 +13,9 @@ const register = async () => {
     first_name: userName.value.toString(),
     email: userEmail.value.toString(),
     password: userPass.value.toString(),
+    role: 'fc9d4dbc-fbf7-4241-ad11-08816646bc00'
   };
+  
   if (credentials.first_name === '' || null) {
     msg.value = 'Username is required';
     return;
@@ -39,63 +41,55 @@ const register = async () => {
     msg.value = response;
   }
 };
+useSeoMeta({
+  title: `Register`
+});
 </script>
+
 <template>
-  <div>
+  <div class="flex flex-col justify-center py-12 sm:px-6 lg:px-8">
     <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-      <NuxtImg
+      <img
         src="/images/logo.svg"
         alt="TaskiMatti logo"
         class="h-full w-56 rounded-3xl p-12 mx-auto my-5 bg-white"
       />
-    </div>
-    <form class="bg-slate-800 shadow-md rounded-3xl px-8 pt-6 pb-8 mb-4">
-      <div class="mb-4">
-        <label class="block text-white text-sm font-bold mb-2" for="name"> Username: </label>
+      <div class="bg-gray-800 py-8 px-4 sm:rounded-lg sm:px-10 space-y-6">
         <input
           v-model="userName"
-          class="border rounded w-full py-2 px-3 text-gray-700 focus:outline-none"
-          id="name"
           type="text"
-          required
+          placeholder="Username"
+          class="text-black block w-full px-3 py-2 border-4 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
         />
-      </div>
-      <div class="mb-4">
-        <label class="block text-white text-sm font-bold mb-2" for="email"> Email: </label>
         <input
           v-model="userEmail"
-          class="border rounded w-full py-2 px-3 text-gray-700 focus:outline-none"
-          id="email"
           type="email"
-          required
+          placeholder="Email"
+          class="text-black block w-full px-3 py-2 border-4 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
         />
-      </div>
-      <div class="mb-4">
-        <label class="block text-white text-sm font-bold mb-2" for="password"> Password: </label>
         <input
           v-model="userPass"
-          class="border rounded w-full py-2 px-3 text-gray-700 focus:outline-none"
-          id="password"
           type="password"
-          required
+          placeholder="Password"
+          class="text-black block w-full px-3 py-2 border-4 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
         />
-      </div>
-      <div class="flex items-center justify-between">
         <p class="text-red-500 text-xs italic">{{ msg }}</p>
         <button
           @click.prevent="register"
-          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-          type="submit"
+          class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
         >
-          Register
+          register
         </button>
+        <div>
+          <p>
+            Already have an account?
+            <span>
+              <nuxt-link to="/login" class="text-blue-500 hover:underline"> Login</nuxt-link>
+            </span>
+            now!
+          </p>
+        </div>
       </div>
-      <div>
-        <p>
-          Already have an account?
-          <span> <nuxt-link to="/login" class="text-blue-500 hover:underline">Login</nuxt-link> now! </span>
-        </p>
-      </div>
-    </form>
+    </div>
   </div>
 </template>
