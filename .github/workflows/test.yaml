@@ -36,3 +36,4 @@ jobs:
         run: |
           cd ./app
           npm run test-pw
+
