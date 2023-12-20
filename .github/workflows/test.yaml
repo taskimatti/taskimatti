@@ -41,4 +41,5 @@ jobs:
         run: |
           cd ./app
           echo $ENV | tr ' ' '\n' > .env
+          npm run build
           npm run test-pw
