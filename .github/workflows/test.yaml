@@ -41,5 +41,6 @@ jobs:
         run: |
           cd ./app
           echo $ENV | tr ' ' '\n' > .env
+          npx playwright install
           npm run build
           npm run test-pw
