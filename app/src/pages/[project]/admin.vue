@@ -1,19 +1,45 @@
 <script setup lang="ts">
-import { readUsers } from '@directus/sdk';
+import { readItems, readUsers } from '@directus/sdk';
 import { useState } from 'nuxt/app';
 import { useDirectus } from '~/composables/directus';
 import { useRoles, useUser } from '~/composables/states';
+import { ref } from 'vue';
+import { useRoute } from 'vue-router';
 
 const { $directus } = useDirectus();
 
 let users: Ref<User[] | null> = useState(() => null);
 const roles = useRoles();
+const route = ref(useRoute());
 const user: Ref<User> = useUser();
 
 const fetchData = async () => {
-  const { data: _users } = await useAsyncData(() => {
-    return $directus.request(readUsers({ fields: ['id', 'first_name', 'avatar', 'role'] }));
+  const { data: _project } = await useAsyncData(() => {
+    return $directus.request(
+      readItems(
+        // @ts-ignore
+        'Project',
+        {
+          filter: {
+            id: {
+              _eq: route.value?.params?.project?.toString(),
+            },
+          },
+          fields: [
+            'id, users.directus_users_id.id, users.directus_users_id.first_name, users.directus_users_id.avatar, users.directus_users_id.role, users.is_admin',
+          ],
+        },
+      ),
+    );
   });
+
+  for (const _user of _project.value[0].users) {
+    _user.id = _user.directus_users_id.id;
+    _user.first_name = _user.directus_users_id.first_name;
+    _user.avatar = _user.directus_users_id.avatar;
+    _user.role = _user.directus_users_id.role;
+  }
+  const _users = ref(_project.value[0].users);
 
   if (_users.value !== null) {
     for (const _user of _users.value) {
