@@ -11,18 +11,20 @@ const roles = useRoles();
 const user: Ref<User> = useUser();
 
 const fetchData = async () => {
-  const { data: _users } = useAsyncData(() => {
+  const { data: _users } = await useAsyncData(() => {
     return $directus.request(readUsers({ fields: ['id', 'first_name', 'avatar', 'role'] }));
   });
 
   if (_users.value !== null) {
     for (const _user of _users.value) {
-      _user.role = _user.role.id;
+      _user.role = roles.value?.find((role) => role.id === _user.role)?.name;
     }
   } else {
     _users.value = [];
   }
+  users.value = _users.value;
 };
+
 
 await fetchData();
 
@@ -35,7 +37,7 @@ const isAdmin = roles.value?.find((role) => role.id === user.value?.role)?.admin
       <NuxtLink :to="'account/' + user.id" :key="user.id">
         <Account
           :user="user"
-          :role="roles?.find((role) => role.id === user.role).name"
+          :role="user.role"
           :image="$directus.url.href + 'assets/' + user.avatar"
         />
       </NuxtLink>
