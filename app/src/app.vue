@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { type Ref, ref } from 'vue';
 import { useRoute } from 'vue-router';
-import { readMe, readRoles } from '@directus/sdk';
+import { readMe, readRoles, readItems } from '@directus/sdk';
 import { useAssets, useOrganisation, useProject, useProjects, useRoles, useUser } from '~/composables/states';
 import { useDirectus } from '~/composables/directus';
 import { refresh } from '~/composables/auth';
@@ -26,7 +26,7 @@ if (process.client) {
 
     // Fetch user data only when a valid token exists
     const { data: _user } = await useAsyncData(() => {
-      return $directus.request(readMe({ fields: ['email', 'first_name', 'last_name', 'avatar', 'role'] }));
+      return $directus.request(readMe({ fields: ['email', 'first_name', 'last_name', 'avatar', 'role', 'id'] }));
     });
     useUser().value = { ...useUser().value, ..._user.value };
   } else {
@@ -51,9 +51,28 @@ const { data: _org } = await useAsyncData(() => {
   return $directus.request($readItems('Organisation'));
 });
 
+const user_id = useUser().value.id;
+
 const { data: _projects } = await useAsyncData(() => {
-  return $directus.request($readItems('Project'));
-});
+  return $directus.request(readItems(
+    'Project',
+    {
+      filter: {
+        'users': {
+          'directus_users_id': {
+            'id': {
+              '_eq': user_id
+            }
+          }
+        },
+        'status': {
+          '_eq': 'published'
+        }
+      },
+      fields: ['name, image, description, status, units, id, users.directus_users_id.id']
+    },
+  ))
+})
 
 const { data: _roles } = await useAsyncData(() => {
   return $directus.request(readRoles({ fields: ['id', 'name', 'admin_access'] }));
