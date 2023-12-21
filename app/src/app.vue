@@ -26,13 +26,13 @@ if (process.client) {
 
     // Fetch user data only when a valid token exists
     const { data: _user } = await useAsyncData(() => {
-      return $directus.request(readMe({ fields: ['role'] }));
+      return $directus.request(readMe({ fields: ['email', 'first_name', 'last_name', 'avatar', 'role'] }));
     });
-    useUser().value.role = _user.value?.role;
+    useUser().value = { ...useUser().value, ..._user.value };
   } else {
     // Redirect to login page if no token exists and page requires authentication
-    if (!['/login', '/register'].includes(window.location.pathname)) {
-      window.location.href = '/login';
+    if (!['/login', '/register', '', '/'].includes(window.location.pathname)) {
+      window.location.href = '/';
     }
   }
 }
@@ -85,9 +85,9 @@ assets.value = $directus.url.href + 'assets/';
 </script>
 
 <template>
-  <div class="min-h-screen bg-gray-900">
+  <div class="min-h-screen bg-gradient-from-tl bg-gradient-to-br from-[#553757] via-[#DC7969] to-[#F9F871]">
     <TopBar />
-    <div class="container">
+    <div class="container px-8 py-16">
       <div class="min-h-[50vh]">
         <router-view />
       </div>
