@@ -80,6 +80,7 @@ declare global {
     provider: string | undefined;
     external_identifier: string | undefined;
     auth_data: string | undefined;
+    is_project_admin: boolean | undefined;
   }
   interface Role {
     id: string | undefined;

@@ -38,6 +38,7 @@ const fetchData = async () => {
     _user.first_name = _user.directus_users_id.first_name;
     _user.avatar = _user.directus_users_id.avatar;
     _user.role = _user.directus_users_id.role;
+    _user.is_project_admin = _user.is_admin;
   }
   const _users = ref(_project.value[0].users);
 
