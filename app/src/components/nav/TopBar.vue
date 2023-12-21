@@ -22,7 +22,7 @@ watch(
 <template>
   <div v-if="project?.id">
     <div
-      class="flex flex-row items-center justify-between p-2 h-16"
+      class="fixed w-full max-w-lg flex flex-row items-center justify-between p-2 h-16"
       :style="'background: ' + project?.colorScheme + ';'"
     >
       <NuxtLink :to="'/'">
