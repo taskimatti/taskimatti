@@ -24,6 +24,14 @@ declare global {
     colorScheme: string | undefined;
     units: string | undefined;
     image: string | undefined;
+    users: directus_users_id[] | undefined;
+  }
+
+  interface directus_users_id {
+    id: string | undefined;
+    Project_id: string | undefined;
+    directus_users_id: string | undefined;
+    is_admin: boolean | undefined;
   }
   interface Task {
     id: string | undefined;
