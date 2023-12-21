@@ -8,7 +8,7 @@ import { refresh } from '~/composables/auth';
 import TopBar from '~/components/nav/TopBar.vue';
 import NavBar from '~/components/nav/NavBar.vue';
 
-const { $directus, $readItems } = useDirectus();
+const { $directus } = useDirectus();
 
 if (process.client) {
   const token = window.localStorage.getItem('access_token');
