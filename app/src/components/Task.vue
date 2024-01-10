@@ -4,6 +4,12 @@ import { CheckIcon } from '@heroicons/vue/20/solid';
 
 <script lang="ts">
 import { useAssets } from '~/composables/states';
+import QRcode from './QRcode.vue'
+
+//new
+interface InputFileEvent extends Event {
+    target: HTMLInputElement;
+}
 
 const assets = ref(useAssets());
 export default {
@@ -35,6 +41,9 @@ export default {
         <span>{{ task.points }} {{ unit }}</span>
       </div>
     </div>
+      <QRcode
+        class="p-4 mx-auto"
+      />
   </div>
 </template>
 

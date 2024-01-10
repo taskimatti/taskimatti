@@ -51,7 +51,7 @@ onMounted(async () => {
 <template>
   <div>
     <ol>
-      <li v-for="task in Tasks" class="p-2 w-auto">
+      <li v-for="task in Tasks" class="p-2 w-auto h-auto">
         <Task :task="task" :unit="project.value?.units" />
       </li>
     </ol>
