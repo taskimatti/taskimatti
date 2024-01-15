@@ -18,7 +18,7 @@
     "@directus/sdk": "^13.0.2",
     "@heroicons/vue": "^2.0.18",
     "@nuxt/image": "^1.1.0",
-    "nuxt": "^3.8.1"
+    "nuxt": "^3.9.0"
   },
   "devDependencies": {
     "@nuxt/devtools": "latest",
