@@ -110,3 +110,12 @@ export const refresh = async () => {
   localStorage.setItem('refresh_token', refresh_token);
   return 'success';
 };
+
+export const updateUserName = async (credentials: { first_name: string; }) => {
+  const { $directus } = useDirectus();
+  const data = await fetchWithAuth($directus.url.href + 'users/me', 'PATCH', {"first_name": "kissa"});
+  if (data.errors) {
+    return data.errors[0].message;
+  }
+  return 'success';
+};
