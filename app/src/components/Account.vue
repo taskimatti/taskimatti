@@ -9,6 +9,7 @@ import {
 let userPass = ref('');
 let userName = ref('');
 let msg = ref('');
+let edit = ref(false);
 
 const props = defineProps({
   user: {
@@ -31,19 +32,11 @@ const updateEmail = async () => {
   };
 };
 
-const updateUserName =async () => {
-
-  
-}
+const updateUserName = async () => {};
 </script>
 
 <template>
-  <div class="bg-gray-800 p-6 mt-6 rounded-lg shadow-md w-full">
-    <NuxtImg :src="image.endsWith('null') ? '/images/avatar.jpg' : image" placeholder="/images/avatar.jpg" alt="Avatar"
-      width="100" height="100" class="h-32 w-32 object-cover rounded-full border-2 border-gray-600" />
-    <h2 class="text-2xl text-white mt-4">{{ user.first_name }}</h2>
-  </div>
-  <div class="bg-gray-800 p-6 rounded-lg shadow-md w-full">
+  <div class="bg-gray-800 p-6 my-6 rounded-lg shadow-md w-full">
     <NuxtImg
       :src="image.endsWith('null') ? '/images/avatar.jpg' : image"
       placeholder="/images/avatar.jpg"
@@ -59,16 +52,25 @@ const updateUserName =async () => {
       </p>
     </div>
     <p class="text-gray-400">{{ role }}</p>
-    <div class="p-5 mt-5 border rounded-3xl">
+    <p @click="edit = !edit" class="text-slate-400 underline float-right cursor-pointer">Edit</p>
+    <div class="p-5 mt-5 border rounded-3xl" v-if="edit">
       <h1 class="mb-2">Edit Profile:</h1>
       <div>
-        <input v-model="userName" placeholder='New UserName' type="text"
-        class="text-black w-full px-auto -py-4 border-4 rounded-md focus:outline-none"/>
+        <input
+          v-model="userName"
+          placeholder="New UserName"
+          type="text"
+          class="text-black w-full px-auto -py-4 border-4 rounded-md focus:outline-none"
+        />
         <button class="text-slate-400 underline float-right">save</button>
       </div>
       <div>
-        <input v-model="userPass" placeholder='New Password' type="password"
-        class="text-black w-full px-auto -py-4 border-4 rounded-md focus:outline-none"/>
+        <input
+          v-model="userPass"
+          placeholder="New Password"
+          type="password"
+          class="text-black w-full px-auto -py-4 border-4 rounded-md focus:outline-none"
+        />
         <button class="text-slate-400 underline float-right">save</button>
       </div>
     </div>

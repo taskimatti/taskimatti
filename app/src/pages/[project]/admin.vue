@@ -60,7 +60,7 @@ const isAdmin = roles.value?.find((role) => role.id === user.value?.role)?.admin
 <template>
   <div v-if="isAdmin" class="grid grid-cols-2 gap-4">
     <div v-for="user in users">
-      <NuxtLink :to="'account/' + user.id" :key="user.id">
+      <NuxtLink :to="'adminTaskView/' + user.id" :key="user.id">
         <Account :user="user" :role="user.role" :image="$directus.url.href + 'assets/' + user.avatar" />
       </NuxtLink>
     </div>
