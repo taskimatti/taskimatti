@@ -84,7 +84,19 @@ while (true) {
                     :alt="project.name || 'Project image'"
                   />
                   <div class="p-6">
-                    <h2 class="text-2xl font-bold mb-2">{{ project.name }}</h2>
+                    <div class="flex justify-between">
+                      <h2 class="text-2xl font-bold mb-2">{{ project.name }}</h2>
+                      <p
+                        v-if="
+                          project.users &&
+                          project.users.filter(
+                            (_user: { directus_users_id }) => _user.directus_users_id.id === user.id,
+                          )[0].is_admin
+                        "
+                      >
+                        <span title="You are an admin of this project">✨</span>
+                      </p>
+                    </div>
                     <p class="text-gray-300">{{ project.description }}</p>
                   </div>
                 </div>

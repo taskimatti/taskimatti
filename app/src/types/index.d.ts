@@ -24,6 +24,14 @@ declare global {
     colorScheme: string | undefined;
     units: string | undefined;
     image: string | undefined;
+    users: directus_users_id[] | undefined;
+  }
+
+  interface directus_users_id {
+    id: string | undefined;
+    Project_id: string | undefined;
+    directus_users_id: string | undefined;
+    is_admin: boolean | undefined;
   }
   interface Task {
     id: string | undefined;
@@ -34,12 +42,14 @@ declare global {
     desc: string | undefined;
     type: string | undefined;
     image: string | undefined;
+    key: string | undefined;
+    users: User[] | undefined;
+    completed: boolean;
     sort: string | undefined;
     user_created: string | undefined;
     date_created: string | undefined;
     user_updated: string | undefined;
     date_updated: string | undefined;
-    key: string | undefined;
   }
 
   interface User {
