@@ -80,7 +80,7 @@ if (process.client) {
           <p class="text-white text-sm">Tasks</p>
         </nuxt-link>
         <nuxt-link
-          v-if="route.path.split('/')[1]?.length == 36"
+          v-if="route.path.split('/')[1]?.length == 36 && project?.scoreboard"
           :to="'/' + uuid + '/scoreboard'"
           class="p-4 h-full w-full flex justify-center items-center flex-col"
         >

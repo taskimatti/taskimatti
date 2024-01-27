@@ -1,5 +1,12 @@
 <script setup lang="ts">
 import { CheckIcon } from '@heroicons/vue/20/solid';
+import {complete} from "~/composables/tasks";
+
+// handle btn click
+const markCompleted = async (task: Task) => {
+  task!.completed = !task!.completed
+  await complete(task.id!);
+};
 </script>
 
 <script lang="ts">
@@ -23,7 +30,7 @@ export default {
   <div
     class="text-white p-6 rounded-lg shadow-lg w-full"
     :class="task!.completed ? 'bg-green-800' : 'bg-gray-800'"
-    @click="task!.completed = !task!.completed"
+    @click="markCompleted(task!)"
   >
     <NuxtImg
       v-if="task?.image"

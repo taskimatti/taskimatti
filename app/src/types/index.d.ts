@@ -25,6 +25,7 @@ declare global {
     units: string | undefined;
     image: string | undefined;
     users: Project_directus_users[] | undefined;
+    scoreboard: boolean | undefined;
   }
   interface Project_directus_users {
     id: string | undefined;

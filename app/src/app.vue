@@ -88,7 +88,7 @@ const { data: _projects } = await useAsyncData(() => {
           },
         },
         fields: [
-          'name, image, description, status, units, id, colorScheme, users.directus_users_id.id, users.is_admin, users.role, users.role.name',
+          'name, image, description, scoreboard, status, units, id, colorScheme, users.directus_users_id.id, users.is_admin, users.role, users.role.name',
         ],
       },
     ),
