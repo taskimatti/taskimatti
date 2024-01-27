@@ -52,9 +52,9 @@ const updatePage = async () => {
         ],
       }),
     );
-    Tasks.value.map(task => {
-      task.completed = task.users[0]?.completed ?? false
-    })
+    Tasks.value.map((task) => {
+      task.completed = task.users[0]?.completed ?? false;
+    });
   } else {
     navigateTo('/');
   }

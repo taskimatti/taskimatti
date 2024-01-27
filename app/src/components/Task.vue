@@ -20,8 +20,11 @@ export default {
 </script>
 
 <template>
-  <div class="text-white p-6 rounded-lg shadow-lg w-full" :class="task!.completed ? 'bg-green-800': 'bg-gray-800'"
-  @click="task!.completed = !task!.completed">
+  <div
+    class="text-white p-6 rounded-lg shadow-lg w-full"
+    :class="task!.completed ? 'bg-green-800' : 'bg-gray-800'"
+    @click="task!.completed = !task!.completed"
+  >
     <NuxtImg
       v-if="task?.image"
       :src="assets + task.image"
