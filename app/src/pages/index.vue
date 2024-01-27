@@ -14,8 +14,6 @@ const updatePage = async () => {
   if (user.value.email) {
     projects.value = useProjects().value;
   }
-  console.log(user.value.email)
-  console.log(projects.value)
   assets.value = useAssets().value;
 
   useSeoMeta({
