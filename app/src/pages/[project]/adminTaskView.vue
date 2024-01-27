@@ -52,9 +52,9 @@ onMounted(async () => {
   <div>
     <div class=" text-blue-900 rounded shadow-lg py-2">
       <div class="rounded px-2 bg-gray-200 grid grid-cols-4 items-center">
-      <h2 class="col-start-1 ">Title </h2>
-        <p class="col-start-2 ">Description</p>
-        <p class="col-start-4 ml-auto ">Status</p>
+      <h2 class="col-start-1 text-xl">Title </h2>
+        <p class="col-start-2 text-xl">Description</p>
+        <p class="col-start-4 ml-auto text-xl ">Status</p>
       </div>
     </div>  
     <ol>
