@@ -30,6 +30,7 @@ export const useProject = () =>
       colorScheme: undefined,
       units: undefined,
       image: undefined,
+      users: undefined,
     };
   });
 

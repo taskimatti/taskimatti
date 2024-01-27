@@ -119,6 +119,8 @@ if (_roles.value && 'id' in _roles.value) {
   roles.value = _roles.value as unknown as [Role];
 }
 
+console.log(user_id);
+
 if (uuid.value) {
   const foundProject = projects.value?.find((project) => project.id === uuid.value);
   if (foundProject) {
