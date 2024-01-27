@@ -89,9 +89,8 @@ while (true) {
                       <p
                         v-if="
                           project.users &&
-                          project.users.filter(
-                            (_user: { directus_users_id }) => _user.directus_users_id.id === user.id,
-                          )[0].is_admin
+                          project.users.filter((_user) => _user.directus_users_id?.id === user.id)[0].role.name ===
+                            'Ylläpito'
                         "
                       >
                         <span title="You are an admin of this project">✨</span>
