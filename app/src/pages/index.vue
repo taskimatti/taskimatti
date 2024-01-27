@@ -72,7 +72,14 @@ while (true) {
           <h2 class="text-3xl p-4">Select project</h2>
           <ol>
             <li class="mb-6" v-for="project in projects" :key="project.id">
-              <NuxtLink :to="project.id">
+              <NuxtLink
+                :to="
+                  project.users &&
+                  project.users.filter((_user) => _user.directus_users_id?.id === user.id)[0].role.name === 'Ylläpito'
+                    ? project.id + '/admin'
+                    : project.id
+                "
+              >
                 <div class="rounded-lg shadow-lg overflow-hidden" :style="'background: ' + project.colorScheme">
                   <NuxtImg
                     :src="assets + project.image"

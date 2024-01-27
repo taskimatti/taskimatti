@@ -47,7 +47,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="w-full mr-24">
+  <div class="w-full mr-24" v-if="useProject().value.scoreboard">
     <h1 class="text-4xl font-bold text-gray-200 text-center">Scoreboard</h1>
     <ol class="w-full mt-8">
       <li
