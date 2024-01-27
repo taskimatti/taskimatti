@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { type Ref, ref } from 'vue';
 import { useRoute } from 'vue-router';
-import { readMe, readRoles } from '@directus/sdk';
+import { readItems, readMe, readRoles } from '@directus/sdk';
 import { useAssets, useOrganisation, useProject, useProjects, useRoles, useUser } from '~/composables/states';
 import { useDirectus } from '~/composables/directus';
 import { refresh } from '~/composables/auth';
 import TopBar from '~/components/nav/TopBar.vue';
 import NavBar from '~/components/nav/NavBar.vue';
 
-const { $directus, $readItems } = useDirectus();
+const { $directus } = useDirectus();
 
 if (process.client) {
   const token = window.localStorage.getItem('access_token');
@@ -26,9 +26,16 @@ if (process.client) {
 
     // Fetch user data only when a valid token exists
     const { data: _user } = await useAsyncData(() => {
-      return $directus.request(readMe({ fields: ['email', 'first_name', 'last_name', 'avatar', 'role'] }));
+      return $directus.request(
+        readMe(
+          // @ts-ignore
+          { fields: ['email', 'first_name', 'last_name', 'avatar', 'role', 'id'] },
+        ),
+      );
     });
-    useUser().value = { ...useUser().value, ..._user.value };
+    if (_user.value && 'id' in _user.value) {
+      useUser().value = { ...useUser().value, ..._user.value };
+    }
   } else {
     // Redirect to login page if no token exists and page requires authentication
     if (!['/login', '/register', '', '/'].includes(window.location.pathname)) {
@@ -48,18 +55,57 @@ const roles = useRoles();
 const assets: Ref<String | null> = useAssets();
 
 const { data: _org } = await useAsyncData(() => {
-  return $directus.request($readItems('Organisation'));
+  return $directus
+    .request(
+      readItems(
+        // @ts-ignore
+        'Organisation',
+      ),
+    )
+    .catch((error) => {
+      console.error(error);
+    });
 });
 
+const user_id = useUser().value.id;
+
 const { data: _projects } = await useAsyncData(() => {
-  return $directus.request($readItems('Project'));
+  return $directus.request(
+    readItems(
+      // @ts-ignore
+      'Project',
+      {
+        filter: {
+          users: {
+            directus_users_id: {
+              id: {
+                _eq: user_id,
+              },
+            },
+          },
+          status: {
+            _eq: 'published',
+          },
+        },
+        fields: [
+          'name, image, description, status, units, id, colorScheme, users.directus_users_id.id, users.is_admin',
+        ],
+      },
+    ),
+  );
 });
 
 const { data: _roles } = await useAsyncData(() => {
-  return $directus.request(readRoles({ fields: ['id', 'name', 'admin_access'] }));
+  return $directus.request(
+    readRoles(
+      // @ts-ignore
+      { fields: ['id', 'name', 'admin_access'] },
+    ),
+  );
 });
-
-org.value = { ...org.value, ..._org.value };
+if (_org.value && 'id' in _org.value) {
+  org.value = { ...org.value, ..._org.value };
+}
 
 if (_projects.value && 'id' in _projects.value) {
   projects.value = [_projects.value as unknown as Project];

@@ -2,7 +2,7 @@
 import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { navigateTo } from 'nuxt/app';
-import { useProject } from '~/composables/states';
+import { useProject, useUser } from '~/composables/states';
 import { useDirectus } from '~/composables/directus';
 
 const { $directus, $readItems } = useDirectus();
@@ -28,6 +28,7 @@ const updatePage = async () => {
   uuid.value = _uuid.value;
   project.value = useProject();
 
+  const user_id = useUser().value.id;
   if (uuid.value?.toString().length === 36) {
     Tasks.value = await $directus.request(
       $readItems('Tasks', {
@@ -35,9 +36,25 @@ const updatePage = async () => {
           project: {
             _eq: uuid.value,
           },
+          // users: {
+          //   directus_users_id: {
+          //     id: {
+          //       _eq: user_id,
+          //     },
+          //   },
+          // },
+          status: {
+            _eq: 'published',
+          },
         },
+        fields: [
+          'id, status, project, title, points, desc, type, image, sort, users.directus_users_id.id, users.completed',
+        ],
       }),
     );
+    Tasks.value.map((task) => {
+      task.completed = task.users[0]?.completed ?? false;
+    });
   } else {
     navigateTo('/');
   }
