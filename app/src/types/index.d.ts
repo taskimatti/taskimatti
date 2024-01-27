@@ -42,12 +42,14 @@ declare global {
     desc: string | undefined;
     type: string | undefined;
     image: string | undefined;
+    key: string | undefined;
+    users: User[] | undefined;
+    completed: boolean;
     sort: string | undefined;
     user_created: string | undefined;
     date_created: string | undefined;
     user_updated: string | undefined;
     date_updated: string | undefined;
-    key: string | undefined;
   }
 
   interface User {

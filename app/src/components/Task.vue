@@ -20,7 +20,8 @@ export default {
 </script>
 
 <template>
-  <div class="bg-gray-800 text-white p-6 rounded-lg shadow-lg w-full">
+  <div class="text-white p-6 rounded-lg shadow-lg w-full" :class="task!.completed ? 'bg-green-800': 'bg-gray-800'"
+  @click="task!.completed = !task!.completed">
     <NuxtImg
       v-if="task?.image"
       :src="assets + task.image"
@@ -31,7 +32,7 @@ export default {
     <p class="mb-2">{{ task.desc }}</p>
     <div class="flex items-center justify-between">
       <div class="flex items-center">
-        <CheckIcon v-if="task?.status" class="h-6 w-6 text-green-500 mr-2" />
+        <CheckIcon v-if="task?.completed" class="h-6 w-6 text-green-500 mr-2" />
         <span>{{ task.points }} {{ unit }}</span>
       </div>
     </div>
