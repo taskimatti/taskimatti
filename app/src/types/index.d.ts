@@ -24,14 +24,13 @@ declare global {
     colorScheme: string | undefined;
     units: string | undefined;
     image: string | undefined;
-    users: directus_users_id[] | undefined;
+    users: Project_directus_users[] | undefined;
   }
-
-  interface directus_users_id {
+  interface Project_directus_users {
     id: string | undefined;
     Project_id: string | undefined;
     directus_users_id: string | undefined;
-    is_admin: boolean | undefined;
+    role: Role;
   }
   interface Task {
     id: string | undefined;
