@@ -57,12 +57,12 @@ const fetchWithAuth = async (url: string, method: string, body: any) => {
 export const login = async (credentials: { email: string; password: string }) => {
   const { $directus } = useDirectus();
   const data = await fetchWithAuth($directus.url.href + 'auth/login', 'POST', credentials);
-  if(data == "401"){
-    return "Invalid credentials";
+  if (data == '401') {
+    return 'Invalid credentials';
   }
   if (data.errors) {
     return data.errors[0].message;
-  } 
+  }
   const { access_token, refresh_token } = data.data;
   localStorage.setItem('access_token', access_token);
   localStorage.setItem('refresh_token', refresh_token);
