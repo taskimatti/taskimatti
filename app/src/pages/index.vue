@@ -55,8 +55,8 @@ while (true) {
           <h2 class="text-center text-xl p-4 pb-6">{{ org.description }}</h2>
         </div>
 
-        <h2 class="text-center text-3xl pb-2">Welcome,</h2>
-        <h2 class="text-center text-2xl font-bold pb-4">{{ user.first_name }}!</h2>
+        <h2 class="text-center text-2xl pb-2">Welcome,</h2>
+        <h2 class="text-center text-3xl font-bold pb-4">{{ user.first_name }}!</h2>
         <div class="flex flex-col justify-center items-center">
           <nuxt-link to="/">
             <button
@@ -103,7 +103,7 @@ while (true) {
                         <span title="You are an admin of this project">✨</span>
                       </p>
                     </div>
-                    <p class="text-gray-300">{{ project.description }}</p>
+                    <p class="text-white">{{ project.description }}</p>
                   </div>
                 </div>
               </NuxtLink>
