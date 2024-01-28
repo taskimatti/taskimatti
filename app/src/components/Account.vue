@@ -36,7 +36,7 @@ const updateUserName = async () => {};
 </script>
 
 <template>
-  <div class="bg-gray-800 p-6 my-6 rounded-lg shadow-md w-full">
+  <div class="bg-gray-100 p-6 my-6 rounded-lg shadow-md w-full">
     <NuxtImg
       :src="image.endsWith('null') ? '/images/avatar.jpg' : image"
       placeholder="/images/avatar.jpg"
@@ -46,12 +46,12 @@ const updateUserName = async () => {};
       class="h-32 w-32 object-cover rounded-full border-2 border-gray-600"
     />
     <div class="flex flex-row justify-between mt-4">
-      <h2 class="text-2xl text-white">{{ user.first_name }}</h2>
+      <h2 class="text-2xl text-black">{{ user.first_name }}</h2>
       <p v-if="user?.is_project_admin">
         <span title="Admin in this project">✨</span>
       </p>
     </div>
-    <p class="text-gray-400">{{ role }}</p>
+    <p class="text-gray-800">{{ role }}</p>
     <p @click="edit = !edit" class="text-slate-400 underline float-right cursor-pointer">Edit</p>
     <div class="p-5 mt-5 border rounded-3xl" v-if="edit">
       <h1 class="mb-2">Edit Profile:</h1>
