@@ -31,6 +31,7 @@ export const useProject = () =>
       units: undefined,
       image: undefined,
       users: undefined,
+      scoreboard: undefined,
     };
   });
 
