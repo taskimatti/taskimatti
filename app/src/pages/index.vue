@@ -75,7 +75,7 @@ while (true) {
               <NuxtLink
                 :to="
                   project.users &&
-                  project.users.filter((_user) => _user.directus_users_id?.id === user.id)[0].role.name === 'Ylläpito'
+                  project.users.filter((_user) => _user.directus_users_id?.id === user.id)[0].role.name === 'Parent'
                     ? project.id + '/admin'
                     : project.id
                 "
@@ -97,7 +97,7 @@ while (true) {
                         v-if="
                           project.users &&
                           project.users.filter((_user) => _user.directus_users_id?.id === user.id)[0].role.name ===
-                            'Ylläpito'
+                            'Parent'
                         "
                       >
                         <span title="You are an admin of this project">✨</span>
