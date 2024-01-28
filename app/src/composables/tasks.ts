@@ -5,6 +5,7 @@ export const complete = async (partial_task_object: Task) => {
   // copy the object
   const _partial_task_object = { ...partial_task_object };
   delete _partial_task_object.id;
+  delete _partial_task_object.password;
   delete _partial_task_object.completed;
   delete _partial_task_object.project;
   delete _partial_task_object.title;
