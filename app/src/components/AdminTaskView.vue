@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { CheckIcon, XMarkIcon} from '@heroicons/vue/20/solid';
+import { CheckIcon, XMarkIcon } from '@heroicons/vue/20/solid';
 import { useDirectus } from '~/composables/directus';
 const { $directus } = useDirectus();
 </script>

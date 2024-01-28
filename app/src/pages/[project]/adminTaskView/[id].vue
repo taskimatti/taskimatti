@@ -32,6 +32,7 @@ const updatePage = async () => {
   project.value = useProject();
 
   if (uuid.value?.toString().length === 36) {
+    // Get all tasks for selected project
     Tasks.value = await $directus.request(
       $readItems('Tasks', {
         filter: {
@@ -77,14 +78,14 @@ onMounted(async () => {
 <template>
   <div class="min-h-screen stext-white">
     <div class="p-5">
-      <NuxtLink :to="'/'+project.value?.id + '/admin'">
+      <NuxtLink :to="'/' + project.value?.id + '/admin'">
         <button class="px-4 py-2 text-black bg-white rounded hover:bg-gray-200">Back</button>
       </NuxtLink>
       <div class="mt-10 flex flex-col items-center">
         <NuxtImg
-            v-if="selectedUser?.directus_users_id?.avatar"
-            :src="$directus.url.href + 'assets/' + selectedUser?.directus_users_id?.avatar"
-            class="w-24 h-24 object-cover rounded-full"
+          v-if="selectedUser?.directus_users_id?.avatar"
+          :src="$directus.url.href + 'assets/' + selectedUser?.directus_users_id?.avatar"
+          class="w-24 h-24 object-cover rounded-full"
         />
         <h1 class="mt-4 text-3xl font-semibold">{{ selectedUser?.directus_users_id?.first_name }}</h1>
         <p class="mt-2 text-lg text-gray-200">{{ selectedUser?.directus_users_id?.role.name }}</p>
@@ -101,6 +102,5 @@ onMounted(async () => {
     </div>
   </div>
 </template>
-
 
 <style scoped></style>

@@ -47,9 +47,7 @@ const updatePage = async () => {
             _eq: 'published',
           },
         },
-        fields: [
-          'id, status, project, title, points, desc, type, image, sort, users.directus_users_id.id, users.completed',
-        ],
+        fields: ['id, status, project, title, points, desc, type, image, sort, users.*.*.*'],
       }),
     );
     Tasks.value.map((task) => {

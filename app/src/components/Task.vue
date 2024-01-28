@@ -1,11 +1,22 @@
 <script setup lang="ts">
 import { CheckIcon } from '@heroicons/vue/20/solid';
-import {complete} from "~/composables/tasks";
+import { complete } from '~/composables/tasks';
+import { ref } from 'vue';
+import { useRoute } from 'vue-router';
+import { useUser } from '~/composables/states';
 
+const route = ref(useRoute());
 // handle btn click
+const userid = useUser().value.id;
 const markCompleted = async (task: Task) => {
-  task!.completed = !task!.completed
-  await complete(task.id!);
+  task!.completed = !task!.completed;
+  if (task!.users) {
+    const user = task!.users.find((user: any) => user.directus_users_id.id === userid);
+    if (user) {
+      user.completed = !user.completed;
+    }
+  }
+  await complete(task);
 };
 </script>
 
