@@ -47,12 +47,13 @@ const updatePage = async () => {
             _eq: 'published',
           },
         },
-        fields: ['id, status, project, title, points, desc, type, image, sort, users.*.*.*'],
+        fields: ['id, project, title, points, desc, type, image, users.completed, users.directus_users_id.id'],
       }),
     );
     Tasks.value.map((task) => {
-      task.completed = task.users.filter((user: any) => user.directus_users_id.id === user_id)[0]?.completed ?? false;
+      task.completed = task.users.filter((user: any) => user.directus_users_id?.id === user_id)[0]?.completed ?? false;
     });
+    console.log(Tasks.value)
   } else {
     navigateTo('/');
   }

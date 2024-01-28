@@ -9,9 +9,10 @@ const route = ref(useRoute());
 // handle btn click
 const userid = useUser().value.id;
 const markCompleted = async (task: Task) => {
+  if (!task) return;
   task!.completed = !task!.completed;
   if (task!.users) {
-    const user = task!.users.find((user: any) => user.directus_users_id.id === userid);
+    const user = task!.users.find((user: any) => user.directus_users_id?.id === userid);
     if (user) {
       user.completed = !user.completed;
     }

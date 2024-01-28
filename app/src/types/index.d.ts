@@ -44,7 +44,7 @@ declare global {
     image: string | undefined;
     key: string | undefined;
     users: User[] | undefined;
-    completed: boolean;
+    completed?: boolean;
     sort: string | undefined;
     user_created: string | undefined;
     date_created: string | undefined;
