@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { CheckIcon, XMarkIcon} from '@heroicons/vue/20/solid';
-import { useDirectus } from '~/composables/directus';
-const { $directus } = useDirectus();
+import { CheckIcon } from '@heroicons/vue/20/solid';
 </script>
 
 <script lang="ts">
@@ -9,34 +7,26 @@ import { useAssets } from '~/composables/states';
 
 const assets = ref(useAssets());
 export default {
-  props: {
-    task: {
-      type: Object as () => Task,
+    props: {
+        task: {
+            type: Object as () => Task,
+        },
+        unit: {
+            type: String,
+            default: 'bits',
+        },
     },
-    unit: {
-      type: String,
-      default: 'bits',
-    },
-  },
 };
 </script>
 
 <template>
-  <div class="bg-white shadow rounded-lg p-6 my-4 flex flex-col">
-    <div class="flex items-center space-x-4">
-      <NuxtImg :src="assets + task?.image" class="w-16 h-16 object-cover rounded-full" />
-      <div>
-        <h2 class="text-xl font-semibold text-gray-900">{{ task?.title }}</h2>
-        <p class="mt-2 text-gray-600">{{ task?.desc }}</p>
-      </div>
+    <div class="text-blue-900 shadow-lg">
+        <div class="rounded px-2 bg-gray-200 grid grid-cols-4 gap-4 items-center"
+    :class="task!.completed ? 'border-green-500 border-solid border-4 ' : 'bg-gray-200'">
+        <h2 class="col-start-1 s ">{{ task?.title }}</h2>
+        <p class="col-span-2 flex">{{ task?.desc }}</p>
+            <CheckIcon v-if="task?.status" class="col-start-4 h-6 w-6 text-green-500 ml-auto" />
+        </div>
     </div>
-    <div class="mt-4 self-end flex items-center">
-      <CheckIcon v-if="task?.completed" class="h-6 w-6 text-green-500" />
-      <p v-if="task?.completed" class="ml-2 text-green-500">Completed</p>
-      <XMarkIcon v-else class="h-6 w-6 text-red-500" />
-      <p v-else class="ml-2 text-red-500">Not Completed</p>
-    </div>
-  </div>
 </template>
-
 <style scoped></style>
