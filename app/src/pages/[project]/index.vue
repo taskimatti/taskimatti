@@ -51,7 +51,7 @@ const updatePage = async () => {
       }),
     );
     Tasks.value.map((task) => {
-      task.completed = task.users[0]?.completed ?? false;
+      task.completed = task.users.filter((user: any) => user.directus_users_id.id === user_id)[0]?.completed ?? false;
     });
   } else {
     navigateTo('/');

@@ -38,9 +38,11 @@ export default {
 </script>
 
 <template>
-  
-  <div class=" shadow rounded-lg p-6 my-4 flex flex-col" :class="task!.completed ? 'bg-gradient-to-b from-green-300 via-white via-25% to-green-100 to-90% ' : 'bg-white'"
-    @click="markCompleted(task!)">
+  <div
+    class="shadow rounded-lg p-6 my-4 flex flex-col"
+    :class="task!.completed ? 'bg-gradient-to-b from-green-300 via-white via-25% to-green-100 to-90% ' : 'bg-white'"
+    @click="markCompleted(task!)"
+  >
     <div class="flex items-center space-x-4">
       <NuxtImg :src="assets + task?.image" class="w-16 h-16 object-cover rounded-full" />
       <div>
