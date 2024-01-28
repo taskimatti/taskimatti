@@ -24,6 +24,5 @@ export const complete = async (partial_task_object: Task) => {
 
   const result = await response.json();
 
-  // should return the updated task
-  console.log(result.data);
+  return result;
 };
